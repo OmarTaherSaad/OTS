@@ -1,0 +1,159 @@
+body {
+    margin-bottom: 0 !important;
+}
+// Remove the default bg image overlay
+.page-overlay {
+    background-image: unset !important;
+}
+
+// Set the parallax
+.parallax {
+    .overlay {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        opacity: 0.2;
+    }
+    &:first-of-type {
+        padding: 100px 0 0 0;
+        .overlay {
+            background-image: url('/storage/assets/images/BGs/bg1.jpg');
+
+            &.replace {
+                background-image: url('/storage/assets/images/BGs/Progressive-bg1.jpg');
+            }
+        }
+    }
+    @for $i from 1 through 4 {
+        &:nth-of-type(#{$i * 2}) {
+            .overlay {
+                background-image: url('/storage/assets/images/BGs/bg#{$i + 1}.jpg');
+
+                &.replace {
+                    background-image: url('/storage/assets/images/BGs/Progressive-bg#{$i + 1}.jpg');
+                }
+            }
+        }
+    }
+}
+
+//Sidenav START
+.titles {
+    transition: 0.5s; /*For smooth transition of titles from static position to side position*/
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+    
+}
+.sidenav {
+    li {
+        z-index: 1;
+        cursor: pointer;
+        position: fixed;
+        /* Position them relative to the browser window */
+        background-color: whitesmoke;
+        transition: 0.5s;
+        /* Add transition on hover */
+        -moz-transition: 0.5s;
+        -o-transition: 0.5s;
+        -webkit-transition: 0.5s;
+        padding: 5px;
+        /* 15px padding */
+        //width: 100px; /* Set a specific width */
+        text-decoration: none; /* Remove underline */
+         &:hover,
+         //Show the active element
+         &.active {
+             /* On mouse-over, make the elements appear as they should */
+             transform: translateX(0) !important;
+             font-weight: bold;
+         }
+
+         @for $i from 1 through 7 {
+             &:nth-of-type(#{$i}) {
+                 top: calc(8vh + #{$i} * 40px);
+             }
+         }
+    }
+    /* Position them outside of the screen */
+    &.rtl {
+        li {
+            left: 0 !important;
+            transform: translateX(-50%);
+            /* Rounded corners on the top right and bottom right side */
+            border-radius: 0 5px 5px 0;
+            &:hover, &.active {
+                padding-right: 1%;
+            }
+        }
+    }
+    &:not(.rtl) {
+        li {
+            right: 0;
+            transform: translateX(50%);
+            /* Rounded corners on the top right and bottom right side */
+            border-radius: 5px 0 0 5px;
+            &:hover, &.active {
+                padding-left: 1%;
+            }
+           
+        }
+    }
+}
+//Sidenav END
+
+//Web development styles START
+.card-title {
+    position: absolute;
+    top: 45%;
+    left: 0;
+    width: 100%;
+}
+.workOverlay {
+    background: black;
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: 0.3s;
+}
+.card-title {
+    opacity: 0;
+    transition: 0.3s;
+}
+.card-img-overlay:hover {
+    box-shadow: 0px 0px 30px white;
+    cursor: pointer;
+    .workOverlay {
+        opacity: 0.6;
+    }
+    .card-title {
+        opacity: 1;
+    }
+}
+.skill:hover {
+    box-shadow: 0px 0px 30px white;
+    &.dark {
+        background: darkslategray;
+    }
+    background: whitesmoke;
+    transition: 0.2s;
+    -moz-transition: 0.2s;
+    -o-transition: 0.2s;
+    -webkit-transition: 0.2s;
+}
+//Web development styles END
+
+//C# styles START
+.no-pointer:hover {
+    cursor: default;
+}
+//C# styles END
+
+.fa-5x {
+    font-size: 15vw;
+}

@@ -1,0 +1,84 @@
+{
+    "Reset Password"        : "إعادة ضبط كلمة السر",
+    "E-Mail Address"        : "البريد الالكتروني",
+    "Password"              : "كلمة السر",
+    "Confirm Password"      : "تأكيد كلمة السر",
+    "Edit Contact Channels" : "تعديل قنوات الاتصال",
+    "New Contact Channels"  : "قنوات الاتصال الجديدة",
+    "Save changes"          : "حفظ التعديلات",
+    "Close"                 : "إغلاق",
+    "Contact channels updated successfully!" : "تم تحديث قنوات الاتصال بنجاح!",
+
+    "Password Confirmation" : "تأكيد كلمة السر",
+    "Admin Role"            : "دور المشرف",
+    "Send Password Reset Link" : "إرسال رابط إعادة الضبط",
+
+    "Login"                 : "تسجيل الدخول",
+    "Remember Me"           : "تذكرني",
+    "Forgot Your Password?" : "نسيت كلمة السر؟",
+
+    "The page requested was not found." : "لم يتم إيجاد الصفحة المطلوبة.",
+
+    "Name"                    : "الاسم",
+    "Email"                   : "البريد الالكتروني",
+    "Phone"                   : "رقم الموبايل",
+    "Message"                 : "الرسالة",
+    "Write your message here" : "اكتب رسالتك هنا",
+    "Submit"                  : "إرسال",
+    "Choose"                  : "اختر",
+
+    "Contact Me"    : "تواصل معي",
+
+    "Home" : "الرئيسية",
+    "About Me" : "نبذة عني",
+    "My Projects" : "مشاريعي",
+    "Skills"   : "المهارات",
+    "Media & Interviews": "لقاءات وحوارات إعلامية",
+
+    "Language"  : "اللغة",
+
+    "I'll be glad to recieve your message": "هكون سعيد جدًا بإستقبال رسالتك",
+    "It's hard to answer immediately, but I will do as fast as possible": "صعب أرد لحظة ما هتبعت رسالتك، لكن هحاول أرد في أقرب وقت ممكن.",
+    "Mobile Number": "رقم الموبايل",
+    "Email Address": "البريد الالكتروني (الايميل)",
+    "What are you sending me about?": "عنوان الرسالة (الموضوع)",
+    "Send": "إرسال",
+    "Your words is being delivered now to OTS! Thank you .. we will keep in touch": "تم إرسال رسالتك بنجاح، قريب هشوفها وأرد عليها لو محتاجة رد.",
+    "It seems like an error occured, my server sees you as a robot! If this seems strange to you, try again later; maybe it's a mistake by our side": "للأسف واضح إنك روبوت مش إنسان! لو دي جملة غريبة بالنسبالك، حاول مرة تانية يمكن العيب من عندنا.",
+
+    "TV & Videos": "التليفزيون والفيديوهات",
+    "Paper & Digital Newspapers": "الجرائد الورقية والأونلاين",
+    "My Interviews in TV & Other Media": "لقائاتي التليفزيونية والصحفية",
+
+    "C# Developer": "مبرمج #C",
+    "Video Editor": "محرر فيديو",
+    "CSE Student" : "طالب بهندسة حاسبات",
+    "Computer & Systems Engineering Student": "طالب بكلية الهندسة، قسم حاسبات ونظم تحكم",
+    "Youtuber": "صانع محتوى على اليوتيوب",
+    "Physics Tutor": "مُدرس فيزياء خاص",
+    "Technologies I use in Web Development": "التقنيات التي أستخدمها في تطوير المواقع",
+
+    "Previous Work": "شغل سابق",
+
+    "Technologies & Frameworks I use in C# Development": "التقنيات التي أستخدمها في البرمجة بلغة السي شارب",
+
+    
+
+
+
+    "Faculty of Engineering, Ain Shams University": "كلية الهندسة، جامعة عين شمس",
+    "To be graduated in 2020": "التخرج في 2020",
+    "Some of Courses I have completed": "بعض المواد التي أكملتها",
+    "And many others, of course.": "ومواد أخرى، بالتأكيد.",
+
+    "My YouTube Channel in 20 seconds": "قناتي في عشرين ثانية",
+    
+    "Physics Tutor (For High School student in Cairo, Egypt)": "مُدرس فيزياء خاص (لطلبة الثانوية العامة في القاهرة، مصر.",
+    "Accurate Appointment": "مواعيد مظبوطة",
+    "Understand First": "افهم أولًا",
+    "I believe that the one must understand the scientific concept, to be able to solve problems & even memorize rules.": "أنا مؤمن إن الطالب لازم يفهم الأساس العلمي للحاجة عشان يقدر يحل المسائل ويقدر يحفظ القواعد.",
+    "Again till you Explain": "بعيد الشرح لحد ما تفهم",
+    "I will never pass a point unless I am sure you understood it 100%": "عمري ما هعدي نقطة غير لما أتأكد إنك فهمتها 100%",
+    "I always arrive in time!": "دايمًا بوصل في معادي"
+    
+}
