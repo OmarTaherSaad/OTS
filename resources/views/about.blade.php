@@ -17,11 +17,11 @@
         </div>
         <div class="col" v-view="titlesShown">
             @lang('main.aboutMeHeader')
-            <ul class="list-group titles {{ App::isLocale('ar') ? 'rtl' : '' }}" v-for="n in titleClone"
-                v-bind:class="{'sidenav': titleOnSide && n == 2}" ref="titles" v-scroll-spy-active
+            <ul class="list-group titles {{ App::isLocale('ar') ? 'rtl' : '' }}"
+                v-bind:class="{'sidenav': titleOnSide}" ref="titles" v-scroll-spy-active
                 v-scroll-spy-link="{selector: 'li'}">
                 <li href="#webDeveloper" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">
-                    <span v-if="titleOnSide && n == 2">{{ __('Web Developer') }}</span>
+                    <span v-if="titleOnSide">{{ __('Web Developer') }}</span>
                     <span v-else>{{ __('Full Stack Web Developer') }}</span>
                 </li>
                 <li href="#cSharpDeveloper" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">
@@ -33,14 +33,14 @@
                 {{-- <li href="#graphicDesigner" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">Graphic Designer
                 </li> --}}
                 <li href="#CSEstudent" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">
-                    <span v-if="titleOnSide && n == 2">{{ __('CSE Student') }}</span>
+                    <span v-if="titleOnSide">{{ __('CSE Student') }}</span>
                     <span v-else>{{ __('Computer & Systems Engineering Student') }}</span>
                 </li>
                 <li href="#youTuber" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">
-                    <span v-if="!titleOnSide || n != 2">
+                    <span v-if="titleOnSide">@lang('YouTuber')</span>
+                    <span v-else>
                         @lang('main.youtuberLong')
                     </span>
-                    <span v-if="titleOnSide && n == 2">@lang('YouTuber')</span>
                 </li>
                 <li href="#physicsTutor" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">@lang("Physics Tutor")</li>
             </ul>

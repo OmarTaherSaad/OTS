@@ -44,58 +44,60 @@
     -webkit-transition: 0.5s;
     
 }
-.sidenav {
-    li {
-        z-index: 1;
-        cursor: pointer;
-        position: fixed;
-        /* Position them relative to the browser window */
-        background-color: whitesmoke;
-        transition: 0.5s;
-        /* Add transition on hover */
-        -moz-transition: 0.5s;
-        -o-transition: 0.5s;
-        -webkit-transition: 0.5s;
-        padding: 5px;
-        /* 15px padding */
-        //width: 100px; /* Set a specific width */
-        text-decoration: none; /* Remove underline */
-         &:hover,
-         //Show the active element
-         &.active {
-             /* On mouse-over, make the elements appear as they should */
-             transform: translateX(0) !important;
-             font-weight: bold;
-         }
-
-         @for $i from 1 through 7 {
-             &:nth-of-type(#{$i}) {
-                 top: calc(8vh + #{$i} * 40px);
-             }
-         }
-    }
-    /* Position them outside of the screen */
-    &.rtl {
+@media screen and (min-width: 767.99px) {
+    .sidenav {
         li {
-            left: 0 !important;
-            transform: translateX(-50%);
-            /* Rounded corners on the top right and bottom right side */
-            border-radius: 0 5px 5px 0;
-            &:hover, &.active {
-                padding-right: 1%;
+            z-index: 1;
+            cursor: pointer;
+            position: fixed;
+            /* Position them relative to the browser window */
+            background-color: whitesmoke;
+            transition: 0.5s;
+            /* Add transition on hover */
+            -moz-transition: 0.5s;
+            -o-transition: 0.5s;
+            -webkit-transition: 0.5s;
+            padding: 5px;
+            /* 15px padding */
+            //width: 100px; /* Set a specific width */
+            text-decoration: none; /* Remove underline */
+            &:hover,
+            //Show the active element
+            &.active {
+                /* On mouse-over, make the elements appear as they should */
+                transform: translateX(0) !important;
+                font-weight: bold;
+            }
+
+            @for $i from 1 through 7 {
+                &:nth-of-type(#{$i}) {
+                    top: calc(8vh + #{$i} * 40px);
+                }
             }
         }
-    }
-    &:not(.rtl) {
-        li {
-            right: 0;
-            transform: translateX(50%);
-            /* Rounded corners on the top right and bottom right side */
-            border-radius: 5px 0 0 5px;
-            &:hover, &.active {
-                padding-left: 1%;
+        /* Position them outside of the screen */
+        &.rtl {
+            li {
+                left: 0 !important;
+                transform: translateX(-50%);
+                /* Rounded corners on the top right and bottom right side */
+                border-radius: 0 5px 5px 0;
+                &:hover, &.active {
+                    padding-right: 1%;
+                }
             }
-           
+        }
+        &:not(.rtl) {
+            li {
+                right: 0;
+                transform: translateX(50%);
+                /* Rounded corners on the top right and bottom right side */
+                border-radius: 5px 0 0 5px;
+                &:hover, &.active {
+                    padding-left: 1%;
+                }
+            
+            }
         }
     }
 }

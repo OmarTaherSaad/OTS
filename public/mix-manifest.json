@@ -1,14 +1,13 @@
 {
     "/js/manifest.js": "/js/manifest.js?id=a1c152441d06d5a71a2d",
-    "/js/about.js": "/js/about.js?id=f838cb4c95f44337d86e",
-    "/js/app.js": "/js/app.js?id=9898717fa92f59fb3568",
+    "/js/about.js": "/js/about.js?id=691096f3673ae217ce2c",
+    "/js/app.js": "/js/app.js?id=c288b3de70365fe9844d",
     "/css/bootstrapAR.css": "/css/bootstrapAR.css?id=74a2e854928ef3e7ff00",
     "/css/splashscreen.css": "/css/splashscreen.css?id=066796b34fcefbab6665",
-    "/css/about.css": "/css/about.css?id=d7d902246b5469fd26c6",
+    "/css/about.css": "/css/about.css?id=fbf010b64ba6a736b035",
     "/css/forms.css": "/css/forms.css?id=6eaae89a53ae7c193864",
     "/css/app.css": "/css/app.css?id=a8c282f1f84de655d182",
-    "/css/sidebar.css": "/css/sidebar.css?id=c4b9fc0cde1ed9dcd89f",
-    "/css/fontawesome.css": "/css/fontawesome.css?id=d41d8cd98f00b204e980",
+    "/css/sidebar.css": "/css/sidebar.css?id=eb68c86e50a078ac060f",
     "/js/forms.js": "/js/forms.js?id=b775a8da6b11698bc9de",
     "/js/vendor.js": "/js/vendor.js?id=3894c95e7c57b27d4bfe"
 }

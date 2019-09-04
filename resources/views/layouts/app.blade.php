@@ -1,4 +1,3 @@
-<?php if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start('ob_gzhandler'); else ob_start(); ?>
 <!doctype html>
 <html lang="{{ App::getLocale() }}" dir="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
     <head>
@@ -8,10 +7,13 @@
         {{-- Meta Data --}}
         <meta name="title" content="{{ config('app.name') }} | @yield('title')">
         <meta name="description" content="The personal website of Omar Taher Saad">
-        <meta property="og:type" content="website">
+        <meta name="robots" content="index, follow">
+        <meta name="theme-color" content="grey">
         <meta property="og:title" content="{{ config('app.name') }} | @yield('title')">
         <meta property="og:description" content="The personal website of Omar Taher Saad">
         <meta property="og:site_name" content="OTS - Omar Taher Saad">
+        <meta property="og:type" content="website">
+        <meta property="og:img" content="{{ asset('storage/assets/logo.jpg') }}">
         
         <link rel="stylesheet" href="{{ mix('css/splashscreen.css') }}">
 
@@ -20,10 +22,9 @@
         <link href="{{ mix('js/app.js') }}" as="script">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito&display=swap">
         <link rel="icon" href="{{ asset('storage/assets/logo.ico') }}">
-        <link rel="apple-touch-icon" href="{{ asset('storage/assets/logo.ico') }}">
+        <link rel="apple-touch-icon" href="{{ asset('storage/assets/icons/apple-touch-icon.png') }}">
 
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-        {{-- <link rel="stylesheet" href="{{ mix('css/fontawesome.css') }}"> --}}
         @if (App::isLocale('ar'))
         <link rel="stylesheet" href="{{ mix('css/bootstrapAR.css') }}">
         @endif
@@ -31,8 +32,7 @@
         {{-- media="screen and (min-width:768px)" --}}
         @yield('head')
 
-        {{-- PWA --}}
-        <meta name="theme-color" content="grey">
+        {{-- PWA Manifest --}}
         <link rel="manifest" href="{{ asset('storage/manifest.json') }}">
     </head>
 
@@ -57,16 +57,6 @@
             //Mark page when loaded to remove splash screen
             window.addEventListener('load',function() {
                 document.body.classList.add('loaded');
-                //Initiate Nav
-                if (isTabletOrSmaller)
-                {
-                    //Initiate navbar shrink
-                    //this.scrollFunction();
-                } else
-                {
-                    //Initiate navbar sidebar (Margin for body)
-                    //this.navToggled();
-                }
             });
             //Hide Navbar when scrolling down
             //Use a debounce timer to improve performance
@@ -83,14 +73,6 @@
                     // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
                     if (!isTabletOrSmaller) // Not small enough (sidebar is shown)
                         {return;}
-                    //Clear margins of sidebar (if screen width was changed after load)
-                    if (document.documentElement.lang == 'ar')
-                    {
-                        document.getElementById("app").style.marginRight = "0";
-                    } else
-                    {
-                        document.getElementById("app").style.marginLeft = "0";
-                    }
                     //Scroll Effect
                     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
                         document.querySelector('.navbar-logo>img').style.maxHeight = '50px';
@@ -101,22 +83,6 @@
                     //Real function END
                 }, 100);
             }
-
-            //Detect resize & Toggle navbar & Sidebar depending on new screen width
-            /*function (val) {
-                //Navbar switch on resize
-                if (val) {
-                    //Remove sidebar if existed
-                    this.scrollFunction();
-                } else {
-                    //Add sidebar if didn't exist
-                    this.navToggled();
-                }
-            }*/
-
-            //Sidebar START
-            
-            //Sidebar END
         </script>
     </body>
 </html>

@@ -38,7 +38,7 @@
                     <i class="fab fa-youtube"></i> <span class="text">@lang('YouTube')</span>
                 </a>
             </li>
-            <li class="bottom1 nav-item">
+            <li class="bottom3 nav-item">
                 <a class="nav-link btn btn-primary text-light my-2 my-sm-0 {{ request()->route()->named('contact') ? 'active' : '' }}" href="{{ route('contact') }}">
                     <i class="fas fa-envelope"></i> <span class="text">@lang('Contact Me')</span>
                 </a>
@@ -52,6 +52,9 @@
                     <a class="dropdown-item" href="{{ route('languageChange',['locale' => 'en']) }}">English</a>
                     <a class="dropdown-item" href="{{ route('languageChange',['locale' => 'ar']) }}">عربي</a>
                 </div>
+            </li>
+            <li class="bottom1 nav-item">
+                <i class="nav-link expander fas fa-arrows-alt-h fa-10x"></i>
             </li>
         </ul>
     </div>

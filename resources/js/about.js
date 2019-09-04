@@ -9,8 +9,6 @@ dom.watch();
 
 import ScrollSpy from 'vue2-scrollspy';
 import checkView from 'vue-check-view';
-// Vue.use(checkView);
-// Vue.use(ScrollSpy);
 window.vuePlugins = Array(2);
 window.vuePlugins[0] = checkView;
 window.vuePlugins[1] = ScrollSpy;
@@ -18,7 +16,6 @@ window.vuePlugins[1] = ScrollSpy;
 window.vueMix = {
     data: {
         titleOnSide: false,
-        titleClone: 1,
         skills: {
             web: [
                 {
@@ -148,31 +145,27 @@ window.vueMix = {
         }
     },
     watch: {
-        isTabletOrSmaller: function (val) {
+        isTabletOrSmaller(val) {
             if (val) {
                 this.titleOnSide = false;
-                this.titleClone = 1;
             } else {
                 this.titleOnSide = true;
-                this.titleClone = 2;
             }
         }
     },
     methods: {
         titlesShown(e) {
-            if (e.percentInView < 0.2 && e.percentTop < 0.2)
+            if (e.percentInView < 0.1 && e.percentTop < 0.2)
             {
                 //Titles out of view .. Create & show the sidebar if we are not on a tablet or smaller
                 if (!this.isTabletOrSmaller)
                 {
                     this.titleOnSide = true;
-                    this.titleClone = 2;
                 }
             } else
             {
                 //Titles in view .. return to the normal list style
                 this.titleOnSide = false;
-                this.titleClone = 1;
             }
         },
         openLink(link) {

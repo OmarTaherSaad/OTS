@@ -27,8 +27,6 @@ mix.js('resources/js/app.js', 'public/js').extract(['bootstrap', 'vue', 'bootstr
     //Sidebar
     //.copy('node_modules/vue-sidebar-menu/dist/vue-sidebar-menu.css', 'public/css/sidebar.css')
     .sass('resources/sass/sidebar.scss', 'public/css')
-    //Font Awesome
-    .sass('resources/sass/fontawesome.scss', 'public/css')
     .version();
 
 

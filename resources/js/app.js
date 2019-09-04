@@ -12,18 +12,11 @@ import 'progressive-image.js/dist/progressive-image.css';
 
 //Import Fontawesome
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faUserCircle, faVideo, faEnvelope, faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
-library.add(faUserCircle, faVideo, faEnvelope, faGlobeAfrica);
+import { faUserCircle, faVideo, faEnvelope, faGlobeAfrica, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
+library.add(faUserCircle, faVideo, faEnvelope, faGlobeAfrica, faArrowsAltH);
 dom.watch();
 
-//import ScrollSpy from 'vue2-scrollspy';
-//import checkView from 'vue-check-view';
-//import BootstrapVue from 'bootstrap-vue';
-//Vue.use(BootstrapVue);
-
 window.Vue = VueImported;
-// Vue.use(checkView);
-// Vue.use(ScrollSpy);
 
 //Component for Progressive-image.js
 Vue.component('ProgImg', {
@@ -55,52 +48,43 @@ if (window.vuePlugins !== undefined)
 Vue.config.devtools = false;
 Vue.config.debug = false;
 Vue.config.silent = true;
-const app = new Vue({
+window.app = new Vue({
     el: '#app',
     mixins: [window.vueMix],
     data: {
         navbarMenu: window.navbarMenu,
-        //screenWidth: screen.width
+        isTabletOrSmaller: screen.width < 768
     },
-    computed: {
-        isTabletOrSmaller: function() {
-            return screen.width < 768;
-            //return screenWidth < 768;
-        }
+    mounted() {
+        //Detect resize & Update Vue data
+        window.addEventListener('resize', this.resizeFn);
+        //Initialize Nav
+        this.navUpdate();
+    },
+    destroyed() {
+        window.removeEventListener('resize', this.resizeFn);
     },
     methods: {
-        //Mobile Nav scroll effect
-        // Shrink Navbar on scroll
-        // When the user scrolls down 80px from the top of the document, resize the navbar's padding and the logo's font size
-        // scrollFunction() {
-        //     if (!this.isTabletOrSmaller)
-        //         return;
-        //     //Clear margins of sidebar (if screen width was changed after load)
-        //     if (document.documentElement.lang == 'ar')
-        //     {
-        //         document.getElementById("app").style.marginRight = "0";
-        //     } else
-        //     {
-        //         document.getElementById("app").style.marginLeft = "0";
-        //     }
-        //     //Scroll Effect
-        //     if (document.body.scrollTop > 80 || document.documentElement.scrollTop > 80) {
-        //         document.querySelector('.navbar-brand>img').style.maxHeight = '50px';
-        //     } else {
-        //         document.querySelector('.navbar-brand>img').style.maxHeight = '80px';
-        //     }
-        // },
-
+        resizeFn() {
+            this.isTabletOrSmaller = screen.width < 768;
+            this.navUpdate();
+        },
         //Side Navbar effect
-        navToggled(collapsed) {
+        navUpdate() {
             if (this.isTabletOrSmaller)
-                return;
-            if (document.documentElement.lang == 'ar')
             {
-                document.getElementById("app").style.marginRight = this.$refs.nav.sidebarWidth;
+                document.getElementById("app").style.marginRight = "0";
+                document.getElementById("app").style.marginLeft = "0";
+
             } else
             {
-                document.getElementById("app").style.marginLeft = this.$refs.nav.sidebarWidth;
+                if (document.documentElement.lang == 'ar')
+                {
+                    document.getElementById("app").style.marginRight = document.querySelector('.navbar').offsetWidth + "px";
+                } else
+                {
+                    document.getElementById("app").style.marginLeft = document.querySelector('.navbar').offsetWidth + "px";
+                }
             }
         }
     },
