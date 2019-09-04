@@ -12,17 +12,6 @@
 @import '~bootstrap/scss/bootstrap.scss';
 $enable-responsive-font-sizes: true;
 
-
-//Navbar Brand img
-.navbar-brand > img {
-  max-height: 50px;
-}
-/*Side Navbar START*/
-#app {
-    transition: 0.5s;
-}
-/*Side Navbar END*/
-
 /* Sticky footer styles START
 -------------------------------------------------- */
 html {
@@ -33,7 +22,7 @@ html {
 
 body {
     // Margins for navbar & footer
-    margin-bottom: 100px !important;
+    //margin-bottom: 100px !important;
     //Background Image
     .page-overlay {
         background-image: url('/storage/assets/images/BGs/background.jpg');
@@ -61,17 +50,6 @@ footer {
 
 /* Sticky footer styles END
 -------------------------------------------------- */
-
-/* Shrink Navbar on scroll START*/
-.navbar-brand>img {
-    margin-bottom: 1px;
-    transition: 0.4s;
-    -moz-transition: 0.4s;
-    -o-transition: 0.4s;
-    -webkit-transition: 0.4s;
-}
-/* Shrink Navbar on scroll END*/
-
 .parallax {
     /* The image used */
     //background-image: url("img_parallax.jpg");

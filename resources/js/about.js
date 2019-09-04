@@ -1,3 +1,12 @@
+//Import Fontawesome
+import { library, dom } from '@fortawesome/fontawesome-svg-core';
+import { faMapMarkedAlt, faGraduationCap, faClock, faBrain, faRedo } from '@fortawesome/free-solid-svg-icons';
+import { faYoutube } from '@fortawesome/free-brands-svg-icons';
+library.add(
+    faMapMarkedAlt, faGraduationCap, faClock, faBrain, faRedo,
+    faYoutube);
+dom.watch();
+
 import ScrollSpy from 'vue2-scrollspy';
 import checkView from 'vue-check-view';
 // Vue.use(checkView);
@@ -56,24 +65,24 @@ window.vueMix = {
                     img: "/storage/assets/images/skills/videoedit-colors.png"
                 },
                 {
-                    titleAR: "Audio Editing",
-                    titleEN: "تحرير الصوت",
-                    descAR: "I apply noise cancellation & purify the sound of each video, of the recorded voice over.",
-                    descEN: "بعمل تنقية للأصوات وإزالة لأي أصوات جانبية في الفيديوهات، أو للتعليق الصوتي اللي هيتم تركيبه على الفيديو.",
+                    titleEN: "Audio Editing",
+                    titleAR: "تحرير الصوت",
+                    descEN: "I apply noise cancellation & purify the sound of each video, of the recorded voice over.",
+                    descAR: "بعمل تنقية للأصوات وإزالة لأي أصوات جانبية في الفيديوهات، أو للتعليق الصوتي اللي هيتم تركيبه على الفيديو.",
                     img: "/storage/assets/images/skills/videoedit-sound.png"
                 },
                 {
-                    titleAR: "Montage",
-                    titleEN: "مونتاج",
-                    descAR: "I start montaging the videos & make it ready for publishing.",
-                    descEN: "بعمل مونتاج للفيديوهات وبخلصه بحيث تبقى جاهزة للإنتاج والناس تقدر تشوفها..",
+                    titleEN: "Montage",
+                    titleAR: "مونتاج",
+                    descEN: "I start montaging the videos & make it ready for publishing.",
+                    descAR: "بعمل مونتاج للفيديوهات وبخلصه بحيث تبقى جاهزة للإنتاج والناس تقدر تشوفها..",
                     img: "/storage/assets/images/skills/videoedit-montage.png"
                 },
                 {
-                    titleAR: "Graphics",
-                    titleEN: "الرسومات (جرافيكس)",
-                    descAR: "If you want, I add slight graphics & animations in the video to look more interacting.",
-                    descEN: "لو طلبت ده، فأقدر أضيف بعض التأثيرات الخفيفة والحركة على الفيديوهات عشان يبقى شكلها أكثر تفاعلًا.",
+                    titleEN: "Graphics",
+                    titleAR: "الرسومات (جرافيكس)",
+                    descEN: "If you want, I add slight graphics & animations in the video to look more interacting.",
+                    descAR: "لو طلبت ده، فأقدر أضيف بعض التأثيرات الخفيفة والحركة على الفيديوهات عشان يبقى شكلها أكثر تفاعلًا.",
                     img: "/storage/assets/images/skills/videoedit-vfx.png"
                 },
             ],

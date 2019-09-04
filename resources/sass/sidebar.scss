@@ -1,0 +1,149 @@
+$sidebar-width: 220px;
+$sidebar-width-icons: 70px;
+/* The side navigation menu */
+.sidebar {
+    width: $sidebar-width;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+/* Sidebar links */
+.sidebar a {
+    display: block;
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+}
+
+/* Page content. The value of the margin-left property should match the value of the sidebar's width property */
+#app {
+    transition: 0.5s;
+    -moz-transition: 0.5s;
+    -o-transition: 0.5s;
+    -webkit-transition: 0.5s;
+}
+
+//Logo
+.navbar-logo {
+    padding: 5px;
+    &> img {
+        max-height: 50px;
+        /* Shrink Navbar on scroll START*/
+        margin-bottom: 1px;
+        transition: 0.4s;
+        -moz-transition: 0.4s;
+        -o-transition: 0.4s;
+        -webkit-transition: 0.4s;
+        /* Shrink Navbar on scroll END*/
+    }
+}
+
+//Navbar Padding
+.navbar {
+    padding: 0.2rem !important;
+    transition: top 0.8s;
+    -moz-transition: top 0.8s;
+    -o-transition: top 0.8s;
+    -webkit-transition: top 0.8s;
+}
+
+/* On screens that are less than sm wide, make the sidebar into a topbar */
+@media screen and (max-width: 767.98px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        a {
+            text-align: center;
+        }
+    }
+
+    //Margin side for Sidebar
+    #app {
+        &.ltr {
+            margin-left: 0;
+        }
+
+        &.rtl {
+            margin-right: 0;
+        }
+    }
+    //Language menu arrow downwards
+    #navbarDropdown::after {
+        display: inline-block;
+        margin-left: 0.255em;
+        vertical-align: 0.255em;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+    }
+}
+/*On screens that are more than sm, make the "break" correctly*/
+@media screen and (min-width: 767.99px) {
+    //Hover to show, otherwise -> icons only
+    .sidebar {
+        width: $sidebar-width-icons;
+        transition: 0.3s;
+        -moz-transition: 0.3s;
+        -o-transition: 0.3s;
+        -webkit-transition: 0.3s;
+        span.text {
+            display: none;
+            transition: 0.8s;
+            -moz-transition: 0.8s;
+            -o-transition: 0.8s;
+            -webkit-transition: 0.8s;
+        }
+        svg.svg-inline--fa {
+            transition: 0.8s;
+            -moz-transition: 0.8s;
+            -o-transition: 0.8s;
+            -webkit-transition: 0.8s;
+            font-size: 2rem;
+            width: calc(#{$sidebar-width-icons} - 1.5rem);
+            text-align: center;
+            &.last {
+                width: calc(#{$sidebar-width-icons} - 2.5rem);
+            }
+        }
+        &:hover {
+            width: $sidebar-width;
+            span.text {
+                display: inline-block;
+            }
+            svg.svg-inline--fa {
+                font-size: inherit;
+                width: inherit;
+                text-align: center;
+            }
+        }
+    }
+    //#app margin suitable to side of nav
+    #app {
+        &.ltr {
+            margin-left: $sidebar-width-icons;
+        }
+        &.rtl {
+            margin-right: $sidebar-width-icons;
+        }
+    }
+    /*Bottom links*/
+    .bottom {
+        &1, &2 {
+            width: 90%;
+            position: absolute;
+        }
+        &1 {
+            bottom: 50px;
+        }
+        &2 {
+            bottom: 0;
+        }
+    }
+    /*Big Logo*/
+    .navbar-logo > img {
+        max-height: unset;
+    }
+}

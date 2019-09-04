@@ -1,21 +1,21 @@
 @extends('layouts.app')
 @section('title',__('About Me'))
 @section('head')
-<link rel="stylesheet" href="{{ asset('css/about.css') }}">
+<link rel="stylesheet" href="{{ mix('css/about.css') }}">
 @endsection
 @section('scripts-First')
-<script src="{{ asset('js/about.js') }}"></script>
+<script src="{{ mix('js/about.js') }}"></script>
 @endsection
 @section('content')
 {{-- Titles --}}
 <div class="container-fluid">
     <div class="row justify-content-center parallax position-relative pb-md-5 pb-2">
         <div class="overlay progressive replace"></div>
-        <div class="col-10 col-lg-3">
+        <div class="col-8 col-sm-6 col-md-3">
             <prog-img src="{{ asset('storage/photos/photo1.jpg') }}" alt="Omar Taher's photo"
                 vclass="rounded-circle img-fluid"></prog-img>
         </div>
-        <div class="col-lg-6" v-view="titlesShown">
+        <div class="col" v-view="titlesShown">
             @lang('main.aboutMeHeader')
             <ul class="list-group titles {{ App::isLocale('ar') ? 'rtl' : '' }}" v-for="n in titleClone"
                 v-bind:class="{'sidenav': titleOnSide && n == 2}" ref="titles" v-scroll-spy-active
@@ -58,24 +58,24 @@
                 <div v-for="item in skills.web" class="col-4 col-md-2">
                     <prog-img :src="item.img" :alt="item.title" vclass="m-2 rounded img-fluid skill">
                     </prog-img>
-                    @if (App::isLocale('ar'))
-                    <h4>@{{ item.titleAR }}</h4>
-                    @else
-                    <h4>@{{ item.titleEN }}</h4>
-                    @endif
+                    <h4>@{{ item.title }}</h4>
                 </div>
             </div>
         </div>
         {{-- Previous Web Work --}}
-        <div class="col-12 text-center bg-primary text-dark py-3">
+        <div class="col-12 text-center text-light py-3">
             <h3>@lang("Previous Work")</h3>
             <div class="row justify-content-center">
                 <div v-for="item in work.web" class="col-12 col-md-4 my-md-0 my-1">
-                    <div class="card text-light">
-                        <prog-img class="card-img" :src="item.img" :alt="item.title"></prog-img>
+                    <div class="card">
+                        <prog-img class="card-img" :src="item.img" :alt="item.titleEN"></prog-img>
                         <div class="card-img-overlay" @click="openLink(item.href)">
                             <div class="workOverlay"></div>
-                            <h5 class="card-title">@{{ item.title }}</h5>
+                            @if (App::isLocale('ar'))
+                            <h5 class="card-title">@{{ item.titleAR }}</h5>
+                            @else
+                            <h5 class="card-title">@{{ item.titleEN }}</h5>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
             <h3 class="text-light bg-dark rounded p-3 mx-auto" style="width: fit-content">@lang('What I do in Video Editing')</h3>
             <div class="row justify-content-center">
                 <div v-for="item in skills.videoEditing" class="col-6 col-md-3">
-                    <prog-img :src="item.img" :alt="item.title" vclass="m-2 rounded img-fluid skill dark">
+                    <prog-img :src="item.img" :alt="item.titleEN" vclass="m-2 rounded img-fluid skill dark">
                     </prog-img>
                     @if (App::isLocale('ar'))
                     <h4>@{{ item.titleAR }}</h4>
@@ -148,7 +148,7 @@
                 <div class="row justify-content-center">
                     <div class="col-10 col-md-6 my-2">
                         <h4><i class="fas fa-map-marked-alt fa-lg">
-                                <a href="https://goo.gl/maps/gwRRR8g3QXTYmkS57" target="_blank" rel="noreferrer">
+                                <a href="https://goo.gl/maps/gwRRR8g3QXTYmkS57" target="_blank" rel="noreferrer" aria-label="Faculty of Engineering, Ain Shams University">
                             </i> @lang('Faculty of Engineering, Ain Shams University')
                             </a>
                         </h4>
@@ -193,7 +193,8 @@
         </div>
     </div>
     {{-- Physics Tutor --}}
-    <div class="row parallax position-relative">
+    {{-- Margins at bottom (mb-*) are because of footer  --}}
+    <div class="row parallax position-relative mb-5 mb-md-3">
         <div class="overlay progressive replace"></div>
         <div class="col">
             <section id="physicsTutor" class="pt-4">
@@ -211,7 +212,7 @@
                         <h4>
                             @lang("Understand First")
                         </h4>
-                        <p>@lang("I believe that the one must understand the scientific concept, to be able to solve problems & even memorize rules.") }}</p>
+                        <p>@lang("You must understand the scientific concept, for solving problems or memorizing rules.")</p>
                     </div>
                     <div class="col-6 col-md-4 my-2 text-center">
                         <i class="fas fa-redo fa-5x mb-4"></i>
@@ -256,7 +257,8 @@
             frameborder: 0,
             allow: "accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture",
             allowfullscreen: true,
-            class: "embed-responsive-item"
+            class: "embed-responsive-item",
+            title: "Introductory video for Omar Taher's youtube channel"
         })
         iframe.src = "https://www.youtube.com/embed/nOWOaLBYkJI";
         element.appendChild(iframe);

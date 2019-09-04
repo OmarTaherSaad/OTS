@@ -22,11 +22,14 @@ mix.js('resources/js/app.js', 'public/js').extract(['bootstrap', 'vue', 'bootstr
     .sass('resources/sass/bootstrapAR.scss', 'public/css')
     .sass('resources/sass/splashscreen.scss', 'public/css')
     .sass('resources/sass/about.scss', 'public/css')
-    .copy('node_modules/vue-sidebar-menu/dist/vue-sidebar-menu.css', 'public/css/sidebar.css')
     .sass('resources/sass/forms.scss', 'public/css')
     .sass('resources/sass/app.scss', 'public/css')
+    //Sidebar
+    //.copy('node_modules/vue-sidebar-menu/dist/vue-sidebar-menu.css', 'public/css/sidebar.css')
+    .sass('resources/sass/sidebar.scss', 'public/css')
     //Font Awesome
-    .sass('resources/sass/fontawesome.scss', 'public/css');
+    .sass('resources/sass/fontawesome.scss', 'public/css')
+    .version();
 
 
 mix.webpackConfig({

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title',__("Contact Me"))
 @section('head')
-<link rel="stylesheet" href="{{ asset('css/forms.css') }}">
+<link rel="stylesheet" href="{{ mix('css/forms.css') }}">
 @if(App::isLocale('ar'))
 <style>
     label:not(.form-check-label) {
@@ -96,5 +96,5 @@
 
 @section('scripts')
 <script defer src="https://www.google.com/recaptcha/api.js?render=6Lc447UUAAAAAKUbWbf6jTvZRmxvSOxnKW-VhneB"></script>
-<script type="text/javascript" src="{{ asset('js/forms.js') }}" defer></script>
+<script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
 @endsection

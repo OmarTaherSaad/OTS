@@ -17,8 +17,8 @@ $bg-color: rgb(0, 60, 255);
 .loader {
     z-index: 100;
     position: fixed;
-    top:45%;
-    right:45%;
+    right:calc(50% - 37.5px);
+    top:calc(50% - 50px);
     width: 75px;
     height: 100px;
 

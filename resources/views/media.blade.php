@@ -59,13 +59,12 @@
     .thumbnail-text:hover {
         text-decoration: none;
     }
-
 </style>
 @endsection
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center" id="Newspaper">
+<div class="container py-3">
+    <div class="row justify-content-center mt-5 mt-md-0">
         <div class="col-12 text-center">
             <h2>{{ __("My Interviews in TV & Other Media") }}</h2>
         </div>
