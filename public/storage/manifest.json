@@ -1,0 +1,25 @@
+{
+    "short_name": "OTS",
+    "name": "Omar Taher Saad",
+    "theme_color": "grey",
+    "background_color": "grey",
+    "display": "standalone",
+    "icons": [{
+            "src": "/storage/assets/icons/logo_48.png",
+            "type": "image/png",
+            "sizes": "60x48"
+        },
+        {
+            "src": "/storage/assets/icons/logo_192.png",
+            "type": "image/png",
+            "sizes": "241x192"
+        },
+        {
+            "src": "/storage/assets/icons/logo_512.png",
+            "type": "image/png",
+            "sizes": "643x512"
+        }
+    ],
+    "start_url": "/",
+    "orientation": "portrait"
+}
