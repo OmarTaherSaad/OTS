@@ -1,6 +1,9 @@
+body {
+    margin-top: 80px !important;
+}
 // Remove the default bg image overlay
 .page-overlay {
-    background-image: unset !important;
+    background-image: none !important;
 }
 
 // Set the parallax

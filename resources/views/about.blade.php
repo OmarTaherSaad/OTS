@@ -30,8 +30,6 @@
                 <li href="#videoEditor" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">
                     @lang("Video Editor")
                 </li>
-                {{-- <li href="#graphicDesigner" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">Graphic Designer
-                </li> --}}
                 <li href="#CSEstudent" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">
                     <span v-if="titleOnSide">{{ __('CSE Student') }}</span>
                     <span v-else>{{ __('Computer & Systems Engineering Student') }}</span>
@@ -42,7 +40,6 @@
                         @lang('main.youtuberLong')
                     </span>
                 </li>
-                <li href="#physicsTutor" class="list-group-item" v-bind:class="{'h4': !titleOnSide}">@lang("Physics Tutor")</li>
             </ul>
         </div>
     </div>
@@ -147,9 +144,10 @@
                 <h1 class="px-4">@lang('Computer & Systems Engineering Student')</h1>
                 <div class="row justify-content-center">
                     <div class="col-10 col-md-6 my-2">
-                        <h4><i class="fas fa-map-marked-alt fa-lg">
-                                <a href="https://goo.gl/maps/gwRRR8g3QXTYmkS57" target="_blank" rel="noreferrer" aria-label="Faculty of Engineering, Ain Shams University">
-                            </i> @lang('Faculty of Engineering, Ain Shams University')
+                        <h4>
+                            <i class="fas fa-map-marked-alt fa-lg"></i>
+                            <a href="https://goo.gl/maps/gwRRR8g3QXTYmkS57" target="_blank" rel="noreferrer" aria-label="Faculty of Engineering, Ain Shams University">
+                                @lang('Faculty of Engineering, Ain Shams University')
                             </a>
                         </h4>
                     </div>
@@ -190,39 +188,6 @@
         <div class="col-10 col-md-8">
             <h5 class="loadingIframe"></h5>
             <div class="embed-responsive embed-responsive-16by9 iframeProgressive" hidden></div>
-        </div>
-    </div>
-    {{-- Physics Tutor --}}
-    {{-- Margins at bottom (mb-*) are because of footer  --}}
-    <div class="row parallax position-relative mb-5 mb-md-3">
-        <div class="overlay progressive replace"></div>
-        <div class="col">
-            <section id="physicsTutor" class="pt-4">
-                <h1 class="px-4">@lang("Physics Tutor (For High School student in Cairo, Egypt)")</h1>
-                <div class="row justify-content-center">
-                    <div class="col-6 col-md-4 my-2 text-center">
-                        <i class="fas fa-clock fa-5x mb-4"></i>
-                        <h4>
-                            @lang("Accurate Appointment")
-                        </h4>
-                        <p>@lang("I always arrive in time!")</p>
-                    </div>
-                    <div class="col-6 col-md-4 my-2 text-center">
-                        <i class="fas fa-brain fa-5x mb-4"></i>
-                        <h4>
-                            @lang("Understand First")
-                        </h4>
-                        <p>@lang("You must understand the scientific concept, for solving problems or memorizing rules.")</p>
-                    </div>
-                    <div class="col-6 col-md-4 my-2 text-center">
-                        <i class="fas fa-redo fa-5x mb-4"></i>
-                        <h4>
-                            @lang("Again till you Explain")
-                        </h4>
-                        <p>@lang("I will never pass a point unless I am sure you understood it 100%")</p>
-                    </div>
-                </div>
-            </section>
         </div>
     </div>
 </div>

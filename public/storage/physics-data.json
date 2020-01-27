@@ -1,0 +1,64 @@
+{
+    "Types": {
+        "Dem": {
+            "en": "Demonstration Only",
+            "ar": "شرح فقط"
+        },
+        "Solv": {
+            "en": "Solving questions & problems Only",
+            "ar": "حل مسائل فقط"
+        },
+        "DemSolv": {
+            "en": "Demonstration & Solving questions",
+            "ar": "شرح وحل مسائل"
+        }
+    },
+    "Places": {
+        "CoSp": {
+            "en": "Co-working Space",
+            "ar": "مساحة عمل مشتركة"
+        },
+        "Cf": {
+            "en": "Cafe",
+            "ar": "كافيه"
+        },
+        "EdC": {
+            "en": "Educational Center",
+            "ar": "سنتر دروس"
+        }
+    },
+    "Chapters": {
+            "1": {
+                "en": "Chapter 1 | Electrical Current & Ohm's law",
+                "ar": "الفصل الأول | التيار الكهربي وقانون أوم وقانون كيرشوف"
+            },
+            "2": {
+                "en": "Chapter 2 | Magnetic Effects of Electric Current & Measuring Instruments",
+                "ar": "الفصل الثاني | التأثير المغناطيسي والتيار الكهربي"
+            },
+            "3": {
+                "en": "Chapter 3 | Electromagnetic Induction",
+                "ar": "الفصل الثالث | الحث الكهرومغناطيسي"
+            },
+            "4": {
+                "en": "Chapter 4 | AC Circuits",
+                "ar": "الفصل الرابع | دوائر التيار المتردد"
+            },
+            "5": {
+                "en": "Chapter 5 | Wave-Particle Duality",
+                "ar": "الفصل الخامس | ازدواجية الموجة والجسيم"
+            },
+            "6": {
+                "en": "Chapter 6 | Atomic Spectra",
+                "ar": "الفصل السادس | الأطياف الذرية"
+            },
+            "7": {
+                "en": "Chapter 7 | Lasers",
+                "ar": "الفصل السابع | الليزر"
+            },
+            "8": {
+                "en": "Chapter 8 | Modern Electronics",
+                "ar": "الفصل الثامن | الإلكترونيات الحديثة"
+            }
+    }
+}

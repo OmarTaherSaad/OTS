@@ -64,13 +64,15 @@
 
 @section('content')
 <div class="container py-3">
-    <div class="row justify-content-center mt-5 mt-md-0">
+    <div class="row justify-content-center mt-5">
         <div class="col-12 text-center">
             <h2>{{ __("My Interviews in TV & Other Media") }}</h2>
+            <hr>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-10 m-md-2 m-1 text-center">
+            <h3>@lang("TV & Videos")</h3>
             <div class="accordion" id="TV">
                 @foreach($Items->where('typeCode','tv') as $item)
                 <div class="card">
@@ -108,6 +110,10 @@
                 </div>
                 @endforeach
             </div>
+        </div>
+        <div class="col-12 text-center">
+            <hr>
+            <h3>@lang("Paper & Digital Newspapers")</h3>
         </div>
         @foreach ($Items->where('typeCode','written') as $item)
         <div class="col-5 col-md-2 m-md-2 m-1 thumbnail text-center overlay">

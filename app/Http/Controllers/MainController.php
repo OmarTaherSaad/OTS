@@ -35,6 +35,7 @@ class MainController extends Controller
 
     public function langChange(String $locale) {
         session()->put('applocale', $locale);
+        session()->forget('chaptersLocale');
         return redirect()->back();
     }
 
@@ -117,5 +118,9 @@ class MainController extends Controller
             $request->session()->flash('error',"It seems like an error occured, my server sees you as a robot! If this seems strange to you, try again later; maybe it's a mistake by our side");
         }
         return back();
+    }
+
+    public function physicsTutorialForm() {
+        return view();
     }
 }

@@ -12,7 +12,7 @@
 @endsection
 
 @section('content')
-<div class="container-fluid {{ App::isLocale('ar') ? 'text-right' : 'text-left' }} mt-lg-0 mt-5">
+<div class="container-fluid {{ App::isLocale('ar') ? 'text-right' : 'text-left' }}">
     <div class="row">
         <div class="col-12">
             <div class="jumbotron mt-lg-3 mt-5">
@@ -70,11 +70,11 @@
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
                     </div>
-
+                    
                     <div class="col-12 my-2 justify-content-center">
                         <div class="form-group my-1 {{ old('message') ? 'focused' : '' }}">
                             <label for="message">@lang("Message")</label>
-                            <textarea class="form-control {{ $errors->has('message') ? 'is-danger filled invalid' : (old('message') == '' ? 'filled valid' : '') }}" name="message"
+                            <textarea class="form-control {{ $errors->has('message') ? 'is-danger filled invalid' : (old('message') ? 'filled valid' : '') }}" name="message"
                                 rows="4" required>{{ old('message') }}</textarea>
                         </div>
                         @error('message')

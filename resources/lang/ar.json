@@ -48,7 +48,7 @@
 
     "TV & Videos": "التليفزيون والفيديوهات",
     "Paper & Digital Newspapers": "الجرائد الورقية والأونلاين",
-    "My Interviews in TV & Other Media": "لقائاتي التليفزيونية والصحفية",
+    "My Interviews in TV & Other Media": "لقاءاتي التليفزيونية والصحفية",
 
     "C# Developer": "مبرمج #C",
     "Video Editor": "محرر فيديو",
@@ -62,7 +62,7 @@
 
     "Technologies & Frameworks I use in C# Development": "التقنيات التي أستخدمها في البرمجة بلغة السي شارب",
 
-    
+
 
 
 
@@ -72,13 +72,68 @@
     "And many others, of course.": "ومواد أخرى، بالتأكيد.",
 
     "My YouTube Channel in 20 seconds": "قناتي في عشرين ثانية",
-    
+
     "Physics Tutor (For High School student in Cairo, Egypt)": "مُدرس فيزياء خاص (لطلبة الثانوية العامة في القاهرة، مصر.",
     "Accurate Appointment": "مواعيد مظبوطة",
     "Understand First": "افهم أولًا",
     "You must understand the scientific concept, for solving problems or memorizing rules.": "لازم تفهم الأساس العلمي، عشان تعرف تحل المسائل أو تحفظ القوانين.",
     "Again till you Explain": "بعيد الشرح لحد ما تفهم",
     "I will never pass a point unless I am sure you understood it 100%": "عمري ما هعدي نقطة غير لما أتأكد إنك فهمتها 100%",
-    "I always arrive in time!": "دايمًا بوصل في معادي"
-    
+    "I always arrive in time!": "دايمًا بوصل في معادي",
+
+    "Physics Tutorials Reservation" : "حجز حصص الفيزياء",
+    "I'll be happy to explain physics in a simplified way and solve problems with you until I make sure you really understand":
+    "هكون سعيد إني أشرحلك الفيزياء بشكل مُبسط وأحل معاك مسائل لحد ما أتأكد إنك فعلًا فهمت",
+    "Book physics classes with Omar Taher Saad": "هكون سعيد إني أشرحلك الفيزياء بشكل مُبسط وأحل معاك لحد ما أتأكد إنك فعلًا فهمت",
+
+    "All Slots": "كل المواعيد",
+    "Please, fill all the data.": "من فضلك، املى كل البيانات.",
+    "Add New Slot for Physics Classes": "إضافة ميعاد جديد لحصص الفيزياء",
+    "I'm sorry, but no slots available for now!": "للأسف، مفيش مواعيد متاحة حاليًا!",
+    "Range of days": "مجموعة من الأيام",
+    "Date": "التاريخ",
+    "Select Range of dates that suits you (Will be confirmed later)": "اختار مجموعة الأيام اللي تناسبك نعمل فيها الحصة (وهنتفق لسه)",
+    "Perferred Class Start Time": "وقت بداية الحصة المفضل",
+    "Perferred End Time": "وقت نهاية الحصة المفضل",
+    "Chapters names in Arabic": "أسامي الفصول بالإنجليزي",
+    "Suitable Fees for you": "ثمن الحصة المناسب ليك",
+    "Fees": "ثمن الحصة",
+    "Students' count": "عدد الطلبة",
+    "How many students will be attending?": "كام واحد هيحضر؟",
+    "It's okay to be only one person.": "عادي تكون شخص واحد بس.",
+    "Already Booked": "محجوز بالفعل",
+
+    "Demonstration Only": "شرح فقط",
+    "Solving questions & problems Only": "حل مسائل فقط",
+    "Demonstration & Solving questions" : "شرح وحل مسائل",
+
+    "Co-working Space": "مساحة عمل مشتركة",
+    "Cafe": "كافيه",
+    "Educational Center": "سنتر دروس",
+
+    "Chapter 1 | Electrical Current & Ohm's law": "الفصل الأول | التيار الكهربي وقانون أوم وقانون كيرشوف",
+    "Chapter 2 | Magnetic Effects of Electric Current & Measuring Instruments": "الفصل الثاني | التأثير المغناطيسي والتيار الكهربي",
+    "Chapter 3 | Electromagnetic Induction": "الفصل الثالث | الحث الكهرومغناطيسي",
+    "Chapter 4 | AC Circuits": "الفصل الرابع | دوائر التيار المتردد",
+    "Chapter 5 | Wave-Particle Duality": "الفصل الخامس | ازدواجية الموجة والجسيم",
+    "Chapter 6 | Atomic Spectra": "الفصل السادس | الأطياف الذرية",
+    "Chapter 7 | Lasers": "الفصل السابع | الليزر",
+    "Chapter 8 | Modern Electronics": "الفصل الثامن | الإلكترونيات الحديثة",
+
+    "What kind of help do you need?": "تحب نعمل إيه بالظبط في الحصة؟",
+    "Select chapters you need help with": "اختار الفصول اللي محتاج مساعدة فيها",
+
+    "If you cannot pay for it, just type 0, it's okay.": "لو متقدرش تدفع، اكتب 0 عادي مفيش مشكلة.",
+
+    "Press enter to select": "اضغط Enter للاختيار",
+    "Selected": "تم الاختيار",
+    "Press enter to remove": "اضغط Enter للحذف",
+    "Nothing matches your search :/": "بحثك لا يتوافق مع شئ :/",
+
+    "Select your preferred type for class place": "اختر المكان المُفضل للحصة",
+    "Exact Address": "العنوان بالتفصيل",
+    "Write the exact address, to make me able to know how to reach it." : "اكتب العنوان بالتفصيل، عشان تخليني قادر أعرف هوصل لهناك ازاي",
+    "Any Additional Information / requests": "أي معلومات / طلبات إضافية تحب تقولهالي"
+
+
 }

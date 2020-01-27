@@ -19,6 +19,7 @@ mix.autoload({
 mix.js('resources/js/app.js', 'public/js').extract(['bootstrap', 'vue', 'bootstrap-vue'])
     .js('resources/js/about.js', 'public/js')
     .js('resources/js/forms.js', 'public/js')
+    .js('resources/js/physicsClasses.js', 'public/js')
     .sass('resources/sass/bootstrapAR.scss', 'public/css')
     .sass('resources/sass/splashscreen.scss', 'public/css')
     .sass('resources/sass/about.scss', 'public/css')

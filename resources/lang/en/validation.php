@@ -126,6 +126,7 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+    'chapterexist' => "The :attribute must all be from available chapters.",
 
     'custom' => [
         'attribute-name' => [

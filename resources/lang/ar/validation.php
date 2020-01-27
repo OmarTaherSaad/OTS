@@ -122,6 +122,8 @@ return [
     | specify a specific custom language line for a given attribute rule.
     |
     */
+    'chapterexist' => "لابد لبيانات :attribute أن تكون من الفصول المتاحة.",
+
     'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',

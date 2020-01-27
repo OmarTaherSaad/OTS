@@ -1,13 +1,14 @@
 {
     "/js/manifest.js": "/js/manifest.js?id=a1c152441d06d5a71a2d",
-    "/js/about.js": "/js/about.js?id=691096f3673ae217ce2c",
-    "/js/app.js": "/js/app.js?id=c288b3de70365fe9844d",
+    "/js/about.js": "/js/about.js?id=0664f7ed38854ba3c2ed",
+    "/js/app.js": "/js/app.js?id=b2f2d60f148d552dc9d8",
     "/css/bootstrapAR.css": "/css/bootstrapAR.css?id=74a2e854928ef3e7ff00",
     "/css/splashscreen.css": "/css/splashscreen.css?id=066796b34fcefbab6665",
-    "/css/about.css": "/css/about.css?id=fbf010b64ba6a736b035",
-    "/css/forms.css": "/css/forms.css?id=6eaae89a53ae7c193864",
-    "/css/app.css": "/css/app.css?id=a8c282f1f84de655d182",
-    "/css/sidebar.css": "/css/sidebar.css?id=eb68c86e50a078ac060f",
+    "/css/about.css": "/css/about.css?id=5fd36dff46514d76e4fb",
+    "/css/forms.css": "/css/forms.css?id=8ad0cbd9d6ad0b21e91f",
+    "/css/app.css": "/css/app.css?id=33a32526226ed308b0db",
+    "/css/sidebar.css": "/css/sidebar.css?id=f218779670f61a32d407",
     "/js/forms.js": "/js/forms.js?id=b775a8da6b11698bc9de",
-    "/js/vendor.js": "/js/vendor.js?id=3894c95e7c57b27d4bfe"
+    "/js/physicsClasses.js": "/js/physicsClasses.js?id=bc0a18b7f03a6866298f",
+    "/js/vendor.js": "/js/vendor.js?id=a21f1d077b3a251eedd4"
 }

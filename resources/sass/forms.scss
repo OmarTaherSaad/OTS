@@ -1,31 +1,31 @@
 .form-group {
-    position: relative;
     margin: 2em 0;
 }
-
-label {
-    &:not(.form-check-label) {
-        font-size: 80%;
-        cursor: text;
-        position: absolute;
-        left: 5px;
-        top: 10px;
-        color: #999;
-        z-index: 1;
-        -webkit-transition: font-size 150ms ease-out, -webkit-transform 150ms ease-out;
-        transition: font-size 150ms ease-out, -webkit-transform 150ms ease-out;
-        transition: transform 150ms ease-out, font-size 150ms ease-out;
-        transition: transform 150ms ease-out, font-size 150ms ease-out, -webkit-transform 150ms ease-out;
+html:dir(rtl) {
+    label:not(.form-check-label) {
+        right: 2em;
     }
-
-    &.form-check-label {
-        cursor: pointer;
-    }
+}
+label:not(.form-check-label) {
+    font-size: 80%;
+    cursor: text;
+    position: relative;
+    top: 3em;
+    left: 2em;
+    color: #999;
+    z-index: 1;
+    -webkit-transition: font-size 150ms ease-out, -webkit-transform 150ms ease-out;
+    transition: font-size 150ms ease-out, -webkit-transform 150ms ease-out;
+    transition: transform 150ms ease-out, font-size 150ms ease-out;
+    transition: transform 150ms ease-out, font-size 150ms ease-out, -webkit-transform 150ms ease-out;
+}
+.form-check-label {
+    cursor: pointer;
 }
 
 .focused label {
-    -webkit-transform: translateY(-150%);
-    transform: translateY(-150%);
+    -webkit-transform: translateY(-200%);
+    transform: translateY(-200%);
 }
 
 input {

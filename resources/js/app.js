@@ -6,14 +6,34 @@
 
 require('./bootstrap');
 
+axios.interceptors.request.use(function (config) {
+    //Before request start: show loading
+    document.body.classList.add('loading');
+    return config;
+}, function (error) {
+    alert("Something went wrong :/ Please, Try again later.");
+    document.body.classList.remove('loading');
+    return Promise.reject(error);
+});
+axios.interceptors.response.use(function (response) {
+    //After request is done: hide loading
+    document.body.classList.remove('loading');
+    return response;
+}, function (error) {
+    alert("Something went wrong :/ Please, Try again later.");
+    document.body.classList.remove('loading');
+    return Promise.reject(error);
+});
+
+
 import VueImported from 'vue';
 import 'progressive-image.js/dist/progressive-image.js';
 import 'progressive-image.js/dist/progressive-image.css';
 
 //Import Fontawesome
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faUserCircle, faVideo, faEnvelope, faGlobeAfrica, faArrowsAltH } from '@fortawesome/free-solid-svg-icons';
-library.add(faUserCircle, faVideo, faEnvelope, faGlobeAfrica, faArrowsAltH);
+import { faUserCircle, faVideo, faEnvelope, faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
+library.add(faUserCircle, faVideo, faEnvelope, faGlobeAfrica);
 dom.watch();
 
 window.Vue = VueImported;
@@ -41,25 +61,28 @@ if (window.vueMix === undefined)
 if (window.vuePlugins !== undefined)
 {
     window.vuePlugins.forEach(plugin => {
-        Vue.use(plugin);
+        if (Array.isArray(plugin))
+        {
+            Vue.component(plugin[0], plugin[1]);
+        } else
+        {
+            Vue.use(plugin);
+        }
     });
 }
 
-Vue.config.devtools = false;
-Vue.config.debug = false;
-Vue.config.silent = true;
+Vue.config.devtools = !process.env.VUE_APP_PRODUCTION;
+Vue.config.debug = !process.env.VUE_APP_PRODUCTION;
+Vue.config.silent = process.env.VUE_APP_PRODUCTION;
 window.app = new Vue({
     el: '#app',
     mixins: [window.vueMix],
     data: {
-        navbarMenu: window.navbarMenu,
         isTabletOrSmaller: screen.width < 768
     },
     mounted() {
         //Detect resize & Update Vue data
         window.addEventListener('resize', this.resizeFn);
-        //Initialize Nav
-        this.navUpdate();
     },
     destroyed() {
         window.removeEventListener('resize', this.resizeFn);
@@ -67,25 +90,6 @@ window.app = new Vue({
     methods: {
         resizeFn() {
             this.isTabletOrSmaller = screen.width < 768;
-            this.navUpdate();
-        },
-        //Side Navbar effect
-        navUpdate() {
-            if (this.isTabletOrSmaller)
-            {
-                document.getElementById("app").style.marginRight = "0";
-                document.getElementById("app").style.marginLeft = "0";
-
-            } else
-            {
-                if (document.documentElement.lang == 'ar')
-                {
-                    document.getElementById("app").style.marginRight = document.querySelector('.navbar').offsetWidth + "px";
-                } else
-                {
-                    document.getElementById("app").style.marginLeft = document.querySelector('.navbar').offsetWidth + "px";
-                }
-            }
         }
     },
 });

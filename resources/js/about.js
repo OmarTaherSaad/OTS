@@ -155,7 +155,7 @@ window.vueMix = {
     },
     methods: {
         titlesShown(e) {
-            if (e.percentInView < 0.1 && e.percentTop < 0.2)
+            if (e.percentInView < 0.2 && e.percentTop < 0.3)
             {
                 //Titles out of view .. Create & show the sidebar if we are not on a tablet or smaller
                 if (!this.isTabletOrSmaller)
