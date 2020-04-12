@@ -1,0 +1,2 @@
+/usr/local/bin/ea-php72 -d memory_limit=-1 /usr/local/bin/composer install
+/usr/local/bin/ea-php72 -d memory_limit=-1 /usr/local/bin/composer update
