@@ -33,7 +33,8 @@ import 'progressive-image.js/dist/progressive-image.css';
 //Import Fontawesome
 import { library, dom } from '@fortawesome/fontawesome-svg-core';
 import { faUserCircle, faVideo, faEnvelope, faGlobeAfrica } from '@fortawesome/free-solid-svg-icons';
-library.add(faUserCircle, faVideo, faEnvelope, faGlobeAfrica);
+import { faLeanpub, faYoutube } from '@fortawesome/free-brands-svg-icons';
+library.add(faUserCircle, faVideo, faEnvelope, faGlobeAfrica, faLeanpub, faYoutube);
 dom.watch();
 
 window.Vue = VueImported;

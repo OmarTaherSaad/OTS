@@ -33,9 +33,13 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link {{ request()->route()->named('youtube') ? 'active' : '' }}" target="_blank" ref="noreferrer"
-                    href="{{ config('ots.social-media.youtube') }}" rel="noreferrer">
+                <a class="nav-link {{ request()->route()->named('youtube') ? 'active' : '' }}" target="_blank" href="{{ config('ots.social-media.youtube') }}" ref="noreferrer">
                     <i class="fab fa-youtube"></i> <span class="text">@lang('YouTube')</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ request()->route()->named('physics.register') ? 'active' : '' }}" href="{{ route('physics.register') }}">
+                    <i class="fab fa-leanpub"></i> <span class="text">@lang('Physics Classes')</span>
                 </a>
             </li>
         </ul>
