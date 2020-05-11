@@ -1,12 +1,3 @@
-//Import Fontawesome
-import { library, dom } from '@fortawesome/fontawesome-svg-core';
-import { faMapMarkedAlt, faGraduationCap, faClock, faBrain, faRedo } from '@fortawesome/free-solid-svg-icons';
-import { faYoutube } from '@fortawesome/free-brands-svg-icons';
-library.add(
-    faMapMarkedAlt, faGraduationCap, faClock, faBrain, faRedo,
-    faYoutube);
-dom.watch();
-
 import ScrollSpy from 'vue2-scrollspy';
 import checkView from 'vue-check-view';
 window.vuePlugins = Array(2);

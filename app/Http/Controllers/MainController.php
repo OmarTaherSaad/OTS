@@ -13,13 +13,12 @@ use stdClass;
 class MainController extends Controller
 {
     public function index() {
-        // return view('home');
-        return view('about');
+        return view('home');
 
     }
 
     public function about() {
-        // return view('about');
+        return view('about');
     }
     public function contactForm() {
         return view('');
@@ -98,13 +97,13 @@ class MainController extends Controller
             "message" => "required|min:10,1000"
         ]);
 
-        // check if reCaptcha has been validated by Google      
+        // check if reCaptcha has been validated by Google
         $secret = config('app.GOOGLE_RECAPTCHA_SECRET');
         $captchaId = $request->input('g-recaptcha-response');
-        
+
         //sends post request to the URL and tranforms response to JSON
         $responseCaptcha = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$secret.'&response='.$captchaId));
-        
+
         if($responseCaptcha->success == true && $request->input('action') == 'contact_form') {
             //Valid
             //Send Mail to Admin

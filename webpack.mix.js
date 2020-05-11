@@ -12,11 +12,8 @@ const BrotliPlugin = require('brotli-webpack-plugin');
  | file for the application as well as bundling up all the JS files.
  |
  */
-mix.autoload({
-    jquery: ['$', 'window.jQuery']
-});
-
-mix.js('resources/js/app.js', 'public/js').extract(['bootstrap', 'vue', 'bootstrap-vue'])
+mix.js('resources/js/app.js', 'public/js')
+    .js('resources/js/home.js', 'public/js')
     .js('resources/js/about.js', 'public/js')
     .js('resources/js/forms.js', 'public/js')
     .js('resources/js/physicsClasses.js', 'public/js')
@@ -25,40 +22,41 @@ mix.js('resources/js/app.js', 'public/js').extract(['bootstrap', 'vue', 'bootstr
     .sass('resources/sass/about.scss', 'public/css')
     .sass('resources/sass/forms.scss', 'public/css')
     .sass('resources/sass/app.scss', 'public/css')
+    .sass('resources/sass/home.scss', 'public/css')
     //Sidebar
     //.copy('node_modules/vue-sidebar-menu/dist/vue-sidebar-menu.css', 'public/css/sidebar.css')
     .sass('resources/sass/sidebar.scss', 'public/css')
     .version();
 
-
-mix.webpackConfig({
-    optimization: {
-        minimizer: [
-            new TerserPlugin({
-                parallel: true,
-                terserOptions: {
-                    mangle: true,
-                    ecma: 8,
-                    output: {
-                        comments: false,
-                        beautify: false,
+if (mix.inProduction())
+{
+    mix.webpackConfig({
+        optimization: {
+            minimizer: [
+                new TerserPlugin({
+                    parallel: true,
+                    terserOptions: {
+                        mangle: true,
                         ecma: 8,
-                    },
-                    compress: true,
-                    ie8: true,
-                    safari10: true
-                }
-            })
-        ]
-    },
-    plugins: [
-        new CompressionPlugin(),
-        new BrotliPlugin()
-    ],
-    output: {
-        publicPath: ''
-    }
-});
+                        output: {
+                            comments: false,
+                            beautify: false,
+                            ecma: 8
+                        },
+                        compress: true,
+                        ie8: true,
+                        safari10: true
+                    }
+                })
+            ]
+        },
+        plugins: [new CompressionPlugin(), new BrotliPlugin()],
+        output: {
+            publicPath: ""
+        }
+    });
+}
+
 /*
 {
     algorithm: 'gzip',

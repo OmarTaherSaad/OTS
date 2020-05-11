@@ -12,6 +12,11 @@
 @import '~bootstrap/scss/bootstrap.scss';
 $enable-responsive-font-sizes: true;
 
+//Font Awesome
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+
 .navbar-brand>img {
     height: 3em;
 }

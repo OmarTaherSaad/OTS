@@ -1,14 +1,14 @@
 {
-    "/js/manifest.js": "/js/manifest.js?id=a1c152441d06d5a71a2d",
-    "/js/about.js": "/js/about.js?id=f8bc52e74eef06a6e690",
-    "/js/app.js": "/js/app.js?id=a051749c82d8d0135eb1",
+    "/js/about.js": "/js/about.js?id=5b9f40c7bcd997dfee07",
+    "/js/app.js": "/js/app.js?id=7b443b01c97c4fc5767b",
     "/css/bootstrapAR.css": "/css/bootstrapAR.css?id=74a2e854928ef3e7ff00",
     "/css/splashscreen.css": "/css/splashscreen.css?id=066796b34fcefbab6665",
     "/css/about.css": "/css/about.css?id=5fd36dff46514d76e4fb",
     "/css/forms.css": "/css/forms.css?id=8ad0cbd9d6ad0b21e91f",
-    "/css/app.css": "/css/app.css?id=33a32526226ed308b0db",
+    "/css/app.css": "/css/app.css?id=d3087df2d3ce5575a0aa",
+    "/css/home.css": "/css/home.css?id=085f96b8348ae2a021a0",
     "/css/sidebar.css": "/css/sidebar.css?id=f218779670f61a32d407",
-    "/js/forms.js": "/js/forms.js?id=b775a8da6b11698bc9de",
-    "/js/physicsClasses.js": "/js/physicsClasses.js?id=bc0a18b7f03a6866298f",
-    "/js/vendor.js": "/js/vendor.js?id=a21f1d077b3a251eedd4"
+    "/js/forms.js": "/js/forms.js?id=0c3f4040fc3f9caae09e",
+    "/js/home.js": "/js/home.js?id=31e80e20ed4711daead9",
+    "/js/physicsClasses.js": "/js/physicsClasses.js?id=993b68e12b12a0401a66"
 }

@@ -1,18 +1,3 @@
-//Import Fontawesome
-import {
-    library,
-    dom
-} from '@fortawesome/fontawesome-svg-core';
-import {
-    faArrowAltCircleRight,
-    faArrowAltCircleLeft
-} from '@fortawesome/free-solid-svg-icons';
-library.add(
-    faArrowAltCircleRight,
-    faArrowAltCircleLeft
-);
-dom.watch();
-
 import VueCtkDateTimePicker from 'vue-ctk-date-time-picker';
 import 'vue-ctk-date-time-picker/dist/vue-ctk-date-time-picker.css';
 import Multiselect from 'vue-multiselect';
