@@ -40,7 +40,6 @@
                         <p><span class="title-s">Name: </span> <span>Omar Taher Saad</span></p>
                         <p><span class="title-s">Profile: </span> <span>Computer Engineer</span></p>
                         <p><span class="title-s">Email: </span> <span>omar@otscommunity.com</span></p>
-                        <p><span class="title-s">Phone: </span> <span>(617) 557-0089</span></p>
                       </div>
                     </div>
                   </div>
