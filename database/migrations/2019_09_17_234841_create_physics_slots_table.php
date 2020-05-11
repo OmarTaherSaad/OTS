@@ -24,8 +24,8 @@ class CreatePhysicsSlotsTable extends Migration
             $table->string('address')->nullable();
             $table->smallInteger('students')->nullable();
             $table->smallInteger('fees')->nullable();
-            $table->json('chapters')->nullable();
-            $table->json('type')->nullable();
+            $table->string('chapters')->nullable();
+            $table->string('type')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
