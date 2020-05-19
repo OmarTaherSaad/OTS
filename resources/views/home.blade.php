@@ -220,7 +220,7 @@
             <div class="work-box">
               <a href="{{ Storage::url('assets/images/projects/web-windowspvc.jpg') }}" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="{{ Storage::url('assets/images/projects/Progressive-web-windowspvc.jpg') }}" alt="" class="img-fluid">
+                  <img src="{{ Storage::url('assets/images/projects/Progressive-web-windowspvc.jpg') }}" alt="" class="img-fluid w-100">
                 </div>
                 <div class="work-content">
                   <div class="row">
@@ -242,7 +242,7 @@
             <div class="work-box">
               <a href="{{ Storage::url('assets/images/projects/web-thanawyahelwa.jpg') }}" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="{{ Storage::url('assets/images/projects/Progressive-web-thanawyahelwa.jpg') }}" alt="" class="img-fluid">
+                  <img src="{{ Storage::url('assets/images/projects/Progressive-web-thanawyahelwa.jpg') }}" alt="" class="img-fluid w-100">
                 </div>
                 <div class="work-content">
                   <div class="row">
@@ -264,7 +264,7 @@
             <div class="work-box">
               <a href="{{ Storage::url('assets/images/projects/csharp-memoryAllocator.jpg') }}" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="{{ Storage::url('assets/images/projects/Progressive-csharp-memoryAllocator.jpg') }}" alt="" class="img-fluid">
+                  <img src="{{ Storage::url('assets/images/projects/Progressive-csharp-memoryAllocator.jpg') }}" alt="" class="img-fluid w-100">
                 </div>
                 <div class="work-content">
                   <div class="row">
@@ -286,7 +286,7 @@
             <div class="work-box">
               <a href="{{ Storage::url('assets/images/projects/csharp-sectionLibrary.jpg') }}" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="{{ Storage::url('assets/images/projects/Progressive-csharp-sectionLibrary.jpg') }}" alt="" class="img-fluid">
+                  <img src="{{ Storage::url('assets/images/projects/Progressive-csharp-sectionLibrary.jpg') }}" alt="" class="img-fluid w-100">
                 </div>
                 <div class="work-content">
                   <div class="row">
@@ -307,7 +307,7 @@
             <div class="work-box">
               <a href="{{ Storage::url('assets/images/projects/radiobanner.jpg') }}" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="{{ Storage::url('assets/images/projects/radioposter.jpg') }}" alt="" class="img-fluid">
+                  <img src="{{ Storage::url('assets/images/projects/radioposter.jpg') }}" alt="" class="img-fluid w-100">
                 </div>
                 <div class="work-content">
                   <div class="row">
@@ -329,7 +329,7 @@
             <div class="work-box">
               <a href="{{ Storage::url('assets/images/projects/motiongraphics.png') }}" data-gall="portfolioGallery" class="venobox">
                 <div class="work-img">
-                  <img src="{{ Storage::url('assets/images/projects/motiongraphics.png') }}" alt="" class="img-fluid">
+                  <img src="{{ Storage::url('assets/images/projects/motiongraphics.png') }}" alt="" class="img-fluid w-100">
                 </div>
                 <div class="work-content">
                   <div class="row">
