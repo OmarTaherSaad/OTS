@@ -129,6 +129,8 @@ return [
     //GitHub Deployment
     'deploy_secret' => env('GITHUB_DEPLOY_SECRET'),
 
+    'contact_email' => env('CONTACT_EMAIL'),
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
