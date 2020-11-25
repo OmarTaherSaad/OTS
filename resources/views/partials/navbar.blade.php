@@ -27,6 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll" href="#contact">Contact</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('course-registration') }}">Programming Courses</a>
+                </li>
                 @endif
             </ul>
         </div>
