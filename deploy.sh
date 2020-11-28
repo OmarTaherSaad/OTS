@@ -2,9 +2,13 @@
 # activate maintenance mode
 php artisan down
 # update source code
+find . -name "*.gz" -type f -delete
+git checkout deploy
+git fetch origin deploy
+git reset --hard origin/deploy
 git pull
 # update PHP dependencies
-/usr/local/bin/ea-php72 -d memory_limit=-1 /usr/local/bin/composer update
+php -d memory_limit=-1 -d allow_url_fopen=on /opt/cpanel/composer/bin/composer install
 # --no-interaction Do not ask any interactive question
 # --no-dev  Disables installation of require-dev packages.
 # --prefer-dist  Forces installation from package dist even for dev versions.
