@@ -23,6 +23,10 @@ Route::get('about-me', 'MainController@about')->name('aboutMe');
 Route::get('contact', 'MainController@contactForm')->name('contact');
 Route::get('youtube', 'MainController@youtube')->name('youtube');
 Route::get('projects', 'MainController@projects')->name('projects');
+
+//Privacy Policy
+Route::get('/privacy-policy-and-terms', 'MainController@privacyPolicy');
+
 //Route::get('course-registration', 'MainController@course_registration')->name('course-registration');
 Route::get('media-and-interviews', 'MainController@media')->name('media');
 
