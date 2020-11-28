@@ -11,4 +11,3 @@ npm-debug.log
 yarn-error.log
 deploy.sh
 .htaccess
-public/.htaccess
