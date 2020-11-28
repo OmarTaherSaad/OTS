@@ -2,7 +2,6 @@
     <div class="card-body">
         <h3 class="card-title">{{$course->name}}</h3>
         <p class="card-text">
-            <h5>Level: <span class="font-weight-bold">{{ $course->difficulty_for_humans }}</span></h5>
             <h5>Max Attendees: <span class="font-weight-bold">{{ $course->max_attendees }}</span></h5>
             <h5>Duration: <span class="font-weight-bold">{{ $course->duration_for_humans }}</span></h5>
         </p>

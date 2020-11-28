@@ -4,10 +4,7 @@ const CompressionPlugin = require("compression-webpack-plugin");
 
 if (mix.inProduction()) {
     mix.webpackConfig({
-        plugins: [new CompressionPlugin()],
-        output: {
-            publicPath: ""
-        }
+        plugins: [new CompressionPlugin()]
     });
 }
 /*

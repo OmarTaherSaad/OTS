@@ -9,6 +9,8 @@
 @import "variables";
 
 // Bootstrap
+$navbar-dark-toggler-icon-bg: none;
+$navbar-light-toggler-icon-bg: none;
 @import "~bootstrap/scss/bootstrap.scss";
 $enable-responsive-font-sizes: true;
 

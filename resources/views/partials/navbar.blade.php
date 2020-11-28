@@ -10,7 +10,7 @@
             <span></span>
             <span></span>
         </button>
-        <div class="navbar-collapse collapse justify-content-end" id="navbarDefault">
+        <div class="navbar-collapse collapse justify-content-end px-4 px-md-0" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
                     <a class="nav-link js-scroll @if(Request::route()->named('index') || Request::route()->named('home')) active @endif" href="{{ auth()->check() ? route('users.home') : route('index') }}">Home</a>

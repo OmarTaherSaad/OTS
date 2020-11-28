@@ -20,35 +20,28 @@
             @method('PATCH')
             <div class="form-group">
                 <label for="name">Course Name</label>
-                <input type="text" name="name" maxlength="200" class="form-control" value="{{ $course->name }}"
-                    required>
+                <input type="text" name="name" maxlength="200" class="form-control" value="{{ $course->name }}" required>
             </div>
 
             <div class="form-group">
-                <label for="difficulty">Difficulty</label>
-                <select class="form-control" name="difficulty" id="difficulty" required>
-                    <option>Select Difficulty</option>
-                    @foreach ($difficulties as $key => $d)
-                    <option value="{{ $key }}" @if($course->difficulty == $key) selected @endif>{{ $d }}</option>
-                    @endforeach
-                </select>
+              <label for="">Max. Attendees</label>
+              <input type="number" name="max_attendees" class="form-control" min="0"
+                value="{{ $course->max_attendees }}" required>
             </div>
 
             <div class="form-group">
-                <label for="">Max. Attendees</label>
-                <input type="number" name="max_attendees" class="form-control" min="0"
-                    value="{{ $course->max_attendees }}" required>
+                <label for="duration">Duration in Hours</label>
+                <input type="number" name="duration" class="form-control" value="{{ $course->duration }}" required>
             </div>
 
             <div class="form-group">
-                <label for="duration">Duration (HH,mm)</label>
-                <input type="text" name="duration" pattern="^[0-9]+(,?[0-9]{1,2})$" class="form-control"
-                    value="{{ $course->duration->hours . ',' . $course->duration->minutes }}" required>
+                <label for="price">Price in L.E.</label>
+                <input type="number" name="price" class="form-control" value="{{ $course->price }}" required>
             </div>
 
             <div class="form-group">
                 <label>Description</label>
-                <textarea id="textEditor" name="description">{{ $course->description }}</textarea>
+                <textarea id="textEditor" name="description">{!! $course->description !!}</textarea>
             </div>
 
             <div class="form-group">
