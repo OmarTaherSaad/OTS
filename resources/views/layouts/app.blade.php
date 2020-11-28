@@ -62,7 +62,7 @@
     <body id="page-top">
         @include('partials.splash-screen')
         @include('partials.navbar')
-        <div id="app" class="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }}">
+        <div id="app" class="{{ App::isLocale('ar') ? 'rtl' : 'ltr' }} container-fluid @if(Request::route()->named('index')) px-0 @else pt-3 @endif">
             @include('partials.show-alerts')
             @yield('content')
             @include('partials.footer')
@@ -70,6 +70,7 @@
             <div class="modal" id="axiosModal"></div>
         </div>
         <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        <script defer src="https://www.google.com/recaptcha/api.js?render=6Lc447UUAAAAAKUbWbf6jTvZRmxvSOxnKW-VhneB"></script>
         <script src="{{ mix('js/app.js') }}"></script>
         @yield('scripts')
     </body>

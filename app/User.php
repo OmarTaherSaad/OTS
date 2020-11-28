@@ -16,7 +16,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'mobile_number', 'image', 'provider', 'provider_id', 'password', 'additional_data'
+    ];
+
+    public static $roles = [
+        'user', 'admin', 'super_admin'
     ];
 
     /**
@@ -35,5 +39,36 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'additional_data' => 'collection'
     ];
+
+    public function appointments()
+    {
+        return $this->belongsToMany("App\Models\Appointment")->using(\App\Models\AppointmentUser::class)->withPivot(['id', 'invoice_data'])->withTimestamps();
+    }
+
+    public function getRoleNameAttribute()
+    {
+        return \Str::title(str_replace("_", " ", $this->role));
+    }
+
+    public function hasRole($role)
+    {
+        return $this->role == $role;
+    }
+
+    public function isAdmin()
+    {
+        return $this->hasRole('admin') || $this->isSuperAdmin();
+    }
+
+    public function isSuperAdmin()
+    {
+        return $this->hasRole('super_admin');
+    }
+
+    public function getImage($classes = "img-fluid", $size = null)
+    {
+        return '<img alt="' . $this->name . '" src="' . $this->image . '" class="' . $classes . '" ' . (is_null($size) ? '' : 'width="' . $size)  . '" />';
+    }
 }

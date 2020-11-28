@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Register')
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -8,6 +8,10 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
+                    <div class="w-100 m-1 p-1">
+                        @include('partials.social-logins')
+                    </div>
+                    <hr>
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -38,6 +42,19 @@
                                 @enderror
                             </div>
                         </div>
+
+                        <div class="form-group">
+                        <label for="mobile_number">{{ __('Mobile Number') }}</label>
+                        <input id="mobile_number" type="text" pattern="^01[0-9]{9}"
+                            class="form-control @error('mobile_number') is-invalid @enderror" name="mobile_number"
+                            value="{{ old('mobile_number') }}" required>
+                        <small class="form-text text-muted">It should be a valid mobile number (11 numbers starting with 01 & without + sign).</small>
+                        @error('mobile_number')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
 
                         <div class="form-group row">
                             <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>

@@ -1,0 +1,2 @@
+<a href="{{ route('login-providers', ['provider' => 'google']) }}" class="btn btn-primary"><i class="fab fa-google"></i> Login with Google</a>
+                    <a href="{{ route('login-providers', ['provider' => 'facebook']) }}" class="btn btn-primary"><i class="fab fa-facebook"></i> Login with Facebook</a>

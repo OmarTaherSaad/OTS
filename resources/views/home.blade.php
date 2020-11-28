@@ -4,7 +4,6 @@
 <link href="{{ mix('css/home.css') }}" rel="stylesheet">
 @endsection
 @section('content')
-
 <div id="home" class="intro route bg-image"
     style="background-image: url({{ Storage::url('assets/images/BGs/bg4.jpg') }})">
     <div class="overlay-itro"></div>
@@ -21,10 +20,7 @@
         </div>
     </div>
 </div>
-
-<main id="main">
-
-    {{-- About Section --}}
+ {{-- About Section --}}
     <section id="about" class="about-mf sect-pt4 route">
         <div class="container">
             <div class="row">
@@ -487,7 +483,6 @@
     </section>
     {{-- Contact END --}}
 
-</main>
 
 @endsection
 @section('scripts')

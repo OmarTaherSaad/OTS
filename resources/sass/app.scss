@@ -1,15 +1,15 @@
 // Fonts
 @font-face {
-    font-family: 'Nunito', sans-serif;
+    font-family: "Nunito", sans-serif;
     font-display: auto;
-    src: local('Nunito');
+    src: local("Nunito");
 }
 
 // Variables
-@import 'variables';
+@import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap.scss';
+@import "~bootstrap/scss/bootstrap.scss";
 $enable-responsive-font-sizes: true;
 
 //Font Awesome
@@ -33,11 +33,13 @@ body {
     // Margins for navbar & footer
     margin-bottom: 85px !important;
     margin-top: 100px;
+    background-color: whitesmoke;
+
     //Background Image
     .page-overlay {
-        background-image: url('/storage/assets/images/BGs/background.jpg');
+        background-image: url("/storage/assets/images/BGs/background.jpg");
         background-size: cover;
-        background-color: #CCC;
+        background-color: #ccc;
         position: fixed;
         top: 0px;
         left: 0px;
@@ -87,6 +89,7 @@ figure {
         margin-top: 100px;
     }
 }
+
 @media screen and (min-width: 767.99px) {
     .alert {
         margin-top: 10px;
@@ -102,7 +105,7 @@ figure {
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba(255, 255, 255, .8) url('./images/ajax-loader.gif') 50% 50% no-repeat;
+    background: rgba(255, 255, 255, 0.8) url("./images/ajax-loader.gif") 50% 50% no-repeat;
 }
 
 /* When the body has the loading class, we turn the scrollbar off with overflow:hidden */
@@ -110,4 +113,326 @@ figure {
 body.loading #axiosModal {
     overflow: hidden;
     display: block;
+}
+
+/*--------------------------------------------------------------
+# Nav Bar
+--------------------------------------------------------------*/
+
+.navbar-b {
+    transition: all .5s ease-in-out;
+    background-color: transparent;
+    padding-top: 1.563rem;
+    padding-bottom: 1.563rem;
+
+    &.navbar-reduce {
+        box-shadow: 0px 6px 9px 0px rgba(0, 0, 0, 0.06);
+    }
+
+    &.navbar-trans .nav-item,
+    &.navbar-reduce .nav-item {
+        position: relative;
+        padding-right: 10px;
+        padding-left: 0;
+    }
+
+    &.navbar-trans .nav-link,
+    &.navbar-reduce .nav-link {
+        text-transform: uppercase;
+        font-weight: 600;
+    }
+
+    &.navbar-trans .nav-link:before,
+    &.navbar-reduce .nav-link:before {
+        content: '';
+        position: absolute;
+        margin-left: 0px;
+        width: 0%;
+        bottom: 0;
+        left: 0;
+        height: 2px;
+        transition: all 500ms ease;
+    }
+
+    &.navbar-trans .nav-link:hover,
+    &.navbar-reduce .nav-link:hover {
+        color: #1B1B1B;
+    }
+
+    &.navbar-trans .nav-link:hover:before,
+    &.navbar-reduce .nav-link:hover:before {
+        width: 35px;
+    }
+
+    &.navbar-trans {
+
+        .show>.nav-link:before,
+        .active>.nav-link:before {
+            width: 35px;
+        }
+
+        .nav-link {
+
+            &.show:before,
+            &.active:before {
+                width: 35px;
+            }
+        }
+    }
+
+    &.navbar-reduce {
+
+        .show>.nav-link:before,
+        .active>.nav-link:before {
+            width: 35px;
+        }
+
+        .nav-link {
+
+            &.show:before,
+            &.active:before {
+                width: 35px;
+            }
+        }
+    }
+
+    &.navbar-trans {
+        .nav-link {
+            &:before {
+                background-color: #fff;
+            }
+        }
+
+        .show>.nav-link,
+        .active>.nav-link {
+            color: #fff;
+        }
+
+        .nav-link {
+
+            &.show {
+                color: #fff;
+            }
+        }
+    }
+
+    &.navbar-reduce {
+        transition: all .5s ease-in-out;
+        background-color: #fff;
+        padding: 0;
+
+        .nav-link {
+            color: #0078ff;
+
+            &:before {
+                background-color: #0078ff;
+            }
+
+            &:hover {
+                color: #0078ff;
+            }
+        }
+
+        .show>.nav-link,
+        .active>.nav-link {
+            color: #0078ff;
+        }
+
+        .nav-link {
+
+            &.show,
+            &.active {
+                color: #0078ff;
+            }
+        }
+
+        .navbar-brand {
+            color: #0078ff;
+        }
+
+        .navbar-toggler span {
+            background-color: #1B1B1B;
+        }
+    }
+
+    .navbar-brand {
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 600;
+    }
+
+    .navbar-nav .dropdown-item.show .dropdown-menu,
+    .dropdown.show .dropdown-menu,
+    .dropdown-btn.show .dropdown-menu {
+        transform: translate3d(0px, 0px, 0px);
+        visibility: visible !important;
+    }
+
+    .dropdown-menu {
+        margin: 1.12rem 0 0;
+        border-radius: 0;
+
+        .dropdown-item {
+            padding: .7rem 1.7rem;
+            transition: all 500ms ease;
+
+            &:hover {
+                background-color: #0078ff;
+                color: #fff;
+                transition: all 500ms ease;
+            }
+
+            &.active {
+                background-color: #0078ff;
+            }
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-b {
+
+        &.navbar-trans .nav-item,
+        &.navbar-reduce .nav-item {
+            padding-left: 10px;
+        }
+    }
+}
+
+@media (min-width: 768px) {
+    .navbar-b {
+
+        &.navbar-trans .nav-link:before,
+        &.navbar-reduce .nav-link:before {
+            margin-left: 18px;
+        }
+    }
+}
+
+/*--/ Hamburger Navbar /--*/
+
+.navbar-toggler {
+    position: relative;
+
+    &:focus,
+    &:active {
+        outline: 0;
+    }
+
+    span {
+        display: block;
+        background-color: #fff;
+        height: 3px;
+        width: 25px;
+        margin-top: 4px;
+        margin-bottom: 4px;
+        transform: rotate(0deg);
+        left: 0;
+        opacity: 1;
+
+        &:nth-child(1),
+        &:nth-child(3) {
+            transition: transform .35s ease-in-out;
+        }
+    }
+
+    &:not(.collapsed) span {
+        &:nth-child(1) {
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            transform: rotate(135deg);
+            opacity: 0.9;
+        }
+
+        &:nth-child(2) {
+            height: 12px;
+            visibility: hidden;
+            background-color: transparent;
+        }
+
+        &:nth-child(3) {
+            position: absolute;
+            left: 12px;
+            top: 10px;
+            transform: rotate(-135deg);
+            opacity: 0.9;
+        }
+    }
+}
+
+/*------/ Back to top button /------*/
+
+.back-to-top {
+    position: fixed;
+    display: none;
+    background: #0078ff;
+    color: #fff;
+    width: 44px;
+    height: 44px;
+    text-align: center;
+    line-height: 1;
+    font-size: 16px;
+    border-radius: 50%;
+    right: 15px;
+    bottom: 15px;
+    transition: background 0.5s;
+    z-index: 11;
+
+    i {
+        padding-top: 12px;
+        color: #fff;
+    }
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 15px;
+    }
+}
+
+/*------/ Prelaoder /------*/
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    overflow: hidden;
+    background: #fff;
+
+    &:before {
+        content: "";
+        position: fixed;
+        top: calc(50% - 30px);
+        left: calc(50% - 30px);
+        border: 6px solid #f2f2f2;
+        border-top: 6px solid #0078ff;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+        -webkit-animation: animate-splash-screen 1s linear infinite;
+        animation: animate-splash-screen 1s linear infinite;
+    }
+}
+
+@-webkit-keyframes animate-splash-screen {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animate-splash-screen {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
 }

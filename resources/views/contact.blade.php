@@ -95,6 +95,5 @@
 @endsection
 
 @section('scripts')
-<script defer src="https://www.google.com/recaptcha/api.js?render=6Lc447UUAAAAAKUbWbf6jTvZRmxvSOxnKW-VhneB"></script>
 <script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
 @endsection

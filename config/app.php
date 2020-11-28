@@ -131,6 +131,8 @@ return [
 
     'contact_email' => env('CONTACT_EMAIL'),
 
+    'pagination_max' => 20,
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -233,6 +235,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => niklasravnsborg\LaravelPdf\Facades\Pdf::class
 
     ],
 

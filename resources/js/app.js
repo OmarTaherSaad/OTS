@@ -4,30 +4,35 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require('./bootstrap');
+require("./bootstrap");
 
-axios.interceptors.request.use(function (config) {
-    //Before request start: show loading
-    document.body.classList.add('loading');
-    return config;
-}, function (error) {
-    alert("Something went wrong :/ Please, Try again later.");
-    document.body.classList.remove('loading');
-    return Promise.reject(error);
-});
-axios.interceptors.response.use(function (response) {
-    //After request is done: hide loading
-    document.body.classList.remove('loading');
-    return response;
-}, function (error) {
-    alert("Something went wrong :/ Please, Try again later.");
-    document.body.classList.remove('loading');
-    return Promise.reject(error);
-});
+axios.interceptors.request.use(
+    function(config) {
+        //Before request start: show loading
+        document.body.classList.add("loading");
+        return config;
+    },
+    function(error) {
+        alert("Something went wrong :/ Please, Try again later.");
+        document.body.classList.remove("loading");
+        return Promise.reject(error);
+    }
+);
+axios.interceptors.response.use(
+    function(response) {
+        //After request is done: hide loading
+        document.body.classList.remove("loading");
+        return response;
+    },
+    function(error) {
+        alert("Something went wrong :/ Please, Try again later.");
+        document.body.classList.remove("loading");
+        return Promise.reject(error);
+    }
+);
 
-import 'progressive-image.js/dist/progressive-image.js';
-import 'progressive-image.js/dist/progressive-image.css';
-
+import "progressive-image.js/dist/progressive-image.js";
+import "progressive-image.js/dist/progressive-image.css";
 
 // Preloader
 $(window).on("load", function() {

@@ -1,14 +1,15 @@
 {
-    "/js/about.js": "/js/about.js?id=5b9f40c7bcd997dfee07",
-    "/js/app.js": "/js/app.js?id=7b443b01c97c4fc5767b",
-    "/css/bootstrapAR.css": "/css/bootstrapAR.css?id=74a2e854928ef3e7ff00",
-    "/css/splashscreen.css": "/css/splashscreen.css?id=066796b34fcefbab6665",
-    "/css/about.css": "/css/about.css?id=5fd36dff46514d76e4fb",
-    "/css/forms.css": "/css/forms.css?id=8ad0cbd9d6ad0b21e91f",
-    "/css/app.css": "/css/app.css?id=d3087df2d3ce5575a0aa",
-    "/css/home.css": "/css/home.css?id=085f96b8348ae2a021a0",
-    "/css/sidebar.css": "/css/sidebar.css?id=f218779670f61a32d407",
-    "/js/forms.js": "/js/forms.js?id=0c3f4040fc3f9caae09e",
-    "/js/home.js": "/js/home.js?id=31e80e20ed4711daead9",
-    "/js/physicsClasses.js": "/js/physicsClasses.js?id=993b68e12b12a0401a66"
+    "/js/about.js": "/js/about.js?id=4052c9767862fe19aefe",
+    "/js/app.js": "/js/app.js?id=8f4dcc5eb696c49535fa",
+    "/css/bootstrapAR.css": "/css/bootstrapAR.css?id=92ee296df593c0aceb8c",
+    "/css/splashscreen.css": "/css/splashscreen.css?id=5026ffb22f1406213b94",
+    "/css/about.css": "/css/about.css?id=ad2e74a425c7de1fd16f",
+    "/css/forms.css": "/css/forms.css?id=5a63cb5ce569e6949c60",
+    "/css/app.css": "/css/app.css?id=d948132e9450d24ae1fe",
+    "/css/home.css": "/css/home.css?id=50b7240601a372feaec4",
+    "/css/appointment-entrance-card.css": "/css/appointment-entrance-card.css?id=d5f136e6e1321b61d321",
+    "/css/sidebar.css": "/css/sidebar.css?id=6390ef9e866f0554e9e1",
+    "/js/forms.js": "/js/forms.js?id=d7393d941406a3d71676",
+    "/js/home.js": "/js/home.js?id=812c8159a2304de5a898",
+    "/js/physicsClasses.js": "/js/physicsClasses.js?id=df8b4ee53a61e0220dcf"
 }

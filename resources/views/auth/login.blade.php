@@ -8,6 +8,10 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
+                    <div class="w-100 m-1 p-1">
+                        @include('partials.social-logins')
+                    </div>
+                    <hr>
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 

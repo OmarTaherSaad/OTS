@@ -11,9 +11,14 @@
         "php": "^7.2",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.0",
+        "laravel/socialite": "^5.1",
         "laravel/tinker": "^1.0",
         "laravel/ui": "^1.0",
-        "renatomarinho/laravel-page-speed": "^1.8"
+        "niklasravnsborg/laravel-pdf": "^4.0",
+        "renatomarinho/laravel-page-speed": "^1.8",
+        "simplesoftwareio/simple-qrcode": "^4.1",
+        "socialiteproviders/facebook": "^4.0",
+        "socialiteproviders/google": "^4.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
