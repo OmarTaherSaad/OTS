@@ -15,7 +15,7 @@
                 <li class="nav-item">
                     <a class="nav-link js-scroll @if(Request::route()->named('index') || Request::route()->named('home')) active @endif" href="{{ auth()->check() ? route('users.home') : route('index') }}">Home</a>
                 </li>
-                @if(auth()->user()->isAdmin())
+                @if(auth()->check() && auth()->user()->isAdmin())
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
                 </li>
