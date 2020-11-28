@@ -14,7 +14,7 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware('role:admin')->except(['index', 'show']);
+        $this->middleware('role:admin')->except(['index', 'show','appointments_view']);
         $this->authorizeResource(Course::class);
     }
     /**
@@ -81,15 +81,7 @@ class CourseController extends Controller
      */
     public function update(CreateCourseRequest $request, Course $course)
     {
-        $data = $request->all();
-        $temp = str_getcsv($data['duration']);
-        $temp = CarbonInterval::hours($temp[0])->minutes($temp[1]);
-        $data['duration'] = $temp->forHumans();
-        $course->update($data);
-        //Store Image
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $course->addMediaFromRequest('image')->withResponsiveImages()->toMediaCollection('courses');
-        }
+        $course->update($request->all());
         session()->flash('success', 'Course Updated Successfully!');
         return redirect()->route('course.index');
     }

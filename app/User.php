@@ -44,7 +44,7 @@ class User extends Authenticatable
 
     public function appointments()
     {
-        return $this->belongsToMany("App\Models\Appointment")->using(\App\Models\AppointmentUser::class)->withPivot(['id', 'invoice_data'])->withTimestamps();
+        return $this->belongsToMany("App\Models\Appointment")->using(\App\Models\AppointmentUser::class)->withPivot(['id', 'paid', 'invoice_data'])->withTimestamps();
     }
 
     public function getRoleNameAttribute()

@@ -31,7 +31,7 @@
 
             <div class="form-group">
                 <label for="duration">Duration in Hours</label>
-                <input type="number" name="duration" class="form-control" value="{{ $course->duration }}" required>
+                <input type="number" name="duration" class="form-control" value="{{ $course->duration->totalHours }}" required>
             </div>
 
             <div class="form-group">

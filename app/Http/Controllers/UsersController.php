@@ -38,6 +38,11 @@ class UsersController extends Controller
 
     public function courses_wait(User $user, Appointment $appointment)
     {
+        if ($user->appointments->find($appointment->id)->pivot->paid)
+        {
+            session()->flash('success','You have successfully paid!');
+            return redirect()->route('users.courses', ['user' => $user]);
+        }
         return view('users.waiting-payment', ['user' => $user, 'appointment' => $appointment]);
     }
     /**
