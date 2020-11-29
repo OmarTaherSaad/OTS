@@ -11,6 +11,11 @@ use Illuminate\Http\Request;
 
 class AppointmentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show', 'entrance_qr']);
+        $this->authorizeResource(Appointment::class);
+    }
     /**
      * Display a listing of the resource.
      *
