@@ -13,6 +13,7 @@
 
 /* Set Locale */
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 Route::get('lang/{locale}', 'MainController@langChange')->name('languageChange');
@@ -60,6 +61,7 @@ Route::name('users.')->group(function () {
 Route::prefix('admin')->middleware('role:admin')->name('admin.')->group(function () {
     Route::get('users', 'AdminController@users')->name('users');
     Route::get('dashboard', 'AdminController@dashboard')->name('dashboard');
+    Route::get('entrance', 'AdminController@entrance')->name('entrance');
     Route::get('finalize-payments', 'AdminController@finalize_payments')->name('finalize-payments');
     Route::post('finalize-payments/{appointment_user}', 'AdminController@finalize_payments_action')->name('finalize-payments-action');
 });
@@ -77,5 +79,6 @@ Route::get('appointment-entrance-card/{AppointUser}', 'AppointmentController@ent
 Route::prefix('helpdesk')->middleware('role:training_academy_helpdesk')->name('helpdesk.')->group(function () {
     Route::get('dashboard', 'HelpdeskController@dashboard')->name('dashboard');
     Route::get('appointment-entrance-scan', 'HelpdeskController@entrance_card_scanner')->name('entrance-card-scanner');
-    Route::post('appointment-entrance-scan/{appointmentUser}', 'HelpdeskController@entrance_card_enter')->name('entrance-card-enter');
+    Route::post('appointment-entrance-scan/{appointmentUser}', 'HelpdeskController@entrance_card_scanned')->name('entrance-card-scanned');
+    Route::post('appointment-entrance-scan/{appointmentUser}/enter', 'HelpdeskController@entrance_card_enter')->name('entrance-card-enter');
 });

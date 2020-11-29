@@ -14,20 +14,20 @@
             <h1>{{ $course->name }}</h1>
             <h4>Duration: {{ $course->duration_for_humans }}</h4>
             <h4>price: {{ $course->price_for_humans }}</h4>
+            <hr>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 text-center">
+            <a href="{{ route("course.appointments", $course) }}" class="btn btn-primary">Enroll</a>
         </div>
     </div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 content">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-10">
-                    <h2>Description</h2>
-                    <hr>
-                    <p>
-                        {!! $course->description !!}
-                    </p>
-                    <hr>
-                </div>
-            </div>
+            <p>
+                {!! $course->description !!}
+            </p>
+            <hr>
         </div>
     </div>
     <div class="row justify-content-center">

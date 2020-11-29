@@ -18,6 +18,11 @@ class AdminController extends Controller
         return view('admins.dashboard');
     }
 
+    public function entrance()
+    {
+        return view('admins.dashboard');
+    }
+
     public function users()
     {
         return view('users.index', ['users' => User::paginate(config('app.pagination_max'))]);

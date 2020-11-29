@@ -9,7 +9,7 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 class AppointmentUser extends Pivot
 {
     protected $fillable = [
-        'invoice_data', 'paid'
+        'invoice_data', 'paid', 'entrance_count'
     ];
 
     public function appointment()
@@ -30,7 +30,7 @@ class AppointmentUser extends Pivot
     public function getQR()
     {
         try {
-            $svgImage = QrCode::size("250")->eye("circle")->generate(route('helpdesk.entrance-card-enter', ['appointmentUser' => $this]));
+            $svgImage = QrCode::size("250")->eye("circle")->generate(route('helpdesk.entrance-card-scanned', ['appointmentUser' => $this]));
         } catch (\Throwable $th) {
             return $this->id;
         }

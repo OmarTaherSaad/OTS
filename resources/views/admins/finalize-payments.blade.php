@@ -16,8 +16,9 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-10 col-lg-8">
-        <table class="table table-bordered">
+    <div class="col-12">
+        <div class="table-responsive">
+            <table class="table table-bordered">
             <thead class="thead-inverse">
                 <tr>
                     <th>Course</th>
@@ -50,7 +51,7 @@
                     <td>
                         <form action="{{ route('admin.finalize-payments-action', ['appointment_user' => $appointment]) }}" onsubmit="return confirm('Are you sure that {{ $appointment->user->name }} paid for the course {{ $appointment->appointment->course->name }}');" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-info">Save that User Paid Already</button>
+                            <button type="submit" class="btn btn-info">User Paid</button>
                         </form>
                         <a href="{{ route('entrance-card', ['AppointUser' => $appointment]) }}"
                             class="btn btn-secondary">Entrance
@@ -59,11 +60,12 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="6">No Upcoming Appointments.</td>
+                    <td colspan="9">No Upcoming Appointments.</td>
                 </tr>
                 @endforelse
             </tbody>
         </table>
+        </div>
     </div>
 </div>
 @endsection

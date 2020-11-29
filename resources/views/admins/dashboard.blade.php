@@ -30,6 +30,10 @@
             {{-- Finalize Payments--}}
             <a class="btn btn-primary" href="{{ route('admin.finalize-payments') }}">Finalize Payments</a>
         </div>
+        <div class="col-auto my-1">
+            {{-- Entrance--}}
+            <a class="btn btn-primary" href="{{ route('helpdesk.entrance-card-scanner') }}">Entrance</a>
+        </div>
     </div>
 </div>
 @endsection
