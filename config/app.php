@@ -133,6 +133,8 @@ return [
 
     'pagination_max' => 20,
 
+    'log' => 'errorlog',
+
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
