@@ -27,6 +27,14 @@
             <a class="btn btn-primary" href="{{ route('admin.users') }}">Users</a>
         </div>
         <div class="col-auto my-1">
+            {{--View all courses--}}
+            <a class="btn btn-primary" href="{{ route('course.index') }}">Courses</a>
+        </div>
+        <div class="col-auto my-1">
+            {{--View all appointments--}}
+            <a class="btn btn-primary" href="{{ route('appointment.index') }}">Appointments</a>
+        </div>
+        <div class="col-auto my-1">
             {{-- Finalize Payments--}}
             <a class="btn btn-primary" href="{{ route('admin.finalize-payments') }}">Finalize Payments</a>
         </div>
