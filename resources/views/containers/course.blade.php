@@ -6,6 +6,7 @@
             <h5>Duration: <span class="font-weight-bold">{{ $course->duration_for_humans }}</span></h5>
         </p>
         <a href="{{ $course->getLinkToView() }}" class="btn btn-primary">View</a>
+        <a href="{{ $course->getLinkToEnroll() }}" class="btn btn-success">Enroll</a>
         @can('update', $course)
         <a href="{{ $course->getLinkToEdit() }}" class="btn btn-secondary">Edit</a>
         @endcan

@@ -1,12 +1,21 @@
 <div class="card">
     <div class="card-body">
-        <h3 class="card-title">Course: {{ $appointment->course->name }}</h3>
+        <h2 class="card-title">Course: {{ $appointment->course->name }}</h2>
         <p class="card-text">
-            <h5>Ends at:{{$appointment->end_for_humans}}</h5>
-            <h5>Starts at: {{$appointment->start_for_humans}}</h5>
-            <span class="font-weight-bold">{!! \Str::limit($appointment->schedule, 50) !!}</span>
+            <h4>Ends at:{{$appointment->end_for_humans}}</h4>
+            <h4>Starts at: {{$appointment->start_for_humans}}</h4>
+            <hr>
+            <h5 class="font-weight-bold">{!! $appointment->schedule !!}</h5>
+            <hr>
+            <h6>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                {{ $appointment->location }}
+                @if(!is_null($appointment->location_link))
+                    <a href="{!! $appointment->location_link !!}">(Open Link)</a>
+                @endif
+            </h5>
         </p>
-        <a href="{{ $appointment->getLinkToView() }}" class="btn btn-primary">View</a>
+        <a href="{{ route('course.enroll', $appointment) }}" class="btn btn-success">Enroll</a>
         @can('update', $appointment)
         <a href="{{ $appointment->getLinkToEdit() }}" class="btn btn-secondary">Edit</a>
         @endcan

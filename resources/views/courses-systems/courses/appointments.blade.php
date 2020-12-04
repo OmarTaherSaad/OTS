@@ -9,52 +9,13 @@
         @endif
     </div>
 </div>
-<div class="row justify-content-center">
-    <div class="col-12 col-lg-10">
-        <table class="table table-bordered">
-            <thead class="thead-inverse">
-                <tr>
-                    <th>Starts at</th>
-                    <th>Ends at</th>
-                    <th>Schedule</th>
-                    <th>Location</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse( $appointments as $appointment )
-                <tr>
-                    <td>{{ $appointment->start_for_humans }}</td>
-                    <td>{{ $appointment->end_for_humans }}</td>
-                    <td>{!! \Str::limit($appointment->schedule, 50) !!}</td>
-                    <td>
-                        {{ $appointment->location }}
-                        @if(!is_null($appointment->location_link))
-                        <a href="{!! $appointment->location_link !!}" class="btn btn-info">Open</a>
-                        @endif
-                    </td>
-                    <td>
-                        <a href="{{ route('course.enroll', $appointment) }}" class="btn btn-success">Enroll in this Appointment</a>
-                        @can('update', $appointment)
-                        <a href="{{ $appointment->getLinkToEdit() }}" class="btn btn-secondary">Edit</a>
-                        @endcan
-                        @can('delete', $appointment)
-                        <form method="POST" action="{{ $appointment->getLinkToDelete() }}" class="form-inline"
-                            onsubmit="return confirm('Are you sure you want to delete {{ $appointment->name }} ?');">
-                            @csrf
-                            @method('DELETE')
-                            <input type="submit" class="btn btn-danger" value="Delete" />
-                        </form>
-                        @endcan
-                    </td>
-                </tr>
-                @empty
-                <tr>
-                    <td colspan="5">No Appointments.</td>
-                </tr>
-                @endforelse
-            </tbody>
-        </table>
+<div class="row justify-content-center my-2">
+    @forelse( $appointments as $appointment )
+    <div class="col-6 col-md-4 col-lg-3">
+        @include('containers.appointment')
     </div>
+    @empty
+    <h4>No Appointments are available now.</h4>
+    @endforelse
 </div>
 @endsection

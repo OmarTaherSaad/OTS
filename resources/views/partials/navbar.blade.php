@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-b navbar-trans"
     id="navbar">
-    <div class="container">
+    <div class="container-fluid px-0">
         <a class="navbar-brand js-scroll" @if(Request::route()->named('index')) href="#page-top" @else href="{{ route('index') }}" @endif>
             <img class="img-fluid" src="{{ Storage::url('assets/images/logo.png') }}" alt="OTS">
         </a>
@@ -37,6 +37,9 @@
                     <a class="nav-link js-scroll" href="#contact">Contact</a>
                 </li>
                 @endif
+                <li class="nav-item @if(Request::route()->named('course.index')) active @endif">
+                    <a class="nav-link" href="{{ route('course.index') }}">All Courses</a>
+                </li>
                 @include('partials.auth-for-nav')
                 {{-- <li class="nav-item @if(Route::currentRouteName() == " course-registration") active @endif">
                     <a class="nav-link" href="{{ route('course-registration') }}">Programming Courses</a>

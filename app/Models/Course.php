@@ -34,6 +34,10 @@ class Course extends Model
     {
         return route('course.destroy', ['course' => $this]);
     }
+    public function getLinkToEnroll()
+    {
+        return route("course.appointments", ['course' => $this]);
+    }
 
     public function getLinkToManageAppointment()
     {

@@ -32,7 +32,7 @@
     </div>
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 text-center">
-            <a href="{{ route("course.appointments", $course) }}" class="btn btn-primary">Enroll</a>
+            <a href="{{ $course->getLinkToEnroll() }}" class="btn btn-primary">Enroll</a>
         </div>
     </div>
 </section>
