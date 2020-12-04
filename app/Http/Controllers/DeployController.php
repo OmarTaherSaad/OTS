@@ -14,7 +14,7 @@ class DeployController extends Controller
         $localToken = config('app.deploy_secret');
         $localHash = 'sha1=' . hash_hmac('sha1', $githubPayload, $localToken, false);
         if (hash_equals($githubHash, $localHash)) {
-            $process = new Process('cd ~/thanawyahelwa.org; ./deploy.sh');
+            $process = new Process('cd ~/public_html; ./deploy.sh');
             $process->run(function ($type, $buffer) {
                 echo $buffer;
             });
