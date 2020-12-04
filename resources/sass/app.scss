@@ -256,6 +256,8 @@ body.loading #axiosModal {
 
     .dropdown-menu {
         margin: 1.12rem 0 0;
+        left: unset;
+        right: 0;
         border-radius: 0;
 
         .dropdown-item {

@@ -36,6 +36,7 @@
                     <th>Starts at</th>
                     <th>Ends at</th>
                     <th>Schedule</th>
+                    <th>Max. Attendees</th>
                     <th>Location</th>
                     <th>Actions</th>
                 </tr>
@@ -46,7 +47,8 @@
                     <td>{{ $appointment->course->name }}</td>
                     <td>{{ $appointment->start_for_humans }}</td>
                     <td>{{ $appointment->end_for_humans }}</td>
-                    <td>{!! \Str::limit($appointment->schedule, 50) !!}</td>
+                    <td>{!! $appointment->schedule !!}</td>
+                    <td>{{ $appointment->max_attendees }}</td>
                     <td>
                         {{ $appointment->location }}
                         @if(!is_null($appointment->location_link))

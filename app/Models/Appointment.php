@@ -64,6 +64,11 @@ class Appointment extends Model
         //return route('cart.course-setup', ['appointment' => $this]);
     }
 
+    public function remainingSeats()
+    {
+        return $this->max_attendees - $this->users()->count();
+    }
+
     public function hasEmptyPlace()
     {
         return $this->users()->count() < $this->max_attendees;

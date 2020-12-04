@@ -11,7 +11,7 @@
 </div>
 <div class="row justify-content-center my-2">
     @forelse( $appointments as $appointment )
-    <div class="col-6 col-md-4 col-lg-3">
+    <div class="col-6 col">
         @include('containers.appointment')
     </div>
     @empty
