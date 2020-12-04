@@ -2,8 +2,8 @@
     <div class="card-body">
         <h2 class="card-title">Course: {{ $appointment->course->name }}</h2>
         <p class="card-text">
-            <h4>Ends at:{{$appointment->end_for_humans}}</h4>
             <h4>Starts at: {{$appointment->start_for_humans}}</h4>
+            <h4>Ends at:{{$appointment->end_for_humans}}</h4>
             <hr>
             <h5 class="font-weight-bold">{!! $appointment->schedule !!}</h5>
             <hr>
