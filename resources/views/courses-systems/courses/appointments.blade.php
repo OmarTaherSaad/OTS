@@ -9,8 +9,8 @@
         @endif
     </div>
 </div>
-<div class="row">
-    <div class="col-10">
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10">
         <table class="table table-bordered">
             <thead class="thead-inverse">
                 <tr>
@@ -24,8 +24,8 @@
             <tbody>
                 @forelse( $appointments as $appointment )
                 <tr>
-                    <td>{{ $appointment->end_for_humans }}</td>
                     <td>{{ $appointment->start_for_humans }}</td>
+                    <td>{{ $appointment->end_for_humans }}</td>
                     <td>{!! \Str::limit($appointment->schedule, 50) !!}</td>
                     <td>
                         {{ $appointment->location }}

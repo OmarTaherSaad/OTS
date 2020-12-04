@@ -28,7 +28,7 @@
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
     </div>
-    <div class="col-10 col-lg-8">
+    <div class="col-12 col-lg-10">
         <table class="table table-bordered">
             <thead class="thead-inverse">
                 <tr>
@@ -44,8 +44,8 @@
                 @forelse( $appointments as $appointment )
                 <tr>
                     <td>{{ $appointment->course->name }}</td>
-                    <td>{{ $appointment->end_for_humans }}</td>
                     <td>{{ $appointment->start_for_humans }}</td>
+                    <td>{{ $appointment->end_for_humans }}</td>
                     <td>{!! \Str::limit($appointment->schedule, 50) !!}</td>
                     <td>
                         {{ $appointment->location }}
