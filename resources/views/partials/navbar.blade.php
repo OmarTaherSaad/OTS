@@ -16,8 +16,11 @@
                     <a class="nav-link js-scroll @if(Request::route()->named('index') || Request::route()->named('home')) active @endif" href="{{ auth()->check() ? route('users.home') : route('index') }}">Home</a>
                 </li>
                 @if(auth()->check() && auth()->user()->isAdmin())
-                <li class="nav-item">
+                <li class="nav-item @if(Request::route()->named('admin.dashboard')) active @endif">
                     <a class="nav-link" href="{{ route('admin.dashboard') }}">Admin Dashboard</a>
+                </li>
+                <li class="nav-item @if(Request::route()->named('admin.users')) active @endif">
+                    <a class="nav-link" href="{{ route('admin.users') }}">All Users</a>
                 </li>
                 @endif
                 @if(Request::route()->named('index'))

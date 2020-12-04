@@ -69,7 +69,7 @@ class LoginController extends Controller
                 'provider'      => $provider,
             ]);
         }
-        Auth::login($user);
+        Auth::login($user, true);
         return redirect()->route('users.home');
     }
 

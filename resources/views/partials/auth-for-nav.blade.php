@@ -3,6 +3,9 @@
 <li class="nav-item {{ Route::currentRouteName() == 'login' ? 'active' : '' }}">
     <a class="nav-link" href="{{ route('login') }}">Log In</a>
 </li>
+<li class="nav-item {{ Route::currentRouteName() == 'register' ? 'active' : '' }}">
+    <a class="nav-link" href="{{ route('register') }}">Register</a>
+</li>
 @else
 <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

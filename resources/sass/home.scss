@@ -160,7 +160,9 @@ a {
 .navbar-b {
 
     &.navbar-trans .nav-link {
-        color: #fff;
+        @media (min-width: 768px) {
+            color: #fff;
+        }
     }
 }
 
