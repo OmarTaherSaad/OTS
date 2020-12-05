@@ -14,7 +14,7 @@ class CourseController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware('role:admin')->except(['index', 'show','appointments_view']);
+        $this->middleware('role:admin')->except(['index', 'show', 'appointments_view']);
         $this->authorizeResource(Course::class);
     }
     /**
@@ -58,7 +58,10 @@ class CourseController extends Controller
      */
     public function show(Course $course)
     {
-        return view('courses-systems.courses.show', compact('course'));
+        $appointments = $course->appointments->filter(function ($appointment) {
+            return $appointment->hasEmptyPlace();
+        });
+        return view('courses-systems.courses.show', compact('course'))->with(compact('appointments'));
     }
 
     /**
