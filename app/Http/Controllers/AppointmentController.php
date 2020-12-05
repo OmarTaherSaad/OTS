@@ -13,7 +13,6 @@ class AppointmentController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show', 'entrance_qr']);
         $this->authorizeResource(Appointment::class);
     }
     /**
@@ -110,11 +109,6 @@ class AppointmentController extends Controller
     public function entrance_card(AppointmentUser $AppointUser)
     {
         return $AppointUser->getEntranceCard();
-    }
-
-    public function entrance_qr(AppointmentUser $appointment_user)
-    {
-        return $appointment_user->getEntranceCard();
     }
 
     public function enroll(Appointment $appointment)

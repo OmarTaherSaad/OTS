@@ -13,8 +13,6 @@ class CourseController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware('role:admin')->except(['index', 'show', 'appointments_view']);
         $this->authorizeResource(Course::class);
     }
     /**

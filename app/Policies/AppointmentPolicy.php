@@ -22,7 +22,7 @@ class AppointmentPolicy
      * @param  \App\User  $user
      * @return mixed
      */
-    public function viewAny(User $user)
+    public function viewAny(?User $user)
     {
         return true;
     }
@@ -34,7 +34,7 @@ class AppointmentPolicy
      * @param  \App\Models\ATA\Appointment  $appointment
      * @return mixed
      */
-    public function view(User $user, Appointment $appointment)
+    public function view(?User $user, Appointment $appointment)
     {
         return true;
     }

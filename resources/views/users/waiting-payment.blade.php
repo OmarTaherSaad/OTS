@@ -31,7 +31,7 @@
                         <br>
                         Transfer {{ $appointment->course->price_for_humans }} to the number <h2 class="font-weight-bold">+2010 1183 6776</h2>
                     </h3>
-                    <h3>then send a WhatsApp message to the same number, with your registered Email Address ({{ $user->email }}).</h3>
+                    <h3>then send a WhatsApp message to the same number, with your registered Email Address ({{ auth()->user()->email }}).</h3>
                     <h6>One of our team will update your payment status within 1-2 days, and your entrance card will be available to you.</h6>
                 </div>
             </div>

@@ -70,7 +70,7 @@ class LoginController extends Controller
             ]);
         }
         Auth::login($user, true);
-        return redirect()->route('users.home');
+        return redirect()->intended(route('users.home'));
     }
 
     public function AbortInvalidProviders($provider)

@@ -33,7 +33,7 @@
     <div class="row" id="appointments">
         <div class="col-12 text-center">
             <h2>Available appointments for {{ $course->name }}</h2>
-            @if(auth()->user()->isAdmin())
+            @if(auth()->check() && auth()->user()->isAdmin())
             <a href="{{ route('appointment.create') }}" class="btn btn-primary">Create Appointment</a>
             @endif
         </div>
