@@ -3,7 +3,7 @@
 @section('content')
 <div class="row justify-content-center text-center mt-5">
     <div class="col-12 col-6">
-        <h1>Courses of ATA</h1>
+        <h1>Courses of OTS</h1>
         @auth
             @if(auth()->user()->isAdmin())
             <a href="{{ route('course.create') }}" class="btn btn-primary">Add Course</a>

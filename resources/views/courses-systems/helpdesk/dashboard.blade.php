@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title','ATA Helpdesk Panel')
+@section('title','OTS Helpdesk Panel')
 @section('head')
 <style>
     .btn {
@@ -15,7 +15,7 @@
 <div class="m-2">
     <div class="row mt-2">
         <div class="col-12 col-md-8">
-            <h2>AGECS ATA Helpdesk Panel</h2>
+            <h2>AGECS OTS Helpdesk Panel</h2>
         </div>
     </div>
     <div class="row">
