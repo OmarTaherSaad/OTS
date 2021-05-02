@@ -136,8 +136,8 @@ class MainController extends Controller
     {
         return view("programming-course-registration");
     }
-    
-     public function privacyPolicy()
+
+    public function privacyPolicy()
     {
         return view('privacy-policy');
     }

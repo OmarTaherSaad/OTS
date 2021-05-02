@@ -2,7 +2,8 @@ const mix = require("laravel-mix");
 
 const CompressionPlugin = require("compression-webpack-plugin");
 
-if (mix.inProduction()) {
+if (mix.inProduction())
+{
     mix.webpackConfig({
         plugins: [new CompressionPlugin()]
     });
@@ -29,7 +30,6 @@ mix.js("resources/js/app.js", "public/js")
     .sass("resources/sass/forms.scss", "public/css")
     .sass("resources/sass/app.scss", "public/css")
     .sass("resources/sass/home.scss", "public/css")
-    .sass("resources/sass/appointment-entrance-card.scss", "public/css")
     //Sidebar
     //.copy('node_modules/vue-sidebar-menu/dist/vue-sidebar-menu.css', 'public/css/sidebar.css')
     .sass("resources/sass/sidebar.scss", "public/css")

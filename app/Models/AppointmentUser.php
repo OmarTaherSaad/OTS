@@ -22,11 +22,6 @@ class AppointmentUser extends Pivot
         return $this->belongsTo(\App\User::class);
     }
 
-    public function getEntranceCard()
-    {
-        return $this->file();
-    }
-
     public function getQR()
     {
         try {
@@ -36,18 +31,6 @@ class AppointmentUser extends Pivot
         }
         $svgImage = str_replace('<?xml version="1.0" encoding="UTF-8"?>', "", $svgImage);
         return $svgImage;
-    }
-
-    public function file()
-    {
-        $pdf = PDF::loadView('exports.appointment-entrance-card', ['AppointUser' => $this, 'appointment' => $this->appointment]);
-        return $pdf->stream('entrance-card.pdf');
-    }
-
-    public function fileContent()
-    {
-        $pdf = PDF::loadView('exports.appointment-entrance-card', ['AppointUser' => $this, 'appointment' => $this->appointment]);
-        return $pdf->output();
     }
 
     protected static function boot()

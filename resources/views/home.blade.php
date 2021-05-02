@@ -40,7 +40,7 @@
                                             <p><span class="title-s">Name: </span> <span>Omar Taher Saad</span></p>
                                             <p><span class="title-s">Profile: </span> <span>Computer Engineer</span></p>
                                             <p><span class="title-s">Email: </span>
-                                                <span>{{ config('app.contact_email') ?? "contact@omartahersaad.com" }}</span>
+                                                <span><a href="mailto:{{ config('app.contact_email') ?? "contact@omartahersaad.com"}}"></a>{{ config('app.contact_email') ?? "contact@omartahersaad.com" }}</span>
                                             </p>
                                         </div>
                                     </div>

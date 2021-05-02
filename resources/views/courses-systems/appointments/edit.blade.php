@@ -41,7 +41,7 @@
             </div>
             <div class="form-group">
                 <label for="location_link">Location URL</label>
-                <input type="text" name="location_link" class="form-control" value="{!! $appointment->location_link !!}">
+                <input type="url" name="location_link" class="form-control" value="{{ $appointment->location_link }}">
             </div>
             <div class="form-group">
                 <label for="max_attendees">Max Attendees (Zero means no limit)</label>

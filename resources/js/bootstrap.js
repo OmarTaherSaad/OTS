@@ -6,14 +6,15 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-try {
+try
+{
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
     require("jquery.easing");
 
 
     require('bootstrap');
-} catch (e) {}
+} catch (e) { }
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -41,3 +42,31 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     encrypted: true
 // });
+axios.interceptors.request.use(
+    function (config)
+    {
+        //Before request start: show loading
+        document.body.classList.add("loading");
+        return config;
+    },
+    function (error)
+    {
+        alert("Something went wrong :/ Please, Try again later.");
+        document.body.classList.remove("loading");
+        return Promise.reject(error);
+    }
+);
+axios.interceptors.response.use(
+    function (response)
+    {
+        //After request is done: hide loading
+        document.body.classList.remove("loading");
+        return response;
+    },
+    function (error)
+    {
+        alert("Something went wrong :/ Please, Try again later.");
+        document.body.classList.remove("loading");
+        return Promise.reject(error);
+    }
+);

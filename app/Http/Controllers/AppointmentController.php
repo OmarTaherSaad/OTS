@@ -76,7 +76,11 @@ class AppointmentController extends Controller
      */
     public function edit(Appointment $appointment)
     {
-        return view('courses-systems.appointments.edit', compact('appointment'))->with('courses', Course::pluck('name', 'id'));;
+        return view('courses-systems.appointments.edit', [
+            'appointment' => $appointment,
+            'courses' => Course::pluck('name', 'id'),
+            'url' => $appointment->location_link,
+        ]);
     }
 
     /**
@@ -108,7 +112,7 @@ class AppointmentController extends Controller
 
     public function entrance_card(AppointmentUser $AppointUser)
     {
-        return $AppointUser->getEntranceCard();
+        return view('courses-systems.appointments.appointment-entrance-card', ['AppointUser' => $AppointUser, 'appointment' => $AppointUser->appointment]);
     }
 
     public function enroll(Appointment $appointment)

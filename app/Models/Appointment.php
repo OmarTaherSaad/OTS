@@ -35,6 +35,11 @@ class Appointment extends Model
         return $this->end_at->format('d-m-Y');
     }
 
+    public function name()
+    {
+        return "Appointment for " . $this->course->name . " Course";
+    }
+
     public function getNameAttribute()
     {
         return "Starts at " . $this->start_for_humans . ", " . $this->schedule;
