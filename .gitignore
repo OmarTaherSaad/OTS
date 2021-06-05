@@ -10,5 +10,8 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 deploy.sh
+deploy to server.sh
 .htaccess
-Composer Command.txt
+*subdomain
+wolfrex/
+shop1/
