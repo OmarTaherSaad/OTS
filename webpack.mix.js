@@ -24,6 +24,7 @@ mix.js("resources/js/app.js", "public/js")
     .js("resources/js/forms.js", "public/js")
     .js("resources/js/physicsClasses.js", "public/js")
     .js("resources/js/entrance-card-scanner.js", "public/js")
+    .js("resources/js/skills.js", "public/js")
     .sass("resources/sass/bootstrapAR.scss", "public/css")
     .sass("resources/sass/splashscreen.scss", "public/css")
     .sass("resources/sass/about.scss", "public/css")
@@ -38,4 +39,5 @@ mix.js("resources/js/app.js", "public/js")
         "node_modules/@fortawesome/fontawesome-free/webfonts",
         "public/webfonts"
     )
+    .vue({ version: 2 })
     .version();

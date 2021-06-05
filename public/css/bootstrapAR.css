@@ -1,1 +1,7 @@
-.rtl{text-align:right!important}body{text-align:right}
+.rtl {
+  text-align: right !important;
+}
+
+body {
+  text-align: right;
+}

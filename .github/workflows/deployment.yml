@@ -1,0 +1,46 @@
+name: Deployment Script for LIVE Domain
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: getsentry/paths-filter@v2
+        id: filter
+        with:
+          filters: |
+            frontend:
+              - 'public/**'
+              - 'resources/js/**'
+              - 'resources/sass/**'
+              - 'webpack.mix.js'
+              - 'package.json'
+          token: ${{ secrets.PUSH_TOKEN }}
+      - name: Set up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+      - name: Install NPM
+        if: steps.filter.outputs.frontend == 'true'
+        run: npm install
+      - name: Run NPM
+        if: steps.filter.outputs.frontend == 'true'
+        run: npm run production
+      - name: Get current time
+        uses: 1466587594/get-current-time@v2
+        id: current-time
+        with:
+          format: LLL
+          utcOffset: "+02:00"
+      - name: Commit built assets
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git checkout -B deploy
+          git add -f public/
+          git commit -m "Deployment at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
+          git push -f origin deploy

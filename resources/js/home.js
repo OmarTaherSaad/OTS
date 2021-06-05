@@ -1,3 +1,4 @@
+import Vue from 'vue';
 import "venobox";
 import Typed from "typed.js";
 import "animate.css";
