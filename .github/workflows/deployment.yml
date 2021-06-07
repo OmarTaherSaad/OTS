@@ -19,7 +19,7 @@ jobs:
               - 'resources/sass/**'
               - 'webpack.mix.js'
               - 'package.json'
-          token: ${{ secrets.PUSH_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
