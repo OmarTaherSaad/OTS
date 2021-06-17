@@ -3,13 +3,7 @@ import "venobox";
 import Typed from "typed.js";
 import "animate.css";
 
-const app = new Vue({
-    el: "#app",
-
-});
-
-if ($(".text-slider").length == 1)
-{
+if ($(".text-slider").length == 1) {
     var typed_strings = $(".text-slider-items").text();
     var typed = new Typed(".text-slider", {
         strings: typed_strings.split(","),
@@ -21,8 +15,7 @@ if ($(".text-slider").length == 1)
 }
 
 // Initiate venobox (lightbox feature used in portofilo)
-jQuery(function ()
-{
+jQuery(function () {
     $(".venobox").venobox({
         spinner: "wave",
         share: []

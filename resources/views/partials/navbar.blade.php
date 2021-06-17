@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-md fixed-top navbar-b navbar-trans"
-    id="navbar">
+<nav class="navbar navbar-expand-md fixed-top navbar-b navbar-trans" id="navbar">
     <div class="container-fluid px-0">
-        <a class="navbar-brand js-scroll" @if(Request::route()->named('index')) href="#page-top" @else href="{{ route('index') }}" @endif>
+        <a class="navbar-brand js-scroll" @if(Request::route()->named('index')) href="#page-top" @else
+            href="{{ route('index') }}" @endif>
             <img class="img-fluid" src="{{ Storage::url('assets/images/logo.png') }}" alt="OTS">
         </a>
         <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
@@ -13,7 +13,8 @@
         <div class="navbar-collapse collapse justify-content-end px-4 px-md-0" id="navbarDefault">
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link js-scroll @if(Request::route()->named('index') || Request::route()->named('home')) active @endif" href="{{ auth()->check() ? route('users.home') : route('index') }}">Home</a>
+                    <a class="nav-link js-scroll @if(Request::route()->named('index') || Request::route()->named('home')) active @endif"
+                        href="{{ auth()->check() ? route('users.home') : route('index') }}">Home</a>
                 </li>
                 @if(auth()->check() && auth()->user()->isAdmin())
                 <li class="nav-item @if(Request::route()->named('admin.dashboard')) active @endif">
@@ -37,9 +38,6 @@
                     <a class="nav-link js-scroll" href="#contact">Contact</a>
                 </li>
                 @endif
-                <li class="nav-item @if(Request::route()->named('course.index')) active @endif">
-                    <a class="nav-link" href="{{ route('course.index') }}">All Courses</a>
-                </li>
                 @include('partials.auth-for-nav')
                 {{-- <li class="nav-item @if(Route::currentRouteName() == " course-registration") active @endif">
                     <a class="nav-link" href="{{ route('course-registration') }}">Programming Courses</a>

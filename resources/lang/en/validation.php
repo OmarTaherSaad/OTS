@@ -132,6 +132,13 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'custom' => [
+            'g-recaptcha-response' => [
+                'required' => 'Please verify that you are not a robot.',
+                'recaptcha' => "It seems like an error occured, my server sees you as a robot! If this seems strange to you, try again later; maybe it's a mistake by our side",
+            ],
+        ],
+
     ],
 
     /*
@@ -149,7 +156,7 @@ return [
         'name' => 'Name',
         'email' => 'Email',
         'message' => 'Message',
-        'images.*'=> 'images',
+        'images.*' => 'images',
     ],
 
 ];

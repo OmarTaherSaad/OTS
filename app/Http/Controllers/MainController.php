@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use Storage;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use App\Mail\ContactForAdminMail;
@@ -14,7 +14,80 @@ class MainController extends Controller
 {
     public function index()
     {
-        return view('home');
+        $services = [
+            [
+                'title' => 'Software Engineering',
+                'icon' => 'fas fa-cogs',
+                'desc' => 'I can code in C, C++, C# and Python. I used many technologies like .NET Core, MVC Design
+                            Pattern, LINQ, relational DBs in SQLite and MySQL. I studied data structures and
+                            algorithms, also I studied logic circuits and computer organization.',
+            ],
+            [
+                'title' => 'Web Development',
+                'icon' => 'fas fa-laptop-code',
+                'desc' => 'I can build websites from scratch to fullfil your requirements, wether it is a portfolio website, E-commerce with online payment and notifications, or anything you ever need. I use PHP Laravel, Sass, Vue.js, and sometimes I use WordPress and WooCommerce.',
+            ],
+            [
+                'title' => 'Payment Gateway Integrations',
+                'icon' => 'fas fa-money-check-alt',
+                'desc' => 'I can integrate any payment gateway to your existing website, I dealt with PayPal, Stripe,
+                            Fawry, Paymob, Fawaterak, and much more!',
+            ],
+            [
+                'title' => 'WordPress Custom Plugins',
+                'icon' => 'fab fa-wordpress',
+                'desc' => 'I can develop custom WordPress plugins for almost anything! I can make custom payment
+                            gateways integrations, custom stylings and more.',
+            ],
+
+        ];
+        $projects = [
+            [
+                "img" => Storage::url('assets/images/projects/web-windowspvc.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-web-windowspvc.jpg'),
+                "title" => "Egyptian Saudian Company for UPVC",
+                "category" => "Web Development",
+                "link" => "https://windowspvc.com",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/web-agecs.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-web-agecs.jpg'),
+                "title" => "AGECS - Software Company",
+                "category" => "Web Development",
+                "link" => "https://solutions.agecs-eg.com",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/csharp-sectionLibrary.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-csharp-sectionLibrary.jpg'),
+                "title" => "Steel Sections Selector for Civil Engineers",
+                "category" => "Software Engineering",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/csharp-memoryAllocator.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-csharp-memoryAllocator.jpg'),
+                "title" => "Memory Allocator",
+                "category" => "Software Engineering",
+                "link" => "https://github.com/OmarTaherSaad/MemoryAllocator",
+            ],
+            // [
+            //     "img" => ,
+            //     "img_progressive" => ,
+            //     "title" => "",
+            //     "category" => "",
+            //     "link" => "",
+            // ],
+            [
+                "img" => Storage::url('assets/images/projects/web-thanawyahelwa.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-web-thanawyahelwa.jpg'),
+                "title" => "Thanawya Helwa Team",
+                "category" => "Web Development",
+                "link" => "https://thanawyahelwa.org",
+            ],
+        ];
+        return view('home', [
+            'services' => $services,
+            'projects' => $projects,
+        ]);
     }
 
     public function about()
@@ -96,34 +169,20 @@ class MainController extends Controller
     public function SubmitContact(Request $request)
     {
         $request->validate([
-            "action" => "required",
-            "g-recaptcha-response" => "required",
+            'g-recaptcha-response' => 'required|recaptcha:login,0.7',
             "name" => "required|string|between:2,100",
-            "phone" => "required|numeric|digits_between:5,15",
+            "phone" => "required|numeric",
             "email" => "required|email",
             "subject" => "required|min:5",
             "message" => "required|min:10,1000"
         ]);
 
-        // check if reCaptcha has been validated by Google
-        $secret = config('app.GOOGLE_RECAPTCHA_SECRET');
-        $captchaId = $request->input('g-recaptcha-response');
-
-        //sends post request to the URL and tranforms response to JSON
-        $responseCaptcha = json_decode(file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret=' . $secret . '&response=' . $captchaId));
-
-        if ($responseCaptcha->success == true && $request->input('action') == 'contact_form') {
-            //Valid
-            //Send Mail to Admin
-            Mail::to("ots.for.work@gmail.com")->queue(new ContactForAdminMail($request->input('name'), $request->input('email'), $request->input('phone'), $request->input('subject'), $request->input('message')));
-            //Send Mail to the user himself/herself
-            Mail::to($request->input('email'))->queue(new ContactMail($request->input('name'), $request->input('message')));
-            //Flash a message to user
-            $request->session()->flash('success', __("Your words is being delivered now to OTS! Thank you .. we will keep in touch"));
-        } else {
-            //Robot!
-            $request->session()->flash('error', "It seems like an error occured, my server sees you as a robot! If this seems strange to you, try again later; maybe it's a mistake by our side");
-        }
+        //Send Mail to Admin
+        Mail::to("ots.for.work@gmail.com")->queue(new ContactForAdminMail($request->input('name'), $request->input('email'), $request->input('phone'), $request->input('subject'), $request->input('message')));
+        //Send Mail to the user himself/herself
+        Mail::to($request->input('email'))->queue(new ContactMail($request->input('name'), $request->input('message')));
+        //Flash a message to user
+        $request->session()->flash('success', __("Your words is being delivered now to OTS! Thank you .. we will keep in touch"));
         return back();
     }
 

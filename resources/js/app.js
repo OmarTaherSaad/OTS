@@ -10,43 +10,34 @@ import "progressive-image.js/dist/progressive-image.js";
 import "progressive-image.js/dist/progressive-image.css";
 
 // Preloader
-$(window).on("load", function ()
-{
-    if ($("#splash-screen").length)
-    {
+$(window).on("load", function () {
+    if ($("#splash-screen").length) {
         $("#splash-screen")
             .delay(100)
-            .fadeOut("slow", function ()
-            {
+            .fadeOut("slow", function () {
                 $(this).remove();
             });
     }
 });
 //Navbar change style
-$(".navbar-toggler").on("click", function ()
-{
-    if (!$("#navbar").hasClass("navbar-reduce"))
-    {
+$(".navbar-toggler").on("click", function () {
+    if (!$("#navbar").hasClass("navbar-reduce")) {
         $("#navbar").addClass("navbar-reduce");
     }
 });
 
 // Back to top button
-$(window).on('scroll', function ()
-{
-    if ($(this).scrollTop() > 100)
-    {
+$(window).on('scroll', function () {
+    if ($(this).scrollTop() > 100) {
         $(".back-to-top").fadeIn("slow");
-    } else
-    {
+    } else {
         $(".back-to-top").fadeOut("slow");
     }
 });
 var nav = $("nav");
 var navHeight = nav.outerHeight();
 
-$(".back-to-top").on('click', function ()
-{
+$(".back-to-top").on('click', function () {
     $("html, body").animate(
         {
             scrollTop: 0
@@ -58,8 +49,7 @@ $(".back-to-top").on('click', function ()
 });
 
 /*--/ Star ScrollTop /--*/
-$(".scrolltop-mf").on("click", function ()
-{
+$(".scrolltop-mf").on("click", function () {
     $("html, body").animate(
         {
             scrollTop: 0
@@ -68,20 +58,17 @@ $(".scrolltop-mf").on("click", function ()
     );
 });
 /*--/ Star Scrolling nav /--*/
-$('a.js-scroll[href*="#"]:not([href="#"])').on("click", function ()
-{
+$('a.js-scroll[href*="#"]:not([href="#"])').on("click", function () {
     if (
         location.pathname.replace(/^\//, "") ==
         this.pathname.replace(/^\//, "") &&
         location.hostname == this.hostname
-    )
-    {
+    ) {
         var target = $(this.hash);
         target = target.length
             ? target
             : $("[name=" + this.hash.slice(1) + "]");
-        if (target.length)
-        {
+        if (target.length) {
             $("html, body").animate(
                 {
                     scrollTop: target.offset().top - navHeight + 5
@@ -95,8 +82,7 @@ $('a.js-scroll[href*="#"]:not([href="#"])').on("click", function ()
 });
 
 // Closes responsive menu when a scroll trigger link is clicked
-$(".js-scroll").on("click", function ()
-{
+$(".js-scroll").on("click", function () {
     $(".navbar-collapse").collapse("hide");
 });
 
@@ -109,24 +95,44 @@ $("body").scrollspy({
 
 /*--/ Navbar Menu Reduce /--*/
 $(window).trigger("scroll");
-$(window).on("scroll", function ()
-{
+$(window).on("scroll", function () {
     var pixels = 50;
     var top = 1200;
-    if ($(window).scrollTop() > pixels)
-    {
+    if ($(window).scrollTop() > pixels) {
         $(".navbar-expand-md").addClass("navbar-reduce");
         $(".navbar-expand-md").removeClass("navbar-trans");
-    } else
-    {
+    } else {
         $(".navbar-expand-md").addClass("navbar-trans");
         $(".navbar-expand-md").removeClass("navbar-reduce");
     }
-    if ($(window).scrollTop() > top)
-    {
+    if ($(window).scrollTop() > top) {
         $(".scrolltop-mf").fadeIn(1000, "easeInOutExpo");
-    } else
-    {
+    } else {
         $(".scrolltop-mf").fadeOut(1000, "easeInOutExpo");
     }
 });
+
+import intlTelInput from 'intl-tel-input';
+
+const inputs = document.querySelectorAll("input[type='tel']");
+inputs.forEach(function (input) {
+    var iti = intlTelInput(input, {
+        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
+        initialCountry: "auto",
+        preferredCountries: ["EG", "US", "DE", "GB"],
+        geoIpLookup: function (success, failure) {
+            $.get("https://ipinfo.io", function () { }, "jsonp").always(function (resp) {
+                var countryCode = (resp && resp.country) ? resp.country : "EG";
+                success(countryCode);
+            });
+        },
+    });
+    input.onchange = input.onsubmit = function (e) {
+        if (iti.isValidNumber()) {
+            input.value = iti.getNumber();
+            input.setCustomValidity("");
+        } else {
+            input.setCustomValidity("Invalid mobile number.");
+        }
+    }
+})
