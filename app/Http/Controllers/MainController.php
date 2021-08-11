@@ -14,6 +14,43 @@ class MainController extends Controller
 {
     public function index()
     {
+        $skills = [
+            [
+                'name' => 'PHP',
+                'value' => 75,
+                'percentage' => '75%',
+            ],
+            [
+                'name' => 'Laravel',
+                'value' => 90,
+                'percentage' => '90%',
+            ],
+            [
+                'name' => 'C++',
+                'value' => 80,
+                'percentage' => '80%',
+            ],
+            [
+                'name' => 'Python',
+                'value' => 80,
+                'percentage' => '80%',
+            ],
+            [
+                'name' => 'HTML, CSS & JS',
+                'value' => 90,
+                'percentage' => '90%',
+            ],
+            [
+                'name' => 'VUE JS',
+                'value' => 70,
+                'percentage' => '70%',
+            ],
+            [
+                'name' => 'C#',
+                'value' => 85,
+                'percentage' => '85%',
+            ],
+        ];
         $services = [
             [
                 'title' => 'Software Engineering',
@@ -85,6 +122,7 @@ class MainController extends Controller
             ],
         ];
         return view('home', [
+            'skills' => $skills,
             'services' => $services,
             'projects' => $projects,
         ]);
@@ -198,6 +236,11 @@ class MainController extends Controller
 
     public function privacyPolicy()
     {
-        return view('privacy-policy');
+        return view('legals.privacy-policy');
+    }
+
+    public function termsAndConditions()
+    {
+        return view('legals.terms-and-conditions');
     }
 }

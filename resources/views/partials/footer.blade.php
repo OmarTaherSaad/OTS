@@ -6,13 +6,13 @@
             </div>
             <div class="col-12">
                 <h6 class="text-monospace mb-0">
-                    @if(App::getLocale() == 'ar')
-                    تم تطوير الموقع بواسطة <a href="mailto:omar@otscommunity.com"
-                        class="text-light font-weight-bold">OTS</a>
-                    @else
-                    Developed by <a href="mailto:omar@otscommunity.com" class="text-light font-weight-bold">OTS</a>
-                    @endif
+                    Developed by <a href="mailto:contact@omartahersaad.com" class="text-light font-weight-bold">OTS</a>
                 </h6>
+            </div>
+            <div class="col-6">
+                <a href="{{ route('privacy-policy') }}" class="text-light">Privacy Policy</a>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{ route('terms-and-conditions') }}" class="text-light">Terms and Conditions</a>
             </div>
         </div>
     </div>

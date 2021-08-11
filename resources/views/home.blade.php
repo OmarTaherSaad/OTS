@@ -49,41 +49,13 @@
                             </div>
                             <div class="skill-mf">
                                 <p class="title-s">Skills</p>
-                                <span>PHP</span> <span class="pull-right">75%</span>
+                                @foreach ($skills as $skill)
+                                <span>{{ $skill['name'] }}</span> <span class="pull-right">{{ $skill['percentage'] }}</span>
                                 <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar" role="progressbar" style="width: {{ $skill['percentage'] }}"
+                                    aria-valuenow="{{ $skill['value'] }}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
-                                <span>Laravel</span> <span class="pull-right">90%</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span>C++</span> <span class="pull-right">80%</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 95%" aria-valuenow="95"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span>Python</span> <span class="pull-right">80%</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span>HTML, CSS & JS</span> <span class="pull-right">90%</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span>VUE JS</span> <span class="pull-right">70%</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 70%" aria-valuenow="70"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
-                                <span>C#</span> <span class="pull-right">85%</span>
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" style="width: 85%" aria-valuenow="85"
-                                        aria-valuemin="0" aria-valuemax="100"></div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -214,18 +186,16 @@
 <section class="paralax-mf bg-image"
     style="background-image: url({{ Storage::url('assets/images/BGs/bg3.jpg') }}); box-shadow: inset 0 0 0 2000px rgba(68,68,68, 0.8);">
     <div class="container-fluid text-left" id="contact">
-        <div class="row">
-            <div class="col-12">
+        <div class="row justify-content-around">
+            <div class="col-12 col-md-6">
                 <div class="jumbotron mt-lg-3 mt-5">
                     <h2>{{ __("I'll be glad to recieve your message") }}</h2>
                     <p class="lead">{{ __("It's hard to answer immediately, but I will do as fast as possible") }}
                     </p>
                 </div>
             </div>
-        </div>
-        <div class="row justify-content-center text-light pb-5">
             <!--Contact Form START-->
-            <div class="col-12 col-xl-8">
+            <div class="col-12 col-md-6 col-lg-4 col-xl-3 text-light pb-5">
                 <form action="{{ route('contact-submit') }}" method="POST" id="ContactForm">
                     @csrf
                     {!! Recaptcha::field('login') !!}

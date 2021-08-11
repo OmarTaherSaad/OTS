@@ -25,8 +25,14 @@ Route::get('contact', 'MainController@contactForm')->name('contact');
 Route::get('youtube', 'MainController@youtube')->name('youtube');
 Route::get('projects', 'MainController@projects')->name('projects');
 
-//Privacy Policy
-Route::get('/privacy-policy-and-terms', 'MainController@privacyPolicy');
+//Legal Pages
+Route::get('privacy-policy', 'MainController@privacyPolicy')->name('privacy-policy');
+Route::get('terms-and-conditions', 'MainController@termsAndConditions')->name('terms-and-conditions');
+
+//Freelancing
+Route::prefix('freelancing')->name('freelancing')->group(function () {
+    Route::get('payment-methods', 'FreelancingController@payment_methods')->name('payment-methods');
+});
 
 //Route::get('course-registration', 'MainController@course_registration')->name('course-registration');
 Route::get('media-and-interviews', 'MainController@media')->name('media');

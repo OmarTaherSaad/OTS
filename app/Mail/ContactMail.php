@@ -31,6 +31,6 @@ class ContactMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from("no-reply@otscommunity.com")->markdown('emails.contact_us');
+        return $this->subject("OTS received your mail!")->replyTo("contact@omartahersaad.com", "OTS Contact")->from("no-reply@omartahersaad.com")->markdown('emails.contact_us');
     }
 }

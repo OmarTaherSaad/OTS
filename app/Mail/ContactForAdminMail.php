@@ -23,7 +23,7 @@ class ContactForAdminMail extends Mailable implements ShouldQueue
         $this->name = $name;
         $this->message = $message;
         $this->email = $email;
-        $this->subject = $subject;
+        $this->subject = "Mail from OTS Website | " . $subject;
         $this->phone = $phone;
     }
 
@@ -34,7 +34,7 @@ class ContactForAdminMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from("no-reply@otscommunity.com")->markdown('emails.contact-for-admins');
+        return $this->from("no-reply@omartahersaad.com")->markdown('emails.contact-for-admins');
 
     }
 }

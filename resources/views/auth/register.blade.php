@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <div class="w-100 m-1 p-1">
+                    <div class="w-100 m-1 p-1 text-center">
                         @include('partials.social-logins')
                     </div>
                     <hr>
