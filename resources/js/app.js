@@ -9,6 +9,11 @@ require("./bootstrap");
 import "progressive-image.js/dist/progressive-image.js";
 import "progressive-image.js/dist/progressive-image.css";
 
+//Resize to fill screen
+window.onresize = function(event) {
+    var height = window.innerHeight - document.getElementById("navbar").clientHeight - document.getElementById("footer").clientHeight;
+    document.getElementById("app").style.height = height + "px";
+}
 // Preloader
 $(window).on("load", function () {
     if ($("#splash-screen").length) {
@@ -18,6 +23,7 @@ $(window).on("load", function () {
                 $(this).remove();
             });
     }
+    $(window).trigger('resize');
 });
 //Navbar change style
 $(".navbar-toggler").on("click", function () {
