@@ -11,7 +11,12 @@ import "progressive-image.js/dist/progressive-image.css";
 
 //Resize to fill screen
 window.onresize = function(event) {
-    var height = window.innerHeight - document.getElementById("navbar").clientHeight - document.getElementById("footer").clientHeight;
+    var body = document.body,
+    html = document.documentElement,
+    height =
+    Math.max( body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight )
+    - document.getElementById("navbar").clientHeight
+    - document.getElementById("footer").clientHeight;
     document.getElementById("app").style.height = height + "px";
 }
 // Preloader
