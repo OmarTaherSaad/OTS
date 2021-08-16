@@ -10,13 +10,13 @@ class DeployController extends Controller
 {
     public function deploy(Request $request)
     {
+        if ($request->ref != "refs/heads/deploy" || !App::environment('production'))
+            exit(200);
         $githubPayload = $request->getContent();
         $githubHash = $request->header('X-Hub-Signature-256');
-
         $localToken = config('app.deploy_secret');
         $localHash = "sha256=" . hash_hmac('SHA256', $githubPayload, $localToken);
-        $env_branch = '';
-        if (hash_equals($githubHash, $localHash) && $request->ref == "refs/heads/deploy" && App::environment('production')) {
+        if (hash_equals($githubHash, $localHash)) {
             $root_path = base_path();
             $process = new Process(['./deploy.sh']);
             $process->setWorkingDirectory($root_path);
