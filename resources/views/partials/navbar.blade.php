@@ -38,6 +38,9 @@
                     <a class="nav-link js-scroll" href="#contact">Contact</a>
                 </li>
                 @endif
+                <li class="nav-item">
+                    <a class="nav-link js-scroll @if(Request::route()->named('media')) active @endif" href="{{ route('media') }}">Me in Media</a>
+                </li>
                 @include('partials.auth-for-nav')
                 {{-- <li class="nav-item @if(Route::currentRouteName() == " course-registration") active @endif">
                     <a class="nav-link" href="{{ route('course-registration') }}">Programming Courses</a>

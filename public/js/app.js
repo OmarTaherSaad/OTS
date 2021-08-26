@@ -1858,10 +1858,8 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
  //Resize to fill screen
 
-window.onresize = function (event) {
-  var body = document.body,
-      html = document.documentElement,
-      height = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight) - document.getElementById("navbar").clientHeight - document.getElementById("footer").clientHeight;
+window.onresize = window.onload = function (event) {
+  var height = document.documentElement.scrollHeight - document.getElementById("footer").scrollHeight;
   document.getElementById("app").style.height = height + "px";
 }; // Preloader
 
@@ -1974,6 +1972,8 @@ inputs.forEach(function (input) {
       input.setCustomValidity("Invalid mobile number.");
     }
   };
+
+  input.dispatchEvent(new Event("change"));
 });
 
 /***/ }),

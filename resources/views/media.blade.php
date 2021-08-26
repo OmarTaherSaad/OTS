@@ -6,12 +6,12 @@
 <style>
     .card-header button {
         font-size: 1.3em;
-        color: #d24536;
+        color: #000ed4;
     }
 
     .card-header button:hover {
         text-decoration: none;
-        color: #6d65ae;
+        color: #000220;
     }
 
     .card-header button:focus {
@@ -29,13 +29,13 @@
     }
 
     .thumbnail:hover {
-        background-color: rgba(210, 69, 54, 1);
+        background-color: #000ed4;
         cursor: pointer;
     }
 
     .thumbnail:hover .thumbnail-text {
         font-size: 150%;
-        color: black;
+        color: rgb(255, 255, 255);
         font-weight: bolder;
     }
 
@@ -52,7 +52,7 @@
         text-align: center;
         font-size: 130%;
         font-weight: bold;
-        color: #d24536;
+        color: #000ed4;
         transition: 0.4s ease;
     }
 

@@ -1566,7 +1566,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 if ($(".text-slider").length == 1) {
   var typed_strings = $(".text-slider-items").text();
   var typed = new (typed_js__WEBPACK_IMPORTED_MODULE_1___default())(".text-slider", {

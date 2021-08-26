@@ -38,7 +38,7 @@ Route::prefix('freelancing')->name('freelancing')->group(function () {
 Route::get('media-and-interviews', 'MainController@media')->name('media');
 
 //Contact
-Route::get('contact', 'MainController@contact')->name('contact');
+//Route::get('contact', 'MainController@contact')->name('contact');
 Route::post('contact', 'MainController@SubmitContact')->name('contact-submit');
 
 Auth::routes();

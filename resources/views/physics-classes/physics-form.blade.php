@@ -83,6 +83,8 @@
                         @error('message')
                         <div class="alert alert-danger">{{ $message }}</div>
                         @enderror
+
+                        <div class="h-captcha" data-size="invisible" data-sitekey="{{ App::environment('production') ? config('captcha.site_key') : config('captcha.test.site_key') }}"></div>
                     </div>
 
                     <div class="col-12 justify-content-center">
@@ -98,6 +100,6 @@
 @endsection
 
 @section('scripts')
-<script defer src="https://www.google.com/recaptcha/api.js?render=6Lc447UUAAAAAKUbWbf6jTvZRmxvSOxnKW-VhneB"></script>
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
 @endsection

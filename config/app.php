@@ -123,9 +123,6 @@ return [
 
     'cipher' => 'AES-256-CBC',
 
-    //Google ReCAPTCHA
-    'GOOGLE_RECAPTCHA_KEY' => env('GOOGLE_RECAPTCHA_KEY'),
-    'GOOGLE_RECAPTCHA_SECRET' => env('GOOGLE_RECAPTCHA_SECRET'),
     //GitHub Deployment
     'deploy_secret' => env('GITHUB_DEPLOY_SECRET'),
 

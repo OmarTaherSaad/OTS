@@ -2,7 +2,6 @@
 @section('title','Home')
 @section('head')
 <link href="{{ mix('css/home.css') }}" rel="stylesheet">
-{!! Recaptcha::renderJs() !!}
 @endsection
 @section('content')
 <section class="bg-image" id="mainSection"
@@ -196,14 +195,10 @@
             </div>
             <!--Contact Form START-->
             <div class="col-12 col-md-6 col-lg-4 col-xl-3 text-light pb-5">
-                <form action="{{ route('contact-submit') }}" method="POST" id="ContactForm">
+                <form class="needs-validation" novalidate action="{{ route('contact-submit') }}" method="POST" id="ContactForm">
                     @csrf
-                    {!! Recaptcha::field('login') !!}
                     <div class="row">
                         <div class="col-12 my-2">
-                            @if ($errors->has('g-recaptcha-response'))
-                            <p>{{ $errors->first('g-recaptcha-response') }}</p>
-                            @endif
                             <div class="form-group my-1 {{ old('name') ? 'focused' : '' }}">
                                 <label for="name">{{ __("Name") }}</label>
                                 <input
@@ -241,7 +236,7 @@
                                 <label for="subject">{{ __("What are you sending me about?") }}</label>
                                 <input
                                     class="form-control {{ $errors->has('subject') ? 'is-danger filled invalid' : (old('subject') ? 'filled valid' : '') }}"
-                                    type="text" name="subject" value="{{ old('subject') }}" required>
+                                    type="text" name="subject" value="{{ old('subject') }}" minlength="5" required>
                             </div>
                             @error('subject')
                             <div class="alert alert-danger">{{ $message }}</div>
@@ -253,12 +248,13 @@
                                 <label for="message">@lang("Message")</label>
                                 <textarea
                                     class="form-control {{ $errors->has('message') ? 'is-danger filled invalid' : (old('message') ? 'filled valid' : '') }}"
-                                    name="message" rows="4" required>{{ old('message') }}</textarea>
+                                    name="message" rows="4" minlength="10" required>{{ old('message') }}</textarea>
                             </div>
                             @error('message')
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="h-captcha" data-theme="dark" data-size="compact" data-sitekey="{{ App::environment('production') ? config('captcha.site_key') : config('captcha.test.site_key') }}"></div>
 
                         <div class="col-12 justify-content-center">
                             <input class="btn btn-secondary" type="submit" value="@lang(" Send")">
@@ -276,5 +272,7 @@
 
 @endsection
 @section('scripts')
+<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script src="{{ mix('js/home.js') }}"></script>
+<script src="{{ mix('js/forms.js') }}"></script>
 @endsection

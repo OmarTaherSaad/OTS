@@ -17187,7 +17187,7 @@ body.loading #axiosModal {
   width: 35px;
 }
 .navbar-b.navbar-trans .nav-link:before {
-  background-color: #fff;
+  background-color: #0078ff;
 }
 .navbar-b.navbar-reduce {
   transition: all 0.5s ease-in-out;

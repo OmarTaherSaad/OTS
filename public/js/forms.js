@@ -23,16 +23,26 @@ $(document).on("blur", "input:not([type=submit]), textarea", function () {
     $(this).addClass('filled');
     $(this).removeClass('invalid');
   }
-}); //Google reCaptcha
+}); // Example starter JavaScript for disabling form submissions if there are invalid fields
 
-grecaptcha.ready(function () {
-  grecaptcha.execute('6Lc447UUAAAAAKUbWbf6jTvZRmxvSOxnKW-VhneB', {
-    action: 'contact_form'
-  }).then(function (token) {
-    // add token to form
-    $('form').prepend('<input type="hidden" name="g-recaptcha-response" value="' + token + '">');
-    $('form').prepend('<input type="hidden" name="action" value="contact_form">');
-  });
-});
+(function () {
+  'use strict';
+
+  window.addEventListener('load', function () {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation'); // Loop over them and prevent submission
+
+    var validation = Array.prototype.filter.call(forms, function (form) {
+      form.addEventListener('submit', function (event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
 /******/ })()
 ;
