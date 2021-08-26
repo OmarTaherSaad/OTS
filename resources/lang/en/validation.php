@@ -133,6 +133,9 @@ return [
             'rule-name' => 'custom-message',
         ],
         'custom' => [
+            'g-captcha-response' => [
+                'required' => 'Please verify that you are not a robot.',
+            ],
             'h-captcha-response' => [
                 'required' => 'Please verify that you are not a robot.',
             ],

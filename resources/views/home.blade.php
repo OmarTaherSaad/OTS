@@ -254,7 +254,6 @@
                             <div class="alert alert-danger">{{ $message }}</div>
                             @enderror
                         </div>
-                        <div class="h-captcha" data-theme="dark" data-size="compact" data-sitekey="{{ App::environment('production') ? config('captcha.site_key') : config('captcha.test.site_key') }}"></div>
 
                         <div class="col-12 justify-content-center">
                             <input class="btn btn-secondary" type="submit" value="@lang(" Send")">
@@ -272,7 +271,6 @@
 
 @endsection
 @section('scripts')
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script src="{{ mix('js/home.js') }}"></script>
 <script src="{{ mix('js/forms.js') }}"></script>
 @endsection

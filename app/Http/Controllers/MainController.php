@@ -209,21 +209,12 @@ class MainController extends Controller
     public function SubmitContact(Request $request)
     {
         $request->validate([
-            'h-captcha-response' => 'required',
             "name" => "required|string|between:2,100",
             "phone" => "required|numeric",
             "email" => "required|email",
             "subject" => "required|min:5",
             "message" => "required|min:10,1000"
         ]);
-
-        //Verify the captcha
-        $response = Http::post("https://hcaptcha.com/siteverify", [
-            'secret' => App::environment('production') ? config('captcha.secret_key') : config('captcha.test.secret_key'),
-            'response' => $request->get("h-captcha-response")
-        ])->throw()->json();
-        abort_unless($response['success'], 401, "We cannot serve you! you are accessing the website from an untrusted IP.");
-
         //Send Mail to Admin
         Mail::to("ots.for.work@gmail.com")->queue(new ContactForAdminMail($request->input('name'), $request->input('email'), $request->input('phone'), $request->input('subject'), $request->input('message')));
         //Send Mail to the user himself/herself

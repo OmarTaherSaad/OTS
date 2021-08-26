@@ -166,8 +166,6 @@
                         <textarea id="content" class="form-control" name="content" v-model="content" rows="3"></textarea>
                     </div>
 
-                    <div class="h-captcha" data-size="compact" data-sitekey="{{ App::environment('production') ? config('captcha.site_key') : config('captcha.test.site_key') }}"></div>
-
                 </div>
                 {{-- End 'Booked' section --}}
                 <div class="form-group">
@@ -180,6 +178,5 @@
 </div>
 @endsection
 @section('scripts')
-<script src="https://js.hcaptcha.com/1/api.js" async defer></script>
 <script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
 @endsection
