@@ -44,3 +44,14 @@ jobs:
           git add -f public/
           git commit -m "Deployment at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
           git push -f origin deploy
+      - name: Deploy to Server
+        uses: appleboy/ssh-action@master
+        with:
+          username: ${{ secrets.SSH_USERNAME }}
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          password: ${{ secrets.SSH_KEY }}
+          script: |
+            cd public_html
+            exec bash -l
+            ./deploy.sh
