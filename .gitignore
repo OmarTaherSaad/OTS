@@ -12,6 +12,4 @@ yarn-error.log
 deploy.sh
 deploy to server.sh
 .htaccess
-*subdomain
-wolfrex/
-shop1/
+*subdomain/
