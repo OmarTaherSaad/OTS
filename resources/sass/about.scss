@@ -19,20 +19,20 @@ body {
     &:first-of-type {
         padding: 100px 0 0 0;
         .overlay {
-            background-image: url('/storage/assets/images/BGs/bg1.jpg');
+            background-image: url("/storage/assets/images/BGs/bg1.webp");
 
             &.replace {
-                background-image: url('/storage/assets/images/BGs/Progressive-bg1.jpg');
+                background-image: url("/storage/assets/images/BGs/Progressive-bg1.webp");
             }
         }
     }
     @for $i from 1 through 4 {
         &:nth-of-type(#{$i * 2}) {
             .overlay {
-                background-image: url('/storage/assets/images/BGs/bg#{$i + 1}.jpg');
+                background-image: url("/storage/assets/images/BGs/bg#{$i + 1}.webp");
 
                 &.replace {
-                    background-image: url('/storage/assets/images/BGs/Progressive-bg#{$i + 1}.jpg');
+                    background-image: url("/storage/assets/images/BGs/Progressive-bg#{$i + 1}.webp");
                 }
             }
         }
@@ -45,7 +45,6 @@ body {
     -moz-transition: 0.5s;
     -o-transition: 0.5s;
     -webkit-transition: 0.5s;
-    
 }
 @media screen and (min-width: 767.99px) {
     .sidenav {
@@ -85,7 +84,8 @@ body {
                 transform: translateX(-50%);
                 /* Rounded corners on the top right and bottom right side */
                 border-radius: 0 5px 5px 0;
-                &:hover, &.active {
+                &:hover,
+                &.active {
                     padding-right: 1%;
                 }
             }
@@ -96,10 +96,10 @@ body {
                 transform: translateX(50%);
                 /* Rounded corners on the top right and bottom right side */
                 border-radius: 5px 0 0 5px;
-                &:hover, &.active {
+                &:hover,
+                &.active {
                     padding-left: 1%;
                 }
-            
             }
         }
     }

@@ -5,7 +5,7 @@
 @endsection
 @section('content')
 <section class="bg-image" id="mainSection"
-    style="background-image: url({{ Storage::url('assets/images/BGs/bg4.jpg') }});">
+    style="background-image: url({{ Storage::url('assets/images/BGs/bg4.webp') }});">
     <div class="container-fluid my-auto">
         <div class="row justify-content-center">
             <div class="col-md-8 col-12 text-center">
@@ -31,7 +31,7 @@
                             <div class="row">
                                 <div class="col-sm-6 col-md-5">
                                     <div class="about-img">
-                                        <img src="{{ Storage::url('assets/images/Personal Photo.jpg') }}"
+                                        <img src="{{ Storage::url('assets/images/Personal Photo.webp') }}"
                                             class="img-fluid rounded b-shadow-a" alt="">
                                     </div>
                                 </div>
@@ -142,7 +142,7 @@
 
 {{-- Portfolio --}}
 <section id="work" class="bg-image"
-    style="background-image: url({{ Storage::url('assets/images/BGs/bg1.jpg') }}); box-shadow: inset 0 0 0 2000px rgba(104,157,255, 0.8);">
+    style="background-image: url({{ Storage::url('assets/images/BGs/bg1.webp') }}); box-shadow: inset 0 0 0 2000px rgba(104,157,255, 0.8);">
     <div class="container-fluid py-5">
         <div class="row justify-content-center">
             <div class="col-12 text-center">
@@ -183,7 +183,7 @@
 {{-- Portfolio END --}}
 {{-- Contact --}}
 <section class="paralax-mf bg-image"
-    style="background-image: url({{ Storage::url('assets/images/BGs/bg3.jpg') }}); box-shadow: inset 0 0 0 2000px rgba(68,68,68, 0.8);">
+    style="background-image: url({{ Storage::url('assets/images/BGs/bg3.webp') }}); box-shadow: inset 0 0 0 2000px rgba(68,68,68, 0.8);">
     <div class="container-fluid text-left" id="contact">
         <div class="row justify-content-around">
             <div class="col-12 col-md-6">
