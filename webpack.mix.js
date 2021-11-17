@@ -2,8 +2,7 @@ const mix = require("laravel-mix");
 
 const CompressionPlugin = require("compression-webpack-plugin");
 
-if (mix.inProduction())
-{
+if (mix.inProduction()) {
     mix.webpackConfig({
         plugins: [new CompressionPlugin()]
     });

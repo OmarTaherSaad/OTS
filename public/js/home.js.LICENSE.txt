@@ -7,3 +7,10 @@
  *   License(s): MIT
  * 
  */
+
+/**
+ * VenoBox - jQuery Plugin
+ * version: 1.9.4
+ * Copyright 2013-2021 Nicola Franchini - @nicolafranchini
+ * @license: https://github.com/nicolafranchini/VenoBox/blob/master/LICENSE
+ */
