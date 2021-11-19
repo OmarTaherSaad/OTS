@@ -1,1 +1,63 @@
-.form-group{margin:2em 0}html:dir(rtl) label:not(.form-check-label){right:2em}label:not(.form-check-label):not(.custom-file-label){color:#999;cursor:text;font-size:80%;left:2em;position:relative;top:3em;transition:transform .15s ease-out,font-size .15s ease-out;z-index:1}.custom-file-label,.form-check-label{cursor:pointer}.focused label{transform:translateY(-200%)}input[type=date]:not([aria-valuenow]).hide-value{color:transparent}input:not([type=checkbox]):not([type=submit]),select,textarea{border:0;box-shadow:0 1px 0 0 #e5e5e5;outline:0;transition:box-shadow .15s ease-out}input:focus:not([type=checkbox]):not([type=submit]),select:focus,textarea:focus{box-shadow:0 2px 0 0 blue}input.filled:not([type=checkbox]):not([type=submit]),select.filled,textarea.filled{box-shadow:0 2px 0 0 #90ee90}input.invalid:not([type=checkbox]):not([type=submit]),select.invalid,textarea.invalid{box-shadow:0 2px 0 0 red}
+.form-group {
+  margin: 2em 0;
+}
+
+html:dir(rtl) label:not(.form-check-label) {
+  right: 2em;
+}
+
+label:not(.form-check-label):not(.custom-file-label) {
+  font-size: 80%;
+  cursor: text;
+  position: relative;
+  top: 3em;
+  left: 2em;
+  color: #999;
+  z-index: 1;
+  transition: transform 150ms ease-out, font-size 150ms ease-out;
+}
+
+.form-check-label,
+.custom-file-label {
+  cursor: pointer;
+}
+
+.focused label {
+  transform: translateY(-200%);
+}
+
+input[type=date]:not([aria-valuenow]).hide-value {
+  color: transparent;
+}
+input:not([type=checkbox]):not([type=submit]) {
+  outline: 0;
+  border: 0;
+  box-shadow: 0 1px 0 0 #e5e5e5;
+  transition: box-shadow 150ms ease-out;
+}
+
+textarea,
+select {
+  outline: 0;
+  border: 0;
+  box-shadow: 0 1px 0 0 #e5e5e5;
+  transition: box-shadow 150ms ease-out;
+}
+
+input:focus:not([type=checkbox]):not([type=submit]),
+textarea:focus,
+select:focus {
+  box-shadow: 0 2px 0 0 blue;
+}
+
+input.filled:not([type=checkbox]):not([type=submit]),
+textarea.filled,
+select.filled {
+  box-shadow: 0 2px 0 0 lightgreen;
+}
+
+input.invalid:not([type=checkbox]):not([type=submit]),
+textarea.invalid,
+select.invalid {
+  box-shadow: 0 2px 0 0 red;
+}

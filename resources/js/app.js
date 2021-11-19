@@ -10,10 +10,18 @@ import "progressive-image.js/dist/progressive-image.js";
 import "progressive-image.js/dist/progressive-image.css";
 
 //Resize to fill screen
-window.onresize = window.onload = function(event) {
-    var height = document.documentElement.scrollHeight - document.getElementById("footer").scrollHeight;
-    document.getElementById("app").style.height = height + "px";
-}
+window.onresize = window.onload = function (event) {
+    if (document.getElementById("app").scrollHeight < window.innerHeight) {
+        var height =
+            window.innerHeight -
+            document.getElementById("footer").scrollHeight -
+            document.getElementById("navbar").scrollHeight;
+        document.getElementById("app").style.height = height + "px";
+    }
+};
+$("#navbar, #footer").on("resize", function () {
+    $(window).trigger("resize");
+});
 // Preloader
 $(window).on("load", function () {
     if ($("#splash-screen").length) {
@@ -23,7 +31,7 @@ $(window).on("load", function () {
                 $(this).remove();
             });
     }
-    $(window).trigger('resize');
+    $(window).trigger("resize");
 });
 //Navbar change style
 $(".navbar-toggler").on("click", function () {
@@ -33,7 +41,7 @@ $(".navbar-toggler").on("click", function () {
 });
 
 // Back to top button
-$(window).on('scroll', function () {
+$(window).on("scroll", function () {
     if ($(this).scrollTop() > 100) {
         $(".back-to-top").fadeIn("slow");
     } else {
@@ -43,10 +51,10 @@ $(window).on('scroll', function () {
 var nav = $("nav");
 var navHeight = nav.outerHeight();
 
-$(".back-to-top").on('click', function () {
+$(".back-to-top").on("click", function () {
     $("html, body").animate(
         {
-            scrollTop: 0
+            scrollTop: 0,
         },
         1500,
         "easeInOutExpo"
@@ -58,7 +66,7 @@ $(".back-to-top").on('click', function () {
 $(".scrolltop-mf").on("click", function () {
     $("html, body").animate(
         {
-            scrollTop: 0
+            scrollTop: 0,
         },
         1000
     );
@@ -67,7 +75,7 @@ $(".scrolltop-mf").on("click", function () {
 $('a.js-scroll[href*="#"]:not([href="#"])').on("click", function () {
     if (
         location.pathname.replace(/^\//, "") ==
-        this.pathname.replace(/^\//, "") &&
+            this.pathname.replace(/^\//, "") &&
         location.hostname == this.hostname
     ) {
         var target = $(this.hash);
@@ -77,7 +85,7 @@ $('a.js-scroll[href*="#"]:not([href="#"])').on("click", function () {
         if (target.length) {
             $("html, body").animate(
                 {
-                    scrollTop: target.offset().top - navHeight + 5
+                    scrollTop: target.offset().top - navHeight + 5,
                 },
                 1000,
                 "easeInOutExpo"
@@ -95,7 +103,7 @@ $(".js-scroll").on("click", function () {
 // Activate scrollspy to add active class to navbar items on scroll
 $("body").scrollspy({
     target: "#navbar",
-    offset: navHeight
+    offset: navHeight,
 });
 /*--/ End Scrolling nav /--*/
 
@@ -118,19 +126,23 @@ $(window).on("scroll", function () {
     }
 });
 
-import intlTelInput from 'intl-tel-input';
+import intlTelInput from "intl-tel-input";
 
 const inputs = document.querySelectorAll("input[type='tel']");
 inputs.forEach(function (input) {
     var iti = intlTelInput(input, {
-        utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
+        utilsScript:
+            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
         initialCountry: "auto",
         preferredCountries: ["EG", "US", "DE", "GB"],
         geoIpLookup: function (success, failure) {
-            $.get("https://ipinfo.io", function () { }, "jsonp").always(function (resp) {
-                var countryCode = (resp && resp.country) ? resp.country : "EG";
-                success(countryCode);
-            });
+            $.get("https://ipinfo.io", function () {}, "jsonp").always(
+                function (resp) {
+                    var countryCode =
+                        resp && resp.country ? resp.country : "EG";
+                    success(countryCode);
+                }
+            );
         },
     });
     input.onchange = input.onsubmit = function (e) {
@@ -140,6 +152,6 @@ inputs.forEach(function (input) {
         } else {
             input.setCustomValidity("Invalid mobile number.");
         }
-    }
+    };
     input.dispatchEvent(new Event("change"));
-})
+});
