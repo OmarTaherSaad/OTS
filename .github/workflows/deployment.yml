@@ -1,35 +1,37 @@
-name: Deployment Script for LIVE Domain
+# This is a basic workflow to help you get started with Actions
 
+name: Deployment
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on push events but only for the master branch
   push:
-    branches: [master]
+    branches: [ master ]
 
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  deploy:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    environment: production
+    concurrency: production
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - uses: getsentry/paths-filter@v2
-        id: filter
-        with:
-          filters: |
-            frontend:
-              - 'public/**'
-              - 'resources/js/**'
-              - 'resources/sass/**'
-              - 'webpack.mix.js'
-              - 'package.json'
-          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Set up Node
         uses: actions/setup-node@v1
         with:
-          node-version: "12.x"
-      - name: Install NPM
-        if: steps.filter.outputs.frontend == 'true'
-        run: npm install
-      - name: Run NPM
-        if: steps.filter.outputs.frontend == 'true'
-        run: npm run production
+          node-version: "16.x"
+      - name: Install and run NPM
+        run: |
+          npm install
+          npm run production
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -44,14 +46,51 @@ jobs:
           git add -f public/
           git commit -m "Deployment at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
           git push -f origin deploy
-      - name: Deploy to Server
+          echo "MESSAGE=Deployment at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
+  deploy:
+      needs: build
+      # The type of runner that the job will run on
+      runs-on: ubuntu-latest
+      environment: production
+      concurrency: production
+      steps:
+      - name: Deploy to Server using SSH
         uses: appleboy/ssh-action@master
         with:
-          username: ${{ secrets.SSH_USERNAME }}
           host: ${{ secrets.SSH_HOST }}
-          port: ${{ secrets.SSH_PORT }}
+          username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
           script: |
-            cd public_html
-            exec bash -l
-            ./deploy.sh
+            cd ~/public_html
+            # activate maintenance mode
+            php artisan down
+            echo "Server maintenance mode activated"
+
+            # update source code
+            git fetch origin
+            git reset --hard origin/deploy
+            echo "Updates fetched"
+
+            # update PHP dependencies
+            export COMPOSER_HOME="$HOME/.config/composer"
+            composer install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            echo "Composer installed"
+
+            #Refresh caches
+            php artisan optimize:clear
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:cache
+            echo "Cache udpated."
+
+            # update database
+            php artisan migrate --force	# --force		Required to run when in production.
+            echo "Migrations done"
+            # restart queues 
+            php artisan -v queue:restart
+            echo "Queue restarted"
+
+            # stop maintenance mode
+            php artisan up
+            echo "Server is active again"
