@@ -38,9 +38,8 @@ class UsersController extends Controller
 
     public function courses_wait(User $user, Appointment $appointment)
     {
-        if ($user->appointments->find($appointment->id)->pivot->paid)
-        {
-            session()->flash('success','You have successfully paid!');
+        if ($user->appointments->find($appointment->id)->pivot->paid) {
+            session()->flash('success', 'You have successfully paid!');
             return redirect()->route('users.courses', ['user' => $user]);
         }
         return view('users.waiting-payment', ['user' => $user, 'appointment' => $appointment]);
@@ -139,10 +138,9 @@ class UsersController extends Controller
      */
     public function destroy(User $user, Request $request)
     {
-        if (!Hash::check($request->password, auth()->user()->password)) {
-            session()->flash('error', 'The password is incorrect.');
-            return back();
-        }
+        $request->validate([
+            'password' => 'required|current_password:web',
+        ]);
 
         $user->delete();
         if ($user->is(auth()->user())) { //User quited
