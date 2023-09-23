@@ -19,15 +19,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        //Laravel-page-speed
-        // \RenatoMarinho\LaravelPageSpeed\Middleware\InlineCss::class,
-        // \RenatoMarinho\LaravelPageSpeed\Middleware\ElideAttributes::class,
-        // \RenatoMarinho\LaravelPageSpeed\Middleware\InsertDNSPrefetch::class,
-        // \RenatoMarinho\LaravelPageSpeed\Middleware\RemoveComments::class,
-        // //\RenatoMarinho\LaravelPageSpeed\Middleware\TrimUrls::class, 
-        // //\RenatoMarinho\LaravelPageSpeed\Middleware\RemoveQuotes::class,
-        // \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class, // Note: This middleware invokes "RemoveComments::class" before it runs.
-        // \RenatoMarinho\LaravelPageSpeed\Middleware\DeferJavascript::class,
 
     ];
 
@@ -62,7 +53,7 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
-    protected $routeMiddleware = [
+    protected $middlewareAliases = [
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'bindings' => \Illuminate\Routing\Middleware\SubstituteBindings::class,
