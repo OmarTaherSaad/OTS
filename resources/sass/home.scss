@@ -215,7 +215,16 @@ a {
 
         .progress-bar {
             height: 0.7rem;
-            background-color: #0078ff;
+            //background-color: #0078ff;
+        }
+        /** Create class for progress-0 to progress-100 with width 0% to 100% & bg-color dynamically **/
+        @for $i from 0 through 100 {
+            .progress-#{$i} {
+                width: #{$i} + "%";
+                //Lighten background-color by $i value (base color: #0078ff)
+                $v: max(0, $i / 2 - 30);
+                background-color: darken(#0078ff, $v);
+            }
         }
     }
 }
@@ -319,4 +328,40 @@ a {
 .iti {
     display: table-cell;
     color: black;
+}
+
+.logo-container {
+    overflow: hidden;
+    .slider {
+        animation: slidein 20s linear infinite;
+        white-space: nowrap;
+        .logos {
+            width: 100%;
+            display: inline-block;
+            margin: 0px 0;
+            .logo {
+                width: calc(100% / 5);
+                animation: fade-in 0.5s cubic-bezier(0.455, 0.03, 0.515, 0.955)
+                    forwards;
+            }
+        }
+    }
+}
+
+@keyframes slidein {
+    from {
+        transform: translate3d(0, 0, 0);
+    }
+    to {
+        transform: translate3d(-100%, 0, 0);
+    }
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }

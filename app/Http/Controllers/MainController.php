@@ -16,42 +16,32 @@ class MainController extends Controller
 {
     public function index()
     {
+        /*
+        Expert in: PHP, Laravel, OOP, Data Structures & Algorithms, REST APIs, HTML5, CSS,
+Bootstrap
+Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
+*/
         $skills = [
-            [
-                'name' => 'PHP',
-                'value' => 75,
-                'percentage' => '75%',
-            ],
-            [
-                'name' => 'Laravel',
-                'value' => 90,
-                'percentage' => '90%',
-            ],
-            [
-                'name' => 'C++',
-                'value' => 80,
-                'percentage' => '80%',
-            ],
-            [
-                'name' => 'Python',
-                'value' => 80,
-                'percentage' => '80%',
-            ],
-            [
-                'name' => 'HTML, CSS & JS',
-                'value' => 90,
-                'percentage' => '90%',
-            ],
-            [
-                'name' => 'VUE JS',
-                'value' => 70,
-                'percentage' => '70%',
-            ],
-            [
-                'name' => 'C#',
-                'value' => 85,
-                'percentage' => '85%',
-            ],
+            'Laravel' => 100,
+            'OOP [Object Oriented Programming]' => 99,
+            'REST APIs' => 95,
+            'Data Structures & Algorithms' => 95,
+            'MySQL' => 98,
+            'SQLite' => 84,
+            'Unit Testing' => 80,
+            'Git' => 90,
+            'Linux' => 70,
+            'PHP' => 95,
+            'C++' => 80,
+            'Python' => 80,
+            'HTML, CSS & JS' => 90,
+            'VUE JS' => 75,
+            'C#' => 65,
+        ];
+        $languages = [
+            'Arabic' => 'Native',
+            'English' => 'Fluent',
+            'German' => 'Beginner',
         ];
         $services = [
             [
@@ -108,6 +98,34 @@ class MainController extends Controller
                 "category" => "Software Engineering",
                 "link" => "https://github.com/OmarTaherSaad/MemoryAllocator",
             ],
+            [
+                "img" => Storage::url('assets/images/projects/snugglez.png'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-snugglez.jpg'),
+                "title" => "Snugglez (Baby and Toddler Sleeping bags)",
+                "category" => "Web Development",
+                "link" => "https://snugglez.shop/",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/eftekassat.png'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-eftekassat.jpg'),
+                "title" => "Eftekassat (Montessori-Inspired Furniture)",
+                "category" => "Web Development",
+                "link" => "https://eftekassat.com/",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/littleB.png'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-littleB.jpg'),
+                "title" => "Little B (Baby & children's clothing store)",
+                "category" => "Web Development",
+                "link" => "https://littlebcarriers.com/",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/lavish.png'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-lavish.jpg'),
+                "title" => "Lavish (Cosmetics Brand)",
+                "category" => "Web Development",
+                "link" => "https://lavish-cosmetic.com/",
+            ],
             // [
             //     "img" => ,
             //     "img_progressive" => ,
@@ -123,10 +141,17 @@ class MainController extends Controller
                 "link" => "https://thanawyahelwa.org",
             ],
         ];
+
+        $skills = collect($skills)->sortByDesc(function ($value, $key) {
+            return $value;
+        });
+        $logos = Storage::disk('public')->allFiles('logos');
         return view('home', [
             'skills' => $skills,
             'services' => $services,
             'projects' => $projects,
+            'languages' => $languages,
+            'logos' => $logos,
         ]);
     }
 
