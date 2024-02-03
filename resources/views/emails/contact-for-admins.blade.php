@@ -16,7 +16,7 @@
     @endcomponent
 
 
-    التاريخ: {{ $date }}
+    التاريخ: {{ $date ?? 'N/A' }}
     <hr>
 
     <br><br>
