@@ -10,12 +10,9 @@
     "require": {
         "php": "^8.2",
         "laravel/framework": "^10.0",
-        "laravel/socialite": "^5.1",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^4.2",
         "simplesoftwareio/simple-qrcode": "^4.1",
-        "socialiteproviders/facebook": "^4.0",
-        "socialiteproviders/google": "^4.0",
         "spatie/laravel-ignition": "^2.0"
     },
     "require-dev": {
