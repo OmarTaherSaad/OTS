@@ -12,7 +12,8 @@ class ContactMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $name, $message;
+    public $name;
+    public $message;
     /**
      * Create a new message instance.
      *
@@ -31,6 +32,9 @@ class ContactMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->subject("OTS received your mail!")->replyTo("contact@omartahersaad.com", "OTS Contact")->from("no-reply@omartahersaad.com")->markdown('emails.contact_us');
+        return $this->subject("OTS received your mail!")
+            ->replyTo("contact@omartahersaad.com", "OTS Contact")
+            ->from("no-reply@omartahersaad.com")
+            ->markdown('emails.contact_us');
     }
 }

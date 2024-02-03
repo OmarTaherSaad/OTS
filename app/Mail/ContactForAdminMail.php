@@ -11,7 +11,12 @@ class ContactForAdminMail extends Mailable implements ShouldQueue
 {
     use Queueable, SerializesModels;
 
-    public $name, $email, $message, $subject, $phone;
+    public $name;
+    public $email;
+    public $message;
+    public $subject;
+    public $phone;
+    public $date;
 
     /**
      * Create a new message instance.
@@ -25,6 +30,7 @@ class ContactForAdminMail extends Mailable implements ShouldQueue
         $this->email = $email;
         $this->subject = "Mail from OTS Website | " . $subject;
         $this->phone = $phone;
+        $this->date = date('Y-m-d h:i A');
     }
 
     /**
@@ -35,6 +41,5 @@ class ContactForAdminMail extends Mailable implements ShouldQueue
     public function build()
     {
         return $this->from("no-reply@omartahersaad.com")->markdown('emails.contact-for-admins');
-
     }
 }

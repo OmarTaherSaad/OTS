@@ -215,9 +215,15 @@ Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
             'https://elwatannews.com/news/details/3412243' => ['الوطن', 'El Watan'],
             'https://dostor.org/2200772' => ['الدستور', 'Al Dostor'],
             'https://arabicpost.net/variety/2018/06/04/%D8%AB%D8%A7%D9%86%D9%88%D9%8A%D8%A9-%D8%AD%D9%84%D9%88%D8%A9-%D9%88%D8%AF%D8%A7%D8%B9%D8%A7%D9%8B-%D9%84%D9%85%D8%B5%D8%A7%D8%B1%D9%8A%D9%81-%D8%A7%D9%84%D8%AF%D8%B1%D9%88%D8%B3-%D8%A7%D9%84/' => ['عربي بوست', 'Arabic Post'],
-            'https://masrawy.com/howa_w_hya/relationship/details/2018/6/4/1369848/بعد-وصول-ثمنها-لـ400-جنيه-ا-شاب-مصري-يعطي-مراجعات-مجانية-لطلاب-الثانوية' => ['مصراوي', 'Masrawy'],
-            'https://shbabbek.com/show/125076' => ['شبابيك', 'Shababeek'],
-            'https://www.masrawy.com/news/news_various/details/2019/6/18/1586588/' => ['مصراوي (خبر آخر)', 'Masrawy (Another news release)']
+            'https://masrawy.com/howa_w_hya/relationship/details/2018/6/4/1369848/بعد-وصول-ثمنها-لـ400-جنيه-ا-شاب-مصري-يعطي-مراجعات-مجانية-لطلاب-الثانوية' => [
+                'مصراوي', 'Masrawy'
+            ],
+            'https://shbabbek.com/show/125076' => [
+                'شبابيك', 'Shababeek'
+            ],
+            'https://www.masrawy.com/news/news_various/details/2019/6/18/1586588/' => [
+                'مصراوي (خبر آخر)', 'Masrawy (Another news release)'
+            ]
         ];
         foreach ($ItemsNews as $link => $names) {
             $item = new stdClass();
@@ -241,9 +247,19 @@ Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
             "message" => "required|min:10,1000"
         ]);
         //Send Mail to Admin
-        Mail::to("ots.for.work@gmail.com")->queue(new ContactForAdminMail($request->input('name'), $request->input('email'), $request->input('phone'), $request->input('subject'), $request->input('message')));
+        Mail::to("ots.for.work@gmail.com")
+            ->queue(new ContactForAdminMail(
+                $request->input('name'),
+                $request->input('email'),
+                $request->input('phone'),
+                $request->input('subject'),
+                $request->input('message')
+            ));
         //Send Mail to the user himself/herself
-        Mail::to($request->input('email'))->queue(new ContactMail($request->input('name'), $request->input('message')));
+        Mail::to($request->input('email'))->queue(new ContactMail(
+            $request->input('name'),
+            $request->input('message')
+        ));
         //Flash a message to user
         $request->session()->flash('success', __("Your words is being delivered now to OTS! Thank you .. we will keep in touch"));
         return back();
