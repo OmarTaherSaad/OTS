@@ -124,37 +124,6 @@
         </div>
     </section>
     {{-- About Section END --}}
-    {{-- APIs Section START --}}
-    <section id="service" class="pb-5">
-        <div class="container-fluid">
-            <div class="row justify-content-around">
-                <div class="col-12 text-center">
-                    <h2 class="font-weight-bold text-uppercase text-dark">Some of the APIs I Connected</h2>
-                    <div class="line"></div>
-                </div>
-            </div>
-            <div class="row justify-content-around">
-                <div class="logo-container h-100">
-                    <div class="row align-items-center h-100">
-                        <div class="logo-container rounded">
-                            <div class="slider">
-                                <div class="logos">
-                                    @foreach ($logos as $logo)
-                                        <img src="{{ Storage::url($logo) }}" class="img-fluid rounded logo mx-2"
-                                            height="200" alt="">
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-
-            </div>
-        </div>
-    </section>
-    {{-- APIs Section END --}}
     {{-- Services Section START --}}
     <section id="service" class="pb-5">
         <div class="container-fluid">
@@ -185,6 +154,38 @@
         </div>
     </section>
     {{-- Section END --}}
+
+    {{-- APIs Section START --}}
+    <section id="apis" class="pb-5">
+        <div class="container-fluid">
+            <div class="row justify-content-around">
+                <div class="col-12 text-center">
+                    <h2 class="font-weight-bold text-uppercase text-dark">Some of the APIs I Connected</h2>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="row justify-content-around">
+                <div class="logo-container h-100">
+                    <div class="row align-items-center h-100">
+                        <div class="logo-container rounded">
+                            <div class="slider">
+                                <div class="logos">
+                                    @foreach ($logos as $logo)
+                                        <img src="{{ Storage::url($logo) }}" class="img-fluid rounded logo mx-2"
+                                            height="200" alt="">
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    {{-- APIs Section END --}}
 
     {{-- Portfolio --}}
     <section id="work" class="bg-image"
