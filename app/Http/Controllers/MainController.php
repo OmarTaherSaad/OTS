@@ -86,19 +86,6 @@ Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
                 "link" => "https://solutions.agecs-eg.com",
             ],
             [
-                "img" => Storage::url('assets/images/projects/csharp-sectionLibrary.jpg'),
-                "img_progressive" => Storage::url('assets/images/projects/Progressive-csharp-sectionLibrary.jpg'),
-                "title" => "Steel Sections Selector for Civil Engineers",
-                "category" => "Software Engineering",
-            ],
-            [
-                "img" => Storage::url('assets/images/projects/csharp-memoryAllocator.jpg'),
-                "img_progressive" => Storage::url('assets/images/projects/Progressive-csharp-memoryAllocator.jpg'),
-                "title" => "Memory Allocator",
-                "category" => "Software Engineering",
-                "link" => "https://github.com/OmarTaherSaad/MemoryAllocator",
-            ],
-            [
                 "img" => Storage::url('assets/images/projects/snugglez.png'),
                 "img_progressive" => Storage::url('assets/images/projects/Progressive-snugglez.jpg'),
                 "title" => "Snugglez (Baby and Toddler Sleeping bags)",
@@ -126,13 +113,6 @@ Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
                 "category" => "Web Development",
                 "link" => "https://lavish-cosmetic.com/",
             ],
-            // [
-            //     "img" => ,
-            //     "img_progressive" => ,
-            //     "title" => "",
-            //     "category" => "",
-            //     "link" => "",
-            // ],
             [
                 "img" => Storage::url('assets/images/projects/web-thanawyahelwa.jpg'),
                 "img_progressive" => Storage::url('assets/images/projects/Progressive-web-thanawyahelwa.jpg'),
@@ -140,6 +120,27 @@ Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
                 "category" => "Web Development",
                 "link" => "https://thanawyahelwa.org",
             ],
+            [
+                "img" => Storage::url('assets/images/projects/csharp-sectionLibrary.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-csharp-sectionLibrary.jpg'),
+                "title" => "Steel Sections Selector for Civil Engineers",
+                "category" => "Software Engineering",
+            ],
+            [
+                "img" => Storage::url('assets/images/projects/csharp-memoryAllocator.jpg'),
+                "img_progressive" => Storage::url('assets/images/projects/Progressive-csharp-memoryAllocator.jpg'),
+                "title" => "Memory Allocator",
+                "category" => "Software Engineering",
+                "link" => "https://github.com/OmarTaherSaad/MemoryAllocator",
+            ],
+            // Sample:
+            // [
+            //     "img" => ,
+            //     "img_progressive" => ,
+            //     "title" => "",
+            //     "category" => "",
+            //     "link" => "",
+            // ],
         ];
 
         $skills = collect($skills)->sortByDesc(function ($value, $key) {
