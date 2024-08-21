@@ -10,7 +10,7 @@
         "prod": "mix --production"
     },
     "devDependencies": {
-        "axios": "^1.6",
+        "axios": "^1.7",
         "cross-env": "^5.2.1",
         "glob-parent": ">=5.1.2",
         "jquery": "^3.5.1",
