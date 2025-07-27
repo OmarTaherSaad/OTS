@@ -16,28 +16,8 @@ class MainController extends Controller
 {
     public function index()
     {
-        /*
-        Expert in: PHP, Laravel, OOP, Data Structures & Algorithms, REST APIs, HTML5, CSS,
-Bootstrap
-Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
-*/
-        $skills = [
-            'Laravel' => 100,
-            'OOP [Object Oriented Programming]' => 99,
-            'REST APIs' => 95,
-            'Data Structures & Algorithms' => 95,
-            'MySQL' => 98,
-            'SQLite' => 84,
-            'Unit Testing' => 80,
-            'Git' => 90,
-            'Linux' => 70,
-            'PHP' => 95,
-            'C++' => 80,
-            'Python' => 80,
-            'HTML, CSS & JS' => 90,
-            'VUE JS' => 75,
-            'C#' => 65,
-        ];
+        $skills = json_decode(Storage::disk('local')->get('skills.json'), true);
+
         $languages = [
             'Arabic' => 'Native',
             'English' => 'Fluent',
@@ -217,13 +197,16 @@ Intermediate in: Unit Testing, Javascript, jQuery, Vue.js, C++, C#, Python
             'https://dostor.org/2200772' => ['الدستور', 'Al Dostor'],
             'https://arabicpost.net/variety/2018/06/04/%D8%AB%D8%A7%D9%86%D9%88%D9%8A%D8%A9-%D8%AD%D9%84%D9%88%D8%A9-%D9%88%D8%AF%D8%A7%D8%B9%D8%A7%D9%8B-%D9%84%D9%85%D8%B5%D8%A7%D8%B1%D9%8A%D9%81-%D8%A7%D9%84%D8%AF%D8%B1%D9%88%D8%B3-%D8%A7%D9%84/' => ['عربي بوست', 'Arabic Post'],
             'https://masrawy.com/howa_w_hya/relationship/details/2018/6/4/1369848/بعد-وصول-ثمنها-لـ400-جنيه-ا-شاب-مصري-يعطي-مراجعات-مجانية-لطلاب-الثانوية' => [
-                'مصراوي', 'Masrawy'
+                'مصراوي',
+                'Masrawy'
             ],
             'https://shbabbek.com/show/125076' => [
-                'شبابيك', 'Shababeek'
+                'شبابيك',
+                'Shababeek'
             ],
             'https://www.masrawy.com/news/news_various/details/2019/6/18/1586588/' => [
-                'مصراوي (خبر آخر)', 'Masrawy (Another news release)'
+                'مصراوي (خبر آخر)',
+                'Masrawy (Another news release)'
             ]
         ];
         foreach ($ItemsNews as $link => $names) {
