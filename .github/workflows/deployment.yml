@@ -85,7 +85,7 @@ jobs:
             cd ~/public_html
             # activate maintenance mode
             echo "Activating maintenance mode..."
-            php artisan down --message="System is being updated. Please try again in a few minutes." --retry=60
+            php artisan down --retry=60
 
             # update source code
             echo "Fetching updates..."
