@@ -23,20 +23,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '18.x'
+          cache: 'npm'
 
-      - name: Cache dependencies
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: npm-${{ hashFiles('package-lock.json') }}
-          restore-keys: npm-
-          
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
@@ -44,20 +38,24 @@ jobs:
         id: file_changes
         run: |
           if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E 'webpack.mix.js|package.json|package-lock.json|resources/(?!views/)' ; then
-            echo "::set-output name=changes_detected::true"
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
           fi
-  
+
       - name: Run Production Build
         if: steps.file_changes.outputs.changes_detected == 'true'
         run: npm run production
-        
+
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
         with:
           format: LLL
           utcOffset: "+02:00"
+
       - name: Commit built assets
+        if: steps.file_changes.outputs.changes_detected == 'true'
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -66,6 +64,7 @@ jobs:
           git commit -m "Deployment at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
           git push -f origin deploy
           echo "MESSAGE=Deployment at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
+
   deploy:
       needs: build
       # The type of runner that the job will run on
@@ -74,42 +73,48 @@ jobs:
       concurrency: production
       steps:
       - name: Deploy to Server using SSH
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            set -e  # Exit on any error
+
             cd ~/public_html
             # activate maintenance mode
-            php artisan down
-            echo "Server maintenance mode activated"
+            echo "Activating maintenance mode..."
+            php artisan down --message="System is being updated. Please try again in a few minutes." --retry=60
 
             # update source code
+            echo "Fetching updates..."
             git fetch origin
             git reset --hard origin/deploy
-            echo "Updates fetched"
 
             # update PHP dependencies
+            echo "Installing Composer dependencies..."
             export COMPOSER_HOME="$HOME/.config/composer"
             composer2 install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-            echo "Composer installed"
 
-            #Refresh caches
+            # Clear and refresh caches
+            echo "Refreshing caches..."
             php artisan optimize:clear
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
-            echo "Cache udpated."
 
             # update database
-            php artisan migrate --force	# --force		Required to run when in production.
-            echo "Migrations done"
-            # restart queues 
+            echo "Running database migrations..."
+            php artisan migrate --force
+
+            # restart queues
+            echo "Restarting queues..."
             php artisan -v queue:restart
             echo "Queue restarted"
 
             # stop maintenance mode
+            echo "Deactivating maintenance mode..."
             php artisan up
-            echo "Server is active again"
+
+            echo "Deployment completed successfully!"
