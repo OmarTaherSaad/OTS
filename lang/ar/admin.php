@@ -21,11 +21,9 @@ return [
     'UserDeleted' => 'تم حذف المشرف',
     'LastSuperAdmin' => 'لا يمكنك حذف نفسك أو تغيير صلاحياتك لأنك المشرف الوحيد بصلاحيات Super Admin الآن!',
     'EditUser' => 'تعديل المشرف',
-    
 
-    //Projects
-    'Projects' => 'المشاريع',
-    'AllProjects' => 'كل المشاريع',
+
+
     'Edit' => 'تعديل',
     'ProjectName' => 'اسم المشروع',
     'ProjectDesc' => 'وصف المشروع',
@@ -73,5 +71,5 @@ return [
 
 
     'FileManager' => 'الملفات',
-    
+
 ];

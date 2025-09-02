@@ -20,9 +20,7 @@ return [
     'LastSuperAdmin' => 'You cannot delete yourself or change your role as you are the only Super Admin now!',
     'EditUser' => 'Edit Admin',
 
-    //Projects
-    'Projects' => 'Projects',
-    'AllProjects' => 'All Projects',
+
     'Edit' => 'Edit',
     'ProjectName' => 'Project Name',
     'ProjectDesc' => 'Project Description',
@@ -70,6 +68,6 @@ return [
     'ProductDescUpdated' => 'Products\' description udpated successfully!',
 
     'FileManager' => 'Files',
-    
+
 
 ];
