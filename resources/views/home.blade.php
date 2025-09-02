@@ -309,6 +309,7 @@
                             </div>
                         </div>
                         <!-- Hidden reCAPTCHA response field -->
+                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
                     </form>
 
                 </div>
