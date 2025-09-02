@@ -4,17 +4,17 @@ name: Deploy To Production
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the main branch
+  # Triggers the workflow on push events but only for the master branch
   push:
-    branches: [ main ]
+    branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
       source_branch:
-        description: 'Source branch to deploy from (default: main)'
+        description: 'Source branch to deploy from (default: master)'
         required: false
-        default: 'main'
+        default: 'master'
         type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
@@ -31,7 +31,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.inputs.source_branch || 'main' }}
+          ref: ${{ github.event.inputs.source_branch || 'master' }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -66,12 +66,12 @@ jobs:
           git add -f public/
 
           # Commit with timestamp
-          git commit -m "Build assets from ${{ github.event.inputs.source_branch || 'main' }} at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
+          git commit -m "Build assets from ${{ github.event.inputs.source_branch || 'master' }} at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
 
           # Force push to deploy branch
           git push -f origin deploy
 
-          echo "MESSAGE=Build assets from ${{ github.event.inputs.source_branch || 'main' }} at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
+          echo "MESSAGE=Build assets from ${{ github.event.inputs.source_branch || 'master' }} at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
 
   deploy:
       needs: build
