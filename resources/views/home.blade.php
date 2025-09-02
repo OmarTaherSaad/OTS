@@ -235,8 +235,8 @@
             <div class="row justify-content-around">
                 <div class="col-12 col-md-6">
                     <div class="jumbotron mt-lg-3 mt-5">
-                        <h2>{{ __("I'll be glad to recieve your message") }}</h2>
-                        <p class="lead">{{ __("It's hard to answer immediately, but I will do as fast as possible") }}
+                        <h2 class="text-light">{{ __("I'll be glad to recieve your message") }}</h2>
+                        <p class="lead text-light">{{ __("It's hard to answer immediately, but I will do as fast as possible") }}
                         </p>
                     </div>
                 </div>

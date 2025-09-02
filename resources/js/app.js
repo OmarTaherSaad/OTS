@@ -40,73 +40,6 @@ $(".navbar-toggler").on("click", function () {
     }
 });
 
-// Back to top button
-$(window).on("scroll", function () {
-    if ($(this).scrollTop() > 100) {
-        $(".back-to-top").fadeIn("slow");
-    } else {
-        $(".back-to-top").fadeOut("slow");
-    }
-});
-var nav = $("nav");
-var navHeight = nav.outerHeight();
-
-$(".back-to-top").on("click", function () {
-    $("html, body").animate(
-        {
-            scrollTop: 0,
-        },
-        1500,
-        "easeInOutExpo"
-    );
-    return false;
-});
-
-/*--/ Star ScrollTop /--*/
-$(".scrolltop-mf").on("click", function () {
-    $("html, body").animate(
-        {
-            scrollTop: 0,
-        },
-        1000
-    );
-});
-/*--/ Star Scrolling nav /--*/
-$('a.js-scroll[href*="#"]:not([href="#"])').on("click", function () {
-    if (
-        location.pathname.replace(/^\//, "") ==
-            this.pathname.replace(/^\//, "") &&
-        location.hostname == this.hostname
-    ) {
-        var target = $(this.hash);
-        target = target.length
-            ? target
-            : $("[name=" + this.hash.slice(1) + "]");
-        if (target.length) {
-            $("html, body").animate(
-                {
-                    scrollTop: target.offset().top - navHeight + 5,
-                },
-                1000,
-                "easeInOutExpo"
-            );
-            return false;
-        }
-    }
-});
-
-// Closes responsive menu when a scroll trigger link is clicked
-$(".js-scroll").on("click", function () {
-    $(".navbar-collapse").collapse("hide");
-});
-
-// Activate scrollspy to add active class to navbar items on scroll
-$("body").scrollspy({
-    target: "#navbar",
-    offset: navHeight,
-});
-/*--/ End Scrolling nav /--*/
-
 /*--/ Navbar Menu Reduce /--*/
 $(window).trigger("scroll");
 $(window).on("scroll", function () {
@@ -154,4 +87,93 @@ inputs.forEach(function (input) {
         }
     };
     input.dispatchEvent(new Event("change"));
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Back to top button
+    $(window).on("scroll", function () {
+        if ($(this).scrollTop() > 100) {
+            $(".back-to-top").fadeIn("slow");
+        } else {
+            $(".back-to-top").fadeOut("slow");
+        }
+    });
+    var nav = $("nav");
+    var navHeight = nav.outerHeight();
+
+    $(".back-to-top").on("click", function () {
+        $("html, body").animate(
+            {
+                scrollTop: 0,
+            },
+            1500,
+            "easeInOutExpo"
+        );
+        return false;
+    });
+
+    /*--/ Star ScrollTop /--*/
+    $(".scrolltop-mf").on("click", function () {
+        $("html, body").animate(
+            {
+                scrollTop: 0,
+            },
+            1000
+        );
+    });
+    /*--/ Star Scrolling nav /--*/
+    $('a.js-scroll[href*="#"]:not([href="#"])').on("click", function () {
+        if (
+            location.pathname.replace(/^\//, "") ==
+                this.pathname.replace(/^\//, "") &&
+            location.hostname == this.hostname
+        ) {
+            var target = $(this.hash);
+            target = target.length
+                ? target
+                : $("[name=" + this.hash.slice(1) + "]");
+            if (target.length) {
+                $("html, body").animate(
+                    {
+                        scrollTop: target.offset().top - navHeight + 5,
+                    },
+                    1000,
+                    "easeInOutExpo"
+                );
+                return false;
+            }
+        }
+    });
+
+    // Closes responsive menu when a scroll trigger link is clicked
+    $(".js-scroll").on("click", function () {
+        $(".navbar-collapse").collapse("hide");
+    });
+
+    // Activate scrollspy to add active class to navbar items on scroll
+    $("body").scrollspy({
+        target: "#navbar",
+        offset: navHeight,
+    });
+    /*--/ End Scrolling nav /--*/
+
+    // Dark mode toggle
+    const toggle = document.getElementById("theme-toggle");
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+    }
+    if (toggle) {
+        // update initial text
+        toggle.textContent = document.body.classList.contains("dark-mode")
+            ? "Light Mode"
+            : "Dark Mode";
+        toggle.addEventListener("click", function (e) {
+            e.preventDefault();
+            document.body.classList.toggle("dark-mode");
+            const isDark = document.body.classList.contains("dark-mode");
+            toggle.textContent = isDark ? "Light Mode" : "Dark Mode";
+            localStorage.setItem("theme", isDark ? "dark" : "light");
+        });
+    }
 });

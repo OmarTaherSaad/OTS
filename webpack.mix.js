@@ -38,5 +38,5 @@ mix.js("resources/js/app.js", "public/js")
         "node_modules/@fortawesome/fontawesome-free/webfonts",
         "public/webfonts"
     )
-    .vue({ version: 2 })
+    .vue({ version: 3 })
     .version();

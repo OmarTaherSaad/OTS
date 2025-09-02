@@ -1,13 +1,14 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import VueQrcodeReader from "vue-qrcode-reader";
-Vue.use(VueQrcodeReader);
-window.app = new Vue({
-    el: "#app",
-    data: {
-        response: "",
-        canEnter: false,
-        url: "",
-        enterURL: ""
+
+const app = createApp({
+    data() {
+        return {
+            response: "",
+            canEnter: false,
+            url: "",
+            enterURL: "",
+        };
     },
     methods: {
         cardScanned(url) {
@@ -36,6 +37,11 @@ window.app = new Vue({
                     this.response = data.message;
                 }
             });
-        }
-    }
+        },
+    },
 });
+
+app.use(VueQrcodeReader);
+app.mount("#app");
+
+window.app = app;

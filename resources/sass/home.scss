@@ -2,8 +2,8 @@
 @import "~animate.css/animate.min.css";
 
 body {
-    background-color: #f5f5f5;
-    color: #4e4e4e;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 }
 
 h1,
@@ -12,15 +12,15 @@ h3,
 h4,
 h5,
 h6 {
-    color: #1e1e1e;
+    color: var(--color-text);
 }
 
 a {
-    color: #1e1e1e;
+    color: var(--color-text);
     transition: all 0.5s ease-in-out;
 
     &:hover {
-        color: #0078ff;
+        color: var(--color-link);
         text-decoration: none;
         transition: all 0.5s ease-in-out;
     }
@@ -77,7 +77,7 @@ a {
 
 .title-s {
     font-weight: 600;
-    color: #1e1e1e;
+    color: var(--color-text);
     font-size: 1.1rem;
 }
 
@@ -94,13 +94,13 @@ a {
 }
 
 .subtitle-a {
-    color: #4e4e4e;
+    color: var(--color-text);
 }
 
 .line {
     width: 100px;
     height: 5px;
-    background-color: #0078ff;
+    background-color: var(--color-link);
     margin: 0 auto;
 }
 
@@ -118,7 +118,7 @@ a {
         content: "";
         position: absolute;
         height: 3px;
-        background-color: #0078ff;
+        background-color: var(--color-link);
         width: 100px;
         bottom: -12px;
     }
@@ -129,7 +129,7 @@ a {
 .box-shadow-full {
     padding: 3rem 1.25rem;
     position: relative;
-    background-color: #fff;
+    background-color: var(--color-card-bg);
     margin-bottom: 3rem;
     z-index: 2;
     box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.06), 0 2px 5px 0 rgba(0, 0, 0, 0.2);
@@ -151,7 +151,7 @@ a {
     line-height: 1.55;
     margin: 0 auto;
     text-align: center;
-    box-shadow: 0 0 0 10px #0078ff;
+    box-shadow: 0 0 0 10px var(--color-link);
     display: block;
 }
 
@@ -204,11 +204,11 @@ a {
 
 .skill-mf {
     span {
-        color: #4e4e4e;
+        color: var(--color-text);
     }
 
     .progress {
-        background-color: #cde1f8;
+        background-color: var(--color-overlay);
         margin: 0.5rem 0 1.2rem 0;
         border-radius: 0;
         height: 0.7rem;
@@ -223,7 +223,8 @@ a {
                 width: #{$i} + "%";
                 //Lighten background-color by $i value (base color: #0078ff)
                 $v: max(0, $i / 2 - 30);
-                background-color: darken(#0078ff, $v);
+                background-color: var(--color-link);
+                opacity: #{0.3 + ($i / 100) * 0.7};
             }
         }
     }
@@ -234,7 +235,7 @@ a {
 --------------------------------------------------------------*/
 
 .service-box {
-    background-color: #fff;
+    background-color: var(--color-card-bg);
     padding: 2.5rem 1.3rem;
     border-radius: 1rem;
 
@@ -247,7 +248,7 @@ a {
 
     .service-ico {
         margin-bottom: 1rem;
-        color: #1e1e1e;
+        color: var(--color-text);
     }
 
     .ico-circle {
@@ -263,7 +264,7 @@ a {
     }
 
     .s-description {
-        color: #4e4e4e;
+        color: var(--color-text);
     }
 }
 
@@ -275,7 +276,7 @@ a {
     margin-bottom: 3rem;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    background-color: #fff;
+    background-color: var(--color-card-bg);
 
     &:hover img {
         transform: scale(1.3);
@@ -298,21 +299,21 @@ a {
     padding: 2rem 3% 1rem 4%;
 
     .w-more {
-        color: #4e4e4e;
+        color: var(--color-text);
         font-size: 0.8rem;
 
         .w-ctegory {
-            color: #0078ff;
+            color: var(--color-link);
         }
     }
 
     .w-like {
         font-size: 2.5rem;
-        color: #0078ff;
+        color: var(--color-link);
         float: right;
 
         a {
-            color: #0078ff;
+            color: var(--color-link);
         }
 
         .num-like {
@@ -327,7 +328,7 @@ a {
 
 .iti {
     display: table-cell;
-    color: black;
+    color: var(--color-text);
 }
 
 .logo-container {

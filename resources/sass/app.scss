@@ -21,6 +21,456 @@ $enable-responsive-font-sizes: true;
 
 @import "intl-tel-input/build/css/intlTelInput.css";
 
+// CSS Variables
+:root {
+    --color-bg: whitesmoke;
+    --color-bg-rgb: 245, 245, 245;
+    --color-text: #212529;
+    --color-overlay: #ccc;
+    --color-footer-bg: #f5f5f5;
+    --color-navbar-bg: #ffffff;
+    --color-navbar-text: #212529;
+    --color-navbar-border: #dee2e6;
+    --color-card-bg: #ffffff;
+    --color-card-border: #dee2e6;
+    --color-input-bg: #ffffff;
+    --color-input-border: #ced4da;
+    --color-input-text: #212529;
+    --color-btn-primary: #0d6efd;
+    --color-btn-secondary: #6c757d;
+    --color-link: #0d6efd;
+    --color-border: #dee2e6;
+    --color-muted: #6c757d;
+}
+
+body.dark-mode {
+    --color-bg: #121212;
+    --color-bg-rgb: 18, 18, 18;
+    --color-text: #f1f1f1;
+    --color-overlay: #333;
+    --color-footer-bg: #1e1e1e;
+    --color-navbar-bg: #1a1a1a;
+    --color-navbar-text: #f1f1f1;
+    --color-navbar-border: #333;
+    --color-card-bg: #1e1e1e;
+    --color-card-border: #333;
+    --color-input-bg: #2d2d2d;
+    --color-input-border: #444;
+    --color-input-text: #f1f1f1;
+    --color-btn-primary: #0d6efd;
+    --color-btn-secondary: #6c757d;
+    --color-link: #66b3ff;
+    --color-border: #333;
+    --color-muted: #adb5bd;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+        // Navbar dark mode
+    .navbar {
+        background-color: var(--color-navbar-bg) !important;
+        border-bottom: 1px solid var(--color-navbar-border);
+
+        .navbar-nav .nav-link {
+            color: var(--color-navbar-text) !important;
+
+            &:hover {
+                color: var(--color-link) !important;
+            }
+        }
+
+        .navbar-brand {
+            color: var(--color-navbar-text) !important;
+        }
+
+        .navbar-toggler {
+            border-color: var(--color-navbar-border);
+
+            .navbar-toggler-icon {
+                background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba(241, 241, 241, 0.75)' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+            }
+        }
+    }
+
+    // Override navbar-b specific styles for dark mode
+    .navbar-b {
+        &.navbar-reduce {
+            background-color: var(--color-navbar-bg) !important;
+
+            .nav-link {
+                color: var(--color-link) !important;
+
+                &:before {
+                    background-color: var(--color-link) !important;
+                }
+
+                &:hover {
+                    color: var(--color-link) !important;
+                }
+
+                &.show,
+                &.active {
+                    color: var(--color-link) !important;
+                }
+            }
+
+            .navbar-brand {
+                color: var(--color-link) !important;
+            }
+
+            .navbar-toggler span {
+                background-color: var(--color-text) !important;
+            }
+        }
+
+        .navbar-brand {
+            color: var(--color-navbar-text) !important;
+        }
+
+        .navbar-toggler span {
+            background-color: var(--color-link) !important;
+
+            @media (min-width: 768px) {
+                background-color: var(--color-navbar-text) !important;
+            }
+        }
+
+        .dropdown-menu .dropdown-item {
+            &:hover {
+                background-color: var(--color-link) !important;
+            }
+
+            &.active {
+                background-color: var(--color-link) !important;
+            }
+        }
+    }
+
+    // Cards dark mode
+    .card {
+        background-color: var(--color-card-bg) !important;
+        border-color: var(--color-card-border) !important;
+        color: var(--color-text) !important;
+
+        .card-header {
+            background-color: var(--color-navbar-bg) !important;
+            border-bottom-color: var(--color-card-border) !important;
+        }
+
+        .card-footer {
+            background-color: var(--color-navbar-bg) !important;
+            border-top-color: var(--color-card-border) !important;
+        }
+    }
+
+    // Forms dark mode
+    .form-control, .form-select {
+        background-color: var(--color-input-bg) !important;
+        border-color: var(--color-input-border) !important;
+        color: var(--color-input-text) !important;
+
+        &:focus {
+            background-color: var(--color-input-bg) !important;
+            border-color: var(--color-link) !important;
+            color: var(--color-input-text) !important;
+        }
+
+        &::placeholder {
+            color: var(--color-muted) !important;
+        }
+    }
+
+    // Buttons dark mode
+    .btn-outline-primary {
+        color: var(--color-link) !important;
+        border-color: var(--color-link) !important;
+
+        &:hover {
+            background-color: var(--color-link) !important;
+            color: #ffffff !important;
+        }
+    }
+
+    .btn-outline-secondary {
+        color: var(--color-muted) !important;
+        border-color: var(--color-muted) !important;
+
+        &:hover {
+            background-color: var(--color-muted) !important;
+            color: #ffffff !important;
+        }
+    }
+
+    // Links dark mode
+    a {
+        color: var(--color-link) !important;
+
+        &:hover {
+            color: var(--color-link) !important;
+            opacity: 0.8;
+        }
+    }
+
+    // Tables dark mode
+    .table {
+        color: var(--color-text) !important;
+
+        th, td {
+            border-color: var(--color-border) !important;
+        }
+
+        thead th {
+            background-color: var(--color-navbar-bg) !important;
+            border-bottom-color: var(--color-border) !important;
+        }
+    }
+
+    // Alerts dark mode
+    .alert {
+        background-color: var(--color-card-bg) !important;
+        border-color: var(--color-card-border) !important;
+        color: var(--color-text) !important;
+    }
+
+    // Modal dark mode
+    .modal-content {
+        background-color: var(--color-card-bg) !important;
+        border-color: var(--color-card-border) !important;
+        color: var(--color-text) !important;
+
+        .modal-header {
+            border-bottom-color: var(--color-card-border) !important;
+        }
+
+        .modal-footer {
+            border-top-color: var(--color-card-border) !important;
+        }
+    }
+
+    // Dropdown dark mode
+    .dropdown-menu {
+        background-color: var(--color-card-bg) !important;
+        border-color: var(--color-card-border) !important;
+
+        .dropdown-item {
+            color: var(--color-text) !important;
+
+            &:hover {
+                background-color: var(--color-navbar-bg) !important;
+            }
+        }
+    }
+
+    // List group dark mode
+    .list-group-item {
+        background-color: var(--color-card-bg) !important;
+        border-color: var(--color-card-border) !important;
+        color: var(--color-text) !important;
+    }
+
+    // Pagination dark mode
+    .page-link {
+        background-color: var(--color-card-bg) !important;
+        border-color: var(--color-card-border) !important;
+        color: var(--color-link) !important;
+
+        &:hover {
+            background-color: var(--color-navbar-bg) !important;
+        }
+    }
+
+    .page-item.active .page-link {
+        background-color: var(--color-link) !important;
+        border-color: var(--color-link) !important;
+    }
+
+    // Text colors
+    .text-muted {
+        color: var(--color-muted) !important;
+    }
+
+    .text-dark {
+        color: var(--color-text) !important;
+    }
+
+    // Border colors
+    .border {
+        border-color: var(--color-border) !important;
+    }
+
+    // Background colors
+    .bg-light {
+        background-color: var(--color-card-bg) !important;
+    }
+
+    .bg-white {
+        background-color: var(--color-card-bg) !important;
+    }
+
+    // Additional background overrides
+    .bg-transparent {
+        background-color: transparent !important;
+    }
+
+    // Container and wrapper backgrounds
+    .container, .container-fluid {
+        background-color: transparent !important;
+    }
+
+    // Main content areas
+    #app, .main-content, .content-wrapper {
+        background-color: transparent !important;
+    }
+
+    // Override any Bootstrap default backgrounds
+    .bg-body {
+        background-color: var(--color-bg) !important;
+    }
+
+    // Ensure body and html backgrounds are properly set
+    html, body {
+        background-color: var(--color-bg) !important;
+        color: var(--color-text) !important;
+    }
+
+    // Override any potential Bootstrap container backgrounds
+    .container-fluid, .container {
+        background-color: transparent !important;
+    }
+
+    // Override any potential Bootstrap row/col backgrounds
+    .row, .col, .col-* {
+        background-color: transparent !important;
+    }
+
+    // Override any potential Bootstrap card backgrounds that might not be caught
+    .card-body, .card-text, .card-title {
+        background-color: transparent !important;
+        color: var(--color-text) !important;
+    }
+
+    // Override any potential Bootstrap form backgrounds
+    .form-label, .form-text {
+        color: var(--color-text) !important;
+    }
+
+    // Override any potential Bootstrap button backgrounds
+    .btn {
+        &.btn-outline-dark {
+            color: var(--color-text) !important;
+            border-color: var(--color-border) !important;
+
+            &:hover {
+                background-color: var(--color-text) !important;
+                color: var(--color-bg) !important;
+            }
+        }
+    }
+
+    // Override any potential Bootstrap text utilities
+    .text-body {
+        color: var(--color-text) !important;
+    }
+
+    // Override any potential Bootstrap border utilities
+    .border-top, .border-bottom, .border-start, .border-end {
+        border-color: var(--color-border) !important;
+    }
+
+    // Override home.scss specific styles
+    .box-shadow-full {
+        background-color: var(--color-card-bg) !important;
+        color: var(--color-text) !important;
+    }
+
+    .service-box {
+        background-color: var(--color-card-bg) !important;
+        color: var(--color-text) !important;
+
+        .service-ico {
+            color: var(--color-text) !important;
+        }
+
+        .s-description {
+            color: var(--color-text) !important;
+        }
+    }
+
+    .work-box {
+        background-color: var(--color-card-bg) !important;
+        color: var(--color-text) !important;
+    }
+
+    .work-content {
+        .w-more {
+            color: var(--color-text) !important;
+
+            .w-ctegory {
+                color: var(--color-link) !important;
+            }
+        }
+
+        .w-like {
+            color: var(--color-link) !important;
+
+            a {
+                color: var(--color-link) !important;
+            }
+        }
+    }
+
+    .iti {
+        color: var(--color-text) !important;
+    }
+
+    // Override about.scss specific styles
+    .sidenav li {
+        background-color: var(--color-bg) !important;
+    }
+
+    .workOverlay {
+        background: var(--color-text) !important;
+    }
+
+        .skill {
+        background: var(--color-bg) !important;
+
+        &.dark {
+            background: var(--color-card-bg) !important;
+        }
+    }
+
+    // Override any other Bootstrap text utility classes that might interfere
+    .text-light {
+        color: var(--color-text) !important;
+    }
+
+    .text-dark {
+        color: var(--color-text) !important;
+    }
+
+    .text-white {
+        color: var(--color-text) !important;
+    }
+
+    .text-black {
+        color: var(--color-text) !important;
+    }
+
+    // Override any Bootstrap background utility classes
+    .bg-light {
+        background-color: var(--color-card-bg) !important;
+    }
+
+    .bg-white {
+        background-color: var(--color-card-bg) !important;
+    }
+
+    .bg-dark {
+        background-color: var(--color-card-bg) !important;
+    }
+}
+
 .navbar-brand > img {
     height: 3em;
 }
@@ -37,13 +487,14 @@ body {
     // Margins for navbar & footer
     margin-bottom: 80px !important;
     margin-top: 100px;
-    background-color: whitesmoke;
+    background-color: var(--color-bg);
+    color: var(--color-text);
 
     //Background Image
     .page-overlay {
         background-image: url("/storage/assets/images/BGs/background.jpg");
         background-size: cover;
-        background-color: #ccc;
+        background-color: var(--color-overlay);
         position: fixed;
         top: 0px;
         left: 0px;
@@ -61,7 +512,7 @@ footer {
     left: 0;
     min-height: 80px;
     /* Set the fixed height of the footer here */
-    background-color: #f5f5f5;
+    background-color: var(--color-footer-bg);
 }
 
 /* Sticky footer styles END
@@ -109,7 +560,7 @@ figure {
     left: 0;
     height: 100%;
     width: 100%;
-    background: rgba(255, 255, 255, 0.8) url("./images/ajax-loader.gif") 50% 50%
+            background: rgba(var(--color-bg-rgb), 0.8) url("./images/ajax-loader.gif") 50% 50%
         no-repeat;
 }
 
@@ -161,7 +612,7 @@ body.loading #axiosModal {
 
     &.navbar-trans .nav-link:hover,
     &.navbar-reduce .nav-link:hover {
-        color: #1b1b1b;
+        color: var(--color-text);
     }
 
     &.navbar-trans .nav-link:hover:before,
@@ -198,49 +649,49 @@ body.loading #axiosModal {
     }
 
     &.navbar-trans .nav-link:before {
-        background-color: #0078ff;
+        background-color: var(--color-link);
     }
 
     &.navbar-reduce {
         transition: all 0.5s ease-in-out;
-        background-color: #fff;
+        background-color: var(--color-navbar-bg);
         padding: 0;
 
         .nav-link {
-            color: #0078ff;
+            color: var(--color-link);
 
             &:before {
-                background-color: #0078ff;
+                background-color: var(--color-link);
             }
 
             &:hover {
-                color: #0078ff;
+                color: var(--color-link);
             }
         }
 
         .show > .nav-link,
         .active > .nav-link {
-            color: #0078ff;
+            color: var(--color-link);
         }
 
         .nav-link {
             &.show,
             &.active {
-                color: #0078ff;
+                color: var(--color-link);
             }
         }
 
         .navbar-brand {
-            color: #0078ff;
+            color: var(--color-link);
         }
 
         .navbar-toggler span {
-            background-color: #1b1b1b;
+            background-color: var(--color-text);
         }
     }
 
     .navbar-brand {
-        color: #fff;
+        color: var(--color-navbar-text);
         font-size: 1.6rem;
         font-weight: 600;
     }
@@ -269,7 +720,7 @@ body.loading #axiosModal {
             }
 
             &.active {
-                background-color: #0078ff;
+                background-color: var(--color-link);
             }
         }
     }
@@ -303,13 +754,13 @@ body.loading #axiosModal {
         outline: 0;
     }
 
-    span {
-        display: block;
-        background-color: #0078ff;
+            span {
+            display: block;
+            background-color: var(--color-link);
 
-        @media (min-width: 768px) {
-            background-color: #fff;
-        }
+            @media (min-width: 768px) {
+                background-color: var(--color-navbar-text);
+            }
 
         height: 3px;
         width: 25px;

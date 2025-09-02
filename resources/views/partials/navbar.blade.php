@@ -47,6 +47,9 @@
                         href="{{ route('media') }}">Me in Media</a>
                 </li>
                 @include('partials.auth-for-nav')
+                <li class="nav-item">
+                    <a class="nav-link" href="" id="theme-toggle">Dark Mode</a>
+                </li>
                 {{-- <li class="nav-item @if (Route::currentRouteName() == ' course-registration') active @endif">
                     <a class="nav-link" href="{{ route('course-registration') }}">Programming Courses</a>
                 </li> --}}
