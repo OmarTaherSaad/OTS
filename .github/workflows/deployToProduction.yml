@@ -4,12 +4,18 @@ name: Deploy To Production
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the master branch
-  pull_request:
+  # Triggers the workflow on push events but only for the main branch
+  push:
     branches: [ main ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
+    inputs:
+      source_branch:
+        description: 'Source branch to deploy from (default: main)'
+        required: false
+        default: 'main'
+        type: string
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -24,6 +30,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.source_branch || 'main' }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
@@ -34,17 +42,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --ignore-scripts
 
-      - name: Check for Changes
-        id: file_changes
-        run: |
-          if git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep -E 'webpack.mix.js|package.json|package-lock.json|resources/(?!views/)' ; then
-            echo "changes_detected=true" >> $GITHUB_OUTPUT
-          else
-            echo "changes_detected=false" >> $GITHUB_OUTPUT
-          fi
-
       - name: Run Production Build
-        if: steps.file_changes.outputs.changes_detected == 'true'
         run: npm run production
 
       - name: Get current time
@@ -54,16 +52,26 @@ jobs:
           format: LLL
           utcOffset: "+02:00"
 
-      - name: Commit built assets
-        if: steps.file_changes.outputs.changes_detected == 'true'
+      - name: Setup Git for deploy branch
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+
+      - name: Create and push to deploy branch
+        run: |
+          # Create or reset deploy branch to current state
           git checkout -B deploy
+
+          # Add all built assets
           git add -f public/
-          git commit -m "Deployment at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
+
+          # Commit with timestamp
+          git commit -m "Build assets from ${{ github.event.inputs.source_branch || 'main' }} at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
+
+          # Force push to deploy branch
           git push -f origin deploy
-          echo "MESSAGE=Deployment at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
+
+          echo "MESSAGE=Build assets from ${{ github.event.inputs.source_branch || 'main' }} at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
 
   deploy:
       needs: build
