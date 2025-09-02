@@ -45,29 +45,7 @@ class Appointment extends Model
         return "Starts at " . $this->start_for_humans . ", " . $this->schedule;
     }
 
-    public function getLinkToView()
-    {
-        return route('appointment.show', ['appointment' => $this]);
-    }
 
-    public function getLinkToEdit()
-    {
-        return route('appointment.edit', ['appointment' => $this]);
-    }
-
-    public function getLinkToUpdate()
-    {
-        return route('appointment.update', ['appointment' => $this]);
-    }
-    public function getLinkToDelete()
-    {
-        return route('appointment.destroy', ['appointment' => $this]);
-    }
-
-    public function getLinkToBuy()
-    {
-        //return route('cart.course-setup', ['appointment' => $this]);
-    }
 
     public function remainingSeats()
     {

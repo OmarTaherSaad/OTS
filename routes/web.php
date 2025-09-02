@@ -20,10 +20,6 @@ Route::get('lang/{locale}', 'MainController@langChange')->name('languageChange')
 
 
 Route::get('', 'MainController@index')->name('index');
-Route::get('about-me', 'MainController@about')->name('aboutMe');
-Route::get('contact', 'MainController@contactForm')->name('contact');
-Route::get('youtube', 'MainController@youtube')->name('youtube');
-Route::get('projects', 'MainController@projects')->name('projects');
 
 //Legal Pages
 Route::get('privacy-policy', 'MainController@privacyPolicy')->name('privacy-policy');
@@ -34,12 +30,12 @@ Route::prefix('freelancing')->name('freelancing')->group(function () {
     Route::get('payment-methods', 'FreelancingController@payment_methods')->name('payment-methods');
 });
 
-//Route::get('course-registration', 'MainController@course_registration')->name('course-registration');
 Route::get('media-and-interviews', 'MainController@media')->name('media');
 
 //Contact
-//Route::get('contact', 'MainController@contact')->name('contact');
-Route::post('contact', 'MainController@SubmitContact')->name('contact-submit');
+Route::post('contact', 'MainController@SubmitContact')
+    ->middleware('throttle:5,1')
+    ->name('contact-submit');
 
 Auth::routes();
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('login-providers');
@@ -49,7 +45,6 @@ Route::prefix('physics-classes/')->name('physics.')->group(function () {
     Route::get('register', 'PhysicsSlotController@register')->name('register');
     Route::post('store', 'PhysicsSlotController@store')->name('store');
 });
-//Route::resource('7', 'PhysicsSlotController')->names('physics');
 Route::post('physics-classes/get-chapters', 'PhysicsSlotController@getChapters')->name('get-chapters');
 
 

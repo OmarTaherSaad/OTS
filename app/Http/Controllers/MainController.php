@@ -7,9 +7,9 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use App\Mail\ContactForAdminMail;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use stdClass;
 
 class MainController extends Controller
@@ -136,35 +136,12 @@ class MainController extends Controller
         ]);
     }
 
-    public function about()
-    {
-        return view('about');
-    }
-    public function contactForm()
-    {
-        return view('');
-    }
-    public function youtube()
-    {
-        //Until a custom page is developed
-        redirect()->to("https://www.youtube.com/OmarTaherSaadChannel");
-        return view('');
-    }
-    public function projects()
-    {
-        return view('');
-    }
+
 
     public function langChange(String $locale)
     {
         session()->put('applocale', $locale);
-        session()->forget('chaptersLocale');
         return redirect()->back();
-    }
-
-    public function contact()
-    {
-        return view('contact');
     }
 
     public function media()
@@ -228,8 +205,22 @@ class MainController extends Controller
             "phone" => "required|numeric",
             "email" => "required|email",
             "subject" => "required|min:5",
-            "message" => "required|min:10,1000"
+            "message" => "required|min:10,1000",
+            "g-recaptcha-response" => "required"
         ]);
+
+        $captcha = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => config('captcha.secret_key'),
+            'response' => $request->input('g-recaptcha-response'),
+            'remoteip' => $request->ip(),
+        ]);
+
+        if (!$captcha->json('success') || $captcha->json('score') < 0.5) {
+            return back()
+                ->withErrors(['g-recaptcha-response' => __('validation.custom.g-recaptcha-response.required')])
+                ->withInput();
+        }
+        Log::info('Contact form submission', $request->only(['name', 'email', 'phone', 'subject']));
         //Send Mail to Admin
         Mail::to("ots.for.work@gmail.com")
             ->queue(new ContactForAdminMail(
@@ -245,7 +236,7 @@ class MainController extends Controller
             $request->input('message')
         ));
         //Flash a message to user
-        $request->session()->flash('success', __("Your words is being delivered now to OTS! Thank you .. we will keep in touch"));
+        session()->flash('success', __("Your words is being delivered now to OTS! Thank you .. we will keep in touch"));
         return back();
     }
 
