@@ -128,6 +128,12 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'g-recaptcha-response' => [
+            'required' => 'يرجى التأكد من أنك لست روبوتًا.',
+        ],
+        'h-captcha-response' => [
+            'required' => 'يرجى التأكد من أنك لست روبوتًا.',
+        ],
     ],
     /*
     |--------------------------------------------------------------------------
