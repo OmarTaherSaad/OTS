@@ -8,6 +8,8 @@ use App\Models\Course;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class UsersController extends Controller
 {
@@ -44,28 +46,7 @@ class UsersController extends Controller
         }
         return view('users.waiting-payment', ['user' => $user, 'appointment' => $appointment]);
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        $users = User::paginate(config('app.pagination_max'));
-        return view('users.index')->with(compact('users'));
-    }
 
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -92,15 +73,15 @@ class UsersController extends Controller
         $data = $request->only(['name', 'mobile_number']);
         //Store Image
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            if (\Storage::exists($user->image)) {
-                \Storage::delete($user->image);
+            if (Storage::exists($user->image)) {
+                Storage::delete($user->image);
             }
             $imgPath = $request->file('image')->storeAs(
                 "avatars",
-                \Str::uuid() . '.' . $request->file('image')->extension()
+                Str::uuid() . '.' . $request->file('image')->extension()
             );
             $user->update([
-                'image' => \Storage::url($imgPath)
+                'image' => Storage::url($imgPath)
             ]);
         }
         //Avoid being locked: if user to edit is the last admin, and we are trying to make him non-admin -> NOT ALLOWED

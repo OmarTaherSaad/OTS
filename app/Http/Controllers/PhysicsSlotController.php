@@ -19,25 +19,7 @@ class PhysicsSlotController extends Controller
         view()->share('chapters', PhysicsSlot::getChapters());
         view()->share('places', PhysicsSlot::getPlaces());
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return view('physics-classes.index')->with('Slots',PhysicsSlot::all());
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('physics-classes.create');
-    }
 
 
     public function register()
@@ -61,27 +43,7 @@ class PhysicsSlotController extends Controller
         return response()->json($validated['isRange']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\PhysicsSlot  $Slot
-     * @return \Illuminate\Http\Response
-     */
-    public function show(PhysicsSlot $Slot)
-    {
-        return view('physics-classes.show')->with(compact('Slot'));
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\PhysicsSlot  $Slot
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(PhysicsSlot $Slot)
-    {
-        return view('physics-classes.edit')->with(compact('Slot'));
-    }
 
     /**
      * Update the specified resource in storage.

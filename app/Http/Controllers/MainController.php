@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Mail\ContactMail;
 use App\Mail\ContactForAdminMail;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
@@ -137,35 +136,12 @@ class MainController extends Controller
         ]);
     }
 
-    public function about()
-    {
-        return view('about');
-    }
-    public function contactForm()
-    {
-        return view('');
-    }
-    public function youtube()
-    {
-        //Until a custom page is developed
-        redirect()->to("https://www.youtube.com/OmarTaherSaadChannel");
-        return view('');
-    }
-    public function projects()
-    {
-        return view('');
-    }
+
 
     public function langChange(String $locale)
     {
         session()->put('applocale', $locale);
-        session()->forget('chaptersLocale');
         return redirect()->back();
-    }
-
-    public function contact()
-    {
-        return view('contact');
     }
 
     public function media()
