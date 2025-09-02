@@ -65,7 +65,7 @@ body {
     cursor: pointer;
     position: fixed;
     /* Position them relative to the browser window */
-    background-color: whitesmoke;
+    background-color: var(--color-bg);
     transition: 0.5s;
     /* Add transition on hover */
     -moz-transition: 0.5s;
@@ -129,7 +129,7 @@ body {
 }
 
 .workOverlay {
-  background: black;
+  background: var(--color-text);
   position: absolute;
   top: 0;
   right: 0;
@@ -157,14 +157,14 @@ body {
 
 .skill:hover {
   box-shadow: 0px 0px 30px white;
-  background: whitesmoke;
+  background: var(--color-bg);
   transition: 0.2s;
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
   -webkit-transition: 0.2s;
 }
 .skill:hover.dark {
-  background: darkslategray;
+  background: var(--color-card-bg);
 }
 
 .no-pointer:hover {

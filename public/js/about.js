@@ -1349,8 +1349,8 @@ else {}
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Easing": () => (/* binding */ Easing),
-/* harmony export */   "scrollWithAnimation": () => (/* binding */ scrollWithAnimation)
+/* harmony export */   Easing: () => (/* binding */ Easing),
+/* harmony export */   scrollWithAnimation: () => (/* binding */ scrollWithAnimation)
 /* harmony export */ });
 /* harmony import */ var _tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @tweenjs/tween.js */ "./node_modules/@tweenjs/tween.js/src/Tween.js");
 /* harmony import */ var _tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_tweenjs_tween_js__WEBPACK_IMPORTED_MODULE_0__);
@@ -1401,9 +1401,9 @@ function scrollWithAnimation (scrollEl, current, target, time, easing) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "Easing": () => (/* reexport safe */ _animate_js__WEBPACK_IMPORTED_MODULE_0__.Easing),
+/* harmony export */   Easing: () => (/* reexport safe */ _animate_js__WEBPACK_IMPORTED_MODULE_0__.Easing),
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
-/* harmony export */   "install": () => (/* binding */ install)
+/* harmony export */   install: () => (/* binding */ install)
 /* harmony export */ });
 /* harmony import */ var _animate_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./animate.js */ "./node_modules/vue2-scrollspy/src/animate.js");
 
