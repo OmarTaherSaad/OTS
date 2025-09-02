@@ -240,15 +240,7 @@ class MainController extends Controller
         return back();
     }
 
-    public function physicsTutorialForm()
-    {
-        return view();
-    }
 
-    public function course_registration()
-    {
-        return view("programming-course-registration");
-    }
 
     public function privacyPolicy()
     {
