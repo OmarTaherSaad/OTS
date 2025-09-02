@@ -33,7 +33,9 @@ Route::prefix('freelancing')->name('freelancing')->group(function () {
 Route::get('media-and-interviews', 'MainController@media')->name('media');
 
 //Contact
-Route::post('contact', 'MainController@SubmitContact')->name('contact-submit');
+Route::post('contact', 'MainController@SubmitContact')
+    ->middleware('throttle:5,1')
+    ->name('contact-submit');
 
 Auth::routes();
 Route::get('login/{provider}', 'Auth\LoginController@redirectToProvider')->name('login-providers');
