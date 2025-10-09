@@ -16,7 +16,15 @@ class MainController extends Controller
 {
     public function index()
     {
-        $skills = json_decode(Storage::disk('local')->get('skills.json'), true);
+        $skillsData = json_decode(Storage::disk('local')->get('skills.json'), true);
+        
+        // Transform the new skills structure for backward compatibility
+        $skills = [];
+        foreach ($skillsData as $category => $categorySkills) {
+            foreach ($categorySkills as $skillName => $skillData) {
+                $skills[$skillName] = $skillData['percentage'];
+            }
+        }
 
         $languages = [
             'Arabic' => 'Native',
@@ -129,6 +137,7 @@ class MainController extends Controller
         $logos = Storage::disk('public')->allFiles('logos');
         return view('home', [
             'skills' => $skills,
+            'skillsData' => $skillsData, // Pass the full skills data structure
             'services' => $services,
             'projects' => $projects,
             'languages' => $languages,
