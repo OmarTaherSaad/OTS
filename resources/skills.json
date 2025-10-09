@@ -1,0 +1,164 @@
+{
+  "Frontend Development": {
+    "Vue.js": {
+      "percentage": 90,
+      "icon": "fab fa-vuejs",
+      "level": "Advanced",
+      "color": "#4FC08D",
+      "description": "Modern reactive framework for building user interfaces"
+    },
+    "JavaScript": {
+      "percentage": 95,
+      "icon": "fab fa-js-square",
+      "level": "Expert",
+      "color": "#F7DF1E",
+      "description": "Core programming language for web development"
+    },
+    "HTML5": {
+      "percentage": 98,
+      "icon": "fab fa-html5",
+      "level": "Expert",
+      "color": "#E34F26",
+      "description": "Semantic markup and modern web standards"
+    },
+    "CSS3": {
+      "percentage": 92,
+      "icon": "fab fa-css3-alt",
+      "level": "Advanced",
+      "color": "#1572B6",
+      "description": "Advanced styling and responsive design"
+    },
+    "Bootstrap": {
+      "percentage": 88,
+      "icon": "fab fa-bootstrap",
+      "level": "Advanced",
+      "color": "#7952B3",
+      "description": "Responsive CSS framework for rapid development"
+    },
+    "jQuery": {
+      "percentage": 85,
+      "icon": "fab fa-js",
+      "level": "Advanced",
+      "color": "#0769AD",
+      "description": "Fast and feature-rich JavaScript library"
+    }
+  },
+  "Backend Development": {
+    "PHP": {
+      "percentage": 95,
+      "icon": "fab fa-php",
+      "level": "Expert",
+      "color": "#777BB4",
+      "description": "Server-side scripting language for web development"
+    },
+    "Laravel": {
+      "percentage": 92,
+      "icon": "fab fa-laravel",
+      "level": "Advanced",
+      "color": "#FF2D20",
+      "description": "Elegant PHP framework for web artisans"
+    },
+    "Python": {
+      "percentage": 80,
+      "icon": "fab fa-python",
+      "level": "Advanced",
+      "color": "#3776AB",
+      "description": "Versatile programming language for various applications"
+    },
+    "C#": {
+      "percentage": 85,
+      "icon": "fab fa-microsoft",
+      "level": "Advanced",
+      "color": "#0078D4",
+      "description": "Object-oriented programming with .NET framework"
+    },
+    "C++": {
+      "percentage": 75,
+      "icon": "fas fa-code",
+      "level": "Intermediate",
+      "color": "#00599C",
+      "description": "High-performance system programming language"
+    },
+    "MySQL": {
+      "percentage": 88,
+      "icon": "fas fa-database",
+      "level": "Advanced",
+      "color": "#4479A1",
+      "description": "Relational database management system"
+    }
+  },
+  "Tools & Technologies": {
+    "Git": {
+      "percentage": 90,
+      "icon": "fab fa-git-alt",
+      "level": "Advanced",
+      "color": "#F05032",
+      "description": "Version control and collaboration"
+    },
+    "WordPress": {
+      "percentage": 85,
+      "icon": "fab fa-wordpress",
+      "level": "Advanced",
+      "color": "#21759B",
+      "description": "Content management system and website builder"
+    },
+    "WooCommerce": {
+      "percentage": 80,
+      "icon": "fab fa-wordpress-simple",
+      "level": "Advanced",
+      "color": "#96588A",
+      "description": "E-commerce plugin for WordPress"
+    },
+    "Docker": {
+      "percentage": 70,
+      "icon": "fab fa-docker",
+      "level": "Intermediate",
+      "color": "#2496ED",
+      "description": "Containerization platform for applications"
+    },
+    "AWS": {
+      "percentage": 65,
+      "icon": "fab fa-aws",
+      "level": "Intermediate",
+      "color": "#FF9900",
+      "description": "Cloud computing services and infrastructure"
+    },
+    "Linux": {
+      "percentage": 75,
+      "icon": "fab fa-linux",
+      "level": "Intermediate",
+      "color": "#FCC624",
+      "description": "Open-source operating system administration"
+    }
+  },
+  "Payment & APIs": {
+    "Stripe": {
+      "percentage": 90,
+      "icon": "fab fa-stripe",
+      "level": "Advanced",
+      "color": "#635BFF",
+      "description": "Online payment processing platform"
+    },
+    "PayPal": {
+      "percentage": 85,
+      "icon": "fab fa-paypal",
+      "level": "Advanced",
+      "color": "#0070BA",
+      "description": "Global payment and money transfer service"
+    },
+    "REST APIs": {
+      "percentage": 88,
+      "icon": "fas fa-cloud",
+      "level": "Advanced",
+      "color": "#00D4AA",
+      "description": "Representational State Transfer API design"
+    },
+    "Webhooks": {
+      "percentage": 82,
+      "icon": "fas fa-link",
+      "level": "Advanced",
+      "color": "#FF6B6B",
+      "description": "Real-time data synchronization between applications"
+    }
+  }
+}

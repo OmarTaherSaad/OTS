@@ -16,7 +16,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $skillsData = json_decode(Storage::disk('local')->get('skills.json'), true);
+        $skillsData = json_decode(file_get_contents(resource_path('skills.json')), true);
         
         // Transform the new skills structure for backward compatibility
         $skills = [];
