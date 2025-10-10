@@ -49,9 +49,9 @@
                                 <div id="skills-container">
                                     <!-- Skills will be rendered here by JavaScript -->
                                 </div>
-                                
+
                                 <script>
-                                    window.skillsData = {!! json_encode($skillsData) !!};
+                                    window.skillsData = {!! json_encode($skills) !!};
                                 </script>
                             </div>
                             <div class="col-md-6">
@@ -332,5 +332,6 @@
         });
     </script>
     <script src="{{ mix('js/home.js') }}"></script>
+    <script src="{{ mix('js/skills.js') }}"></script>
     <script src="{{ mix('js/forms.js') }}"></script>
 @endsection
