@@ -1,0 +1,160 @@
+{
+    "Backend Development": {
+        "PHP": {
+            "level": "Expert",
+            "color": "#777BB4",
+            "description": "Server-side scripting language for web development",
+            "logo": "assets/images/skill-logos/php.svg"
+        },
+        "Laravel": {
+            "level": "Expert",
+            "color": "#FF2D20",
+            "description": "Elegant PHP framework for web artisans",
+            "logo": "assets/images/skill-logos/laravel.svg"
+        },
+        "Livewire": {
+            "level": "Expert",
+            "color": "#4E56A6",
+            "description": "Full-stack framework for Laravel with dynamic components",
+            "logo": "assets/images/skill-logos/livewire.svg"
+        },
+        "Python": {
+            "level": "Advanced",
+            "color": "#3776AB",
+            "description": "Versatile programming language for various applications",
+            "logo": "assets/images/skill-logos/python.svg"
+        },
+        "C#": {
+            "level": "Advanced",
+            "color": "#0078D4",
+            "description": "Object-oriented programming with .NET framework",
+            "logo": "assets/images/skill-logos/csharp.svg"
+        },
+        "C++": {
+            "level": "Intermediate",
+            "color": "#00599C",
+            "description": "High-performance system programming language",
+            "logo": "assets/images/skill-logos/cpp.svg"
+        },
+        "MySQL": {
+            "level": "Expert",
+            "color": "#4479A1",
+            "description": "Relational database management system",
+            "logo": "assets/images/skill-logos/mysql.svg"
+        }
+    },
+    "Frontend Development": {
+        "JavaScript": {
+            "level": "Expert",
+            "color": "#F7DF1E",
+            "description": "Core programming language for web development",
+            "logo": "assets/images/skill-logos/javascript.svg"
+        },
+        "Vue.js": {
+            "level": "Advanced",
+            "color": "#4FC08D",
+            "description": "Modern reactive framework for building user interfaces",
+            "logo": "assets/images/skill-logos/vuejs.svg"
+        },
+        "HTML5": {
+            "level": "Expert",
+            "color": "#E34F26",
+            "description": "Semantic markup and modern web standards",
+            "logo": "assets/images/skill-logos/html5.svg"
+        },
+        "CSS3": {
+            "level": "Advanced",
+            "color": "#1572B6",
+            "description": "Advanced styling and responsive design",
+            "logo": "assets/images/skill-logos/css3.svg"
+        },
+        "Bootstrap": {
+            "level": "Advanced",
+            "color": "#7952B3",
+            "description": "Responsive CSS framework for rapid development",
+            "logo": "assets/images/skill-logos/bootstrap.svg"
+        },
+        "jQuery": {
+            "level": "Advanced",
+            "color": "#0769AD",
+            "description": "Fast and feature-rich JavaScript library",
+            "logo": "assets/images/skill-logos/jquery.svg"
+        }
+    },
+    "Tools & Technologies": {
+        "Git": {
+            "level": "Advanced",
+            "color": "#F05032",
+            "description": "Version control and collaboration",
+            "logo": "assets/images/skill-logos/git.svg"
+        },
+        "Docker": {
+            "level": "Intermediate",
+            "color": "#2496ED",
+            "description": "Containerization platform for applications",
+            "logo": "assets/images/skill-logos/docker.svg"
+        },
+        "AWS": {
+            "level": "Intermediate",
+            "color": "#FF9900",
+            "description": "Cloud computing services and infrastructure",
+            "logo": "assets/images/skill-logos/aws.svg"
+        },
+        "Linux": {
+            "level": "Intermediate",
+            "color": "#FCC624",
+            "description": "Open-source operating system administration",
+            "logo": "assets/images/skill-logos/linux.svg"
+        },
+        "WordPress": {
+            "level": "Advanced",
+            "color": "#21759B",
+            "description": "Content management system and website builder",
+            "logo": "assets/images/skill-logos/wordpress.svg"
+        },
+        "WooCommerce": {
+            "level": "Advanced",
+            "color": "#96588A",
+            "description": "E-commerce plugin for WordPress",
+            "logo": "assets/images/skill-logos/woocommerce.png"
+        },
+        "DataDog": {
+            "level": "Advanced",
+            "color": "#632CA6",
+            "description": "Cloud monitoring and analytics platform",
+            "logo": "assets/images/skill-logos/datadog.svg"
+        },
+        "ArgoCD": {
+            "level": "Intermediate",
+            "color": "#EF7B4D",
+            "description": "GitOps continuous delivery tool for Kubernetes",
+            "logo": "assets/images/skill-logos/argocd.png"
+        }
+    },
+    "Payment & APIs": {
+        "REST APIs": {
+            "level": "Advanced",
+            "color": "#00D4AA",
+            "description": "Representational State Transfer API design",
+            "logo": "assets/images/skill-logos/rest-api.svg"
+        },
+        "Webhooks": {
+            "level": "Advanced",
+            "color": "#FF6B6B",
+            "description": "Real-time data synchronization between applications",
+            "logo": "assets/images/skill-logos/webhooks.svg"
+        },
+        "Stripe": {
+            "icon": "fab fa-stripe",
+            "level": "Advanced",
+            "color": "#635BFF",
+            "description": "Online payment processing platform"
+        },
+        "PayPal": {
+            "level": "Advanced",
+            "color": "#0070BA",
+            "description": "Global payment and money transfer service",
+            "logo": "assets/images/skill-logos/paypal.jpg"
+        }
+    }
+}
