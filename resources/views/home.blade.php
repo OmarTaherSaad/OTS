@@ -46,19 +46,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="skill-mf">
-                                    <p class="title-s">Skills</p>
-                                    @foreach ($skills as $skill => $proficiency)
-                                        <span>{{ $skill }}</span> <span
-                                            class="pull-right">{{ $proficiency }}%</span>
-                                        <div class="progress">
-                                            <div class="progress-bar progress-{{ $proficiency }}" role="progressbar"
-                                                style="width: {{ $proficiency }}%" aria-valuenow="{{ $proficiency }}"
-                                                aria-valuemin="0" aria-valuemax="100">
-                                            </div>
-                                        </div>
-                                    @endforeach
+                                <div id="skills-container">
+                                    <!-- Skills will be rendered here by JavaScript -->
                                 </div>
+
+                                <script>
+                                    window.skillsData = {!! json_encode($skills) !!};
+                                </script>
                             </div>
                             <div class="col-md-6">
                                 <div class="about-me pt-4 pt-md-0">
@@ -338,5 +332,6 @@
         });
     </script>
     <script src="{{ mix('js/home.js') }}"></script>
+    <script src="{{ mix('js/skills.js') }}"></script>
     <script src="{{ mix('js/forms.js') }}"></script>
 @endsection

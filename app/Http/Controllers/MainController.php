@@ -123,9 +123,6 @@ class MainController extends Controller
             // ],
         ];
 
-        $skills = collect($skills)->sortByDesc(function ($value, $key) {
-            return $value;
-        });
         $logos = Storage::disk('public')->allFiles('logos');
         return view('home', [
             'skills' => $skills,
