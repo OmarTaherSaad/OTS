@@ -83,3 +83,6 @@ Route::prefix('helpdesk')->middleware('role:training_academy_helpdesk')->name('h
     Route::post('appointment-entrance-scan/{appointmentUser}', [App\Http\Controllers\HelpdeskController::class, 'entrance_card_scanned'])->name('entrance-card-scanned');
     Route::post('appointment-entrance-scan/{appointmentUser}/enter', [App\Http\Controllers\HelpdeskController::class, 'entrance_card_enter'])->name('entrance-card-enter');
 });
+
+// Pricing estimator SPA page
+Route::view('pricing-estimator', 'pricing.estimator')->name('pricing.estimator');
