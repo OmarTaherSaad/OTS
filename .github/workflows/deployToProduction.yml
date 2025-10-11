@@ -75,6 +75,9 @@ jobs:
           # Create or reset deploy branch to current state
           git checkout -B deploy
 
+          # Remove .env file if it exists (don't deploy localhost config)
+          rm -f .env
+
           # Add all built assets
           git add -f public/
 
@@ -111,7 +114,20 @@ jobs:
             # update source code
             echo "Fetching updates..."
             git fetch origin
+            
+            # Backup current .env file if it exists
+            if [ -f .env ]; then
+              echo "Backing up current .env file..."
+              cp .env .env.backup
+            fi
+            
             git reset --hard origin/deploy
+            
+            # Restore .env file if backup exists
+            if [ -f .env.backup ]; then
+              echo "Restoring production .env file..."
+              mv .env.backup .env
+            fi
 
             # update PHP dependencies
             echo "Installing Composer dependencies..."
