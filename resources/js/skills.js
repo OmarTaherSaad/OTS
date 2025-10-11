@@ -14,12 +14,6 @@ class SkillsVisualization {
 
         this.render();
         this.attachEventListeners();
-
-        // Expand first category by default
-        const firstCategory = Object.keys(this.skillsData)[0];
-        if (firstCategory) {
-            this.toggleCategory(firstCategory);
-        }
     }
 
     render() {
@@ -44,7 +38,7 @@ class SkillsVisualization {
             <div class="skill-category" data-category="${categoryName}">
                 <div class="category-header" data-category="${categoryName}">
                     <h4 class="category-title">
-                        <i class="fas fa-chevron-right category-icon"></i>
+                               <i class="icon icon-chevron-right category-icon"></i>
                         ${categoryName}
                     </h4>
                     <span class="skill-count">${

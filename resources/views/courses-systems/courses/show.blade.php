@@ -4,7 +4,7 @@
 @section('content')
 <div class="row my-1">
     <div class="col-12 col-md-auto">
-        <a href="{{ route('course.index') }}" class="btn btn-primary"><i class="fas fa-arrow-alt-circle-left"></i>&nbsp;
+        <a href="{{ route('course.index') }}" class="btn btn-primary"><i class="icon icon-arrow-left"></i>&nbsp;
             All Courses</a>
     </div>
 </div>

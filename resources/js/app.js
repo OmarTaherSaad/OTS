@@ -4,7 +4,9 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
+import "./bootstrap";
+
+// Using lightweight CSS icons instead of JavaScript icon libraries
 
 import "progressive-image.js/dist/progressive-image.js";
 import "progressive-image.js/dist/progressive-image.css";
@@ -150,11 +152,61 @@ document.addEventListener("DOMContentLoaded", function () {
         $(".navbar-collapse").collapse("hide");
     });
 
-    // Activate scrollspy to add active class to navbar items on scroll
-    $("body").scrollspy({
+    // Bootstrap 5 scrollspy implementation
+    // Initialize scrollspy
+    const scrollSpy = new bootstrap.ScrollSpy(document.body, {
         target: "#navbar",
-        offset: navHeight,
+        offset: navHeight + 20,
     });
+
+    // Manual scrollspy implementation as fallback
+    function updateActiveNavItem() {
+        const sections = document.querySelectorAll("section[id], div[id]");
+        const navLinks = document.querySelectorAll(
+            '#navbar .nav-link[href^="#"], #navbar .nav-link[href*="index"]'
+        );
+
+        let current = "";
+        const scrollPosition = window.scrollY + navHeight + 50;
+
+        sections.forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+
+            if (
+                scrollPosition >= sectionTop &&
+                scrollPosition < sectionTop + sectionHeight
+            ) {
+                current = section.getAttribute("id");
+            }
+        });
+
+        navLinks.forEach((link) => {
+            link.classList.remove("active");
+            const href = link.getAttribute("href");
+
+            // Handle Home link (either #home or route to index)
+            if (href === "#home" && current === "home") {
+                link.classList.add("active");
+            }
+            // Handle other section links
+            else if (href === "#" + current) {
+                link.classList.add("active");
+            }
+            // Handle Home link when at top of page
+            else if (
+                (href.includes("index") || href === "#home") &&
+                scrollPosition < 100
+            ) {
+                link.classList.add("active");
+            }
+        });
+    }
+
+    // Listen for scroll events
+    window.addEventListener("scroll", updateActiveNavItem);
+    // Initial call
+    updateActiveNavItem();
     /*--/ End Scrolling nav /--*/
 
     // Dark mode toggle

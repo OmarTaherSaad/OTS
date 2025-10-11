@@ -13,5 +13,5 @@
 </div>
 @endsection
 @section('scripts')
-<script src="{{ mix('js/entrance-card-scanner.js') }}"></script>
+@vite(['resources/js/entrance-card-scanner.js'])
 @endsection

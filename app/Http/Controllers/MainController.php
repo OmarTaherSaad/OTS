@@ -26,25 +26,22 @@ class MainController extends Controller
         $services = [
             [
                 'title' => 'Software Engineering',
-                'icon' => 'fas fa-cogs',
-                'desc' => 'I can code in C, C++, C# and Python. I used many technologies like .NET Core, MVC Design
-                            Pattern, LINQ, relational DBs in SQLite and MySQL. I studied data structures and
-                            algorithms, also I studied logic circuits and computer organization.',
+                'icon' => 'icon-code',
+                'desc' => 'I can code in C, C++, C# and Python. I used many technologies like .NET Core, MVC Design Pattern, LINQ, relational DBs in SQLite and MySQL. I studied data structures and algorithms, also I studied logic circuits and computer organization.',
             ],
             [
                 'title' => 'Web Development',
-                'icon' => 'fas fa-laptop-code',
+                'icon' => 'icon-laptop-code',
                 'desc' => 'I can build websites from scratch to fullfil your requirements, wether it is a portfolio website, E-commerce with online payment and notifications, or anything you ever need. I use PHP Laravel, Sass, Vue.js, and sometimes I use WordPress and WooCommerce.',
             ],
             [
-                'title' => 'Payment Gateway Integrations',
-                'icon' => 'fas fa-money-check-alt',
-                'desc' => 'I can integrate any payment gateway to your existing website, I dealt with PayPal, Stripe,
-                            Fawry, Paymob, Fawaterak, and much more!',
+                'title' => '3rd Party Integrations',
+                'icon' => 'icon-connect',
+                'desc' => 'I can integrate any 3rd party service to your existing website, I dealt with PayPal, Stripe, Fawry, Paymob, Telnyx, Cequens, Zipwhip, and much more!',
             ],
             [
                 'title' => 'WordPress Custom Plugins',
-                'icon' => 'fab fa-wordpress',
+                'icon' => 'icon-wordpress',
                 'desc' => 'I can develop custom WordPress plugins for almost anything! I can make custom payment
                             gateways integrations, custom stylings and more.',
             ],

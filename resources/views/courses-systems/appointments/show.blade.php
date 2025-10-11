@@ -3,14 +3,14 @@
 @section('title','Appointments - ' . $appointment->name)
 
 @section('head')
-<link type="text/css" rel="stylesheet" href="{{ mix('css/enlarge.css') }}">
+@vite(['resources/sass/app.scss'])
 @endsection
 
 @section('content')
 <div class="row my-1">
     <div class="col-12 col-md-auto">
         <a href="{{ route('appointment.index') }}" class="btn btn-primary"><i
-                class="fas fa-arrow-alt-circle-left"></i>&nbsp;
+                class="icon icon-arrow-left"></i>&nbsp;
             All Appointments</a>
     </div>
 </div>

@@ -12,7 +12,7 @@
             <h5 class="font-weight-bold">{!! $appointment->schedule !!}</h5>
             <hr>
             <h6>
-                <i class="fa fa-map-marker" aria-hidden="true"></i>
+                <i class="icon icon-map-pin" aria-hidden="true"></i>
                 {{ $appointment->location }}
                 @if(!is_null($appointment->location_link))
                     <a href="{!! $appointment->location_link !!}">(Open Link)</a>

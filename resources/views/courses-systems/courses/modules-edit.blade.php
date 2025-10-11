@@ -4,7 +4,7 @@
     <div class="row my-1">
         <div class="col-12 col-md-auto">
             <a href="{{ route('course.modules') }}" class="btn btn-primary">
-                <i class="fas fa-arrow-alt-circle-left"></i>&nbsp; All Course-Module Links
+                <i class="icon icon-arrow-left"></i>&nbsp; All Course-Module Links
             </a>
         </div>
     </div>
@@ -45,8 +45,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{ mix('js/texteditor.js') }}"></script>
-    <script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
+    @vite(['resources/js/forms.js'])
     <script defer>
         $(document).ready(function() {
             $('.textEditor').summernote({
