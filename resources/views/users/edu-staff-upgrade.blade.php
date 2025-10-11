@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title','Faculty Member Upgrade Request')
 @section('head')
-<link rel="stylesheet" href="{{ mix('css/forms.css') }}" />
+@vite(['resources/sass/forms.scss'])
 @endsection
 @section('content')
 <div class="row">
@@ -34,5 +34,5 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
+@vite(['resources/js/forms.js'])
 @endsection

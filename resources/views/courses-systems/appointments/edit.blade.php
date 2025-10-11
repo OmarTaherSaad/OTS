@@ -4,7 +4,7 @@
     <div class="row my-1">
         <div class="col-12 col-md-auto">
             <a href="{{ route('appointment.index') }}" class="btn btn-primary">
-                <i class="fas fa-arrow-alt-circle-left"></i>&nbsp; All Appointments
+                <i class="icon icon-arrow-left"></i>&nbsp; All Appointments
             </a>
         </div>
     </div>
@@ -65,5 +65,5 @@
 @endsection
 
 @section('scripts')
-    <script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
+    @vite(['resources/js/forms.js'])
 @endsection

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title',__('Physics Classes Booking'))
 @section('head')
-<link rel="stylesheet" href="{{ mix('css/forms.css') }}">
+@vite(['resources/sass/forms.scss'])
 @if(App::isLocale('ar'))
 <style>
     label:not(.form-check-label) {
@@ -98,5 +98,5 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
+@vite(['resources/js/forms.js'])
 @endsection

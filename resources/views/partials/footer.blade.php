@@ -6,13 +6,13 @@
             </div>
             <div class="col-12">
                 <h6 class="text-monospace mb-0">
-                    Developed by <a href="mailto:contact@omartahersaad.com" class="text-light font-weight-bold">OTS</a>
+                    Developed by <a target="_blank" href="{{ config('ots.social-media.linkedin') }}" class="text-light font-weight-bold">OTS</a>
                 </h6>
             </div>
             <div class="col-12">
-                <a href="{{ route('privacy-policy') }}" class="text-light">Privacy Policy</a>
+                <a target="_blank" href="{{ route('privacy-policy') }}" class="text-light">Privacy Policy</a>
                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{{ route('terms-and-conditions') }}" class="text-light">Terms and Conditions</a>
+                <a target="_blank" href="{{ route('terms-and-conditions') }}" class="text-light">Terms and Conditions</a>
             </div>
         </div>
     </div>

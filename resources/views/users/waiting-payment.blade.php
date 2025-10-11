@@ -16,7 +16,7 @@
 <div class="row my-1">
     <div class="col-12 col-md-auto">
         <a href="{{ route('users.courses', ['user' => auth()->user()]) }}" class="btn btn-primary"><i
-                class="fas fa-arrow-alt-circle-left"></i>&nbsp; My Courses</a>
+                class="icon icon-arrow-left"></i>&nbsp; My Courses</a>
     </div>
 </div>
 <section class="bg-gradient">

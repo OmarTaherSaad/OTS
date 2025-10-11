@@ -1,18 +1,17 @@
 @extends('layouts.app')
 @section('title', 'Home')
 @section('head')
-    <link href="{{ mix('css/home.css') }}" rel="stylesheet">
+    @vite(['resources/sass/home.scss'])
 @endsection
 @section('content')
-    <section class="bg-image" id="mainSection"
+    <section id="home" class="bg-image"
         style="background-image: url({{ Storage::url('assets/images/BGs/bg4.webp') }});">
         <div class="container-fluid my-auto">
             <div class="row justify-content-center">
                 <div class="col-md-8 col-12 text-center">
                     <h3 class="text-light">Hello there!</h3>
                     <h1 class="text-light font-weight-bolder mb-4">I am Omar Taher Saad</h1>
-                    <h2 class="text-light"><span class="text-slider-items">Computer Engineer,Full Stack Web
-                            Developer,Founder of Thanawya Helwa, YouTube Content Creator</span><strong
+                    <h2 class="text-light"><span class="text-slider-items">Senior Software Engineer, Shopify Developer, WordPress Developer, Founder of Thanawya Helwa, YouTube Content Creator</span><strong
                             class="text-slider"></strong></h2>
                     <p class="pt-3"><a class="btn btn-primary js-scroll px-4" href="#about" role="button">Learn
                             More</a></p>
@@ -37,11 +36,11 @@
                                     </div>
                                     <div class="col-sm-6 col-md-7">
                                         <div class="about-info">
-                                            <p><span class="title-s">Name: </span> <span>Omar Taher Saad</span></p>
-                                            <p><span class="title-s">Profile: </span> <span>Computer Engineer</span></p>
-                                            <p><span class="title-s">Email: </span>
+                                            <p><span class="title-s">Omar Taher Saad</span></p>
+                                            <p><span>Senior Software Engineer</span></p>
+                                            <p><i class="icon icon-linkedin"></i>
                                                 <span><a
-                                                        href="mailto:{{ config('app.contact_email') ?? 'contact@omartahersaad.com' }}">{{ config('app.contact_email') ?? 'contact@omartahersaad.com' }}</a></span>
+                                                        href="{{ config('ots.social-media.linkedin') }}">LinkedIn</a></span>
                                             </p>
                                         </div>
                                     </div>
@@ -62,8 +61,8 @@
                                         </h5>
                                     </div>
                                     <p class="lead">
-                                        I'm Omar Taher Saad, a Software Engineer & Full Stack Web Developer, with expertise
-                                        in many programming languages like <strong>PHP, Python, C++, and C#</strong>.
+                                        I'm Omar Taher Saad, a Senior Software Engineer, WordPress Developer & Shopify Developer, with more than 7 years of experience
+                                        in many programming languages like <strong>PHP, Python, C++, and C#</strong>. I'm also a YouTube Content Creator and a Founder of Thanawya Helwa.
                                         <br>
                                     </p>
                                     <p class="lead">
@@ -133,7 +132,7 @@
                     <div class="col-md-3 col-sm-6 col-12 my-2">
                         <div class="service-box h-100">
                             <div class="service-ico">
-                                <span class="ico-circle"><i class="{{ $service['icon'] }}"></i></span>
+                                <span class="ico-circle"><span class="{{ $service['icon'] }}"></span></span>
                             </div>
                             <div class="service-content">
                                 <h2 class="s-title">{{ $service['title'] }}</h2>
@@ -224,8 +223,8 @@
     {{-- Portfolio END --}}
     {{-- Contact --}}
     <section class="paralax-mf bg-image"
-        style="background-image: url({{ Storage::url('assets/images/BGs/bg3.webp') }}); box-shadow: inset 0 0 0 2000px rgba(68,68,68, 0.8);">
-        <div class="container-fluid text-left" id="contact">
+        style="background-image: url({{ Storage::url('assets/images/BGs/bg3.webp') }}); box-shadow: inset 0 0 0 2000px rgba(68,68,68, 0.8);"  id="contact">
+        <div class="container-fluid text-left">
             <div class="row justify-content-around">
                 <div class="col-12 col-md-6">
                     <div class="jumbotron mt-lg-3 mt-5">
@@ -331,7 +330,5 @@
             });
         });
     </script>
-    <script src="{{ mix('js/home.js') }}"></script>
-    <script src="{{ mix('js/skills.js') }}"></script>
-    <script src="{{ mix('js/forms.js') }}"></script>
+    @vite(['resources/js/home.js', 'resources/js/skills.js', 'resources/js/forms.js'])
 @endsection

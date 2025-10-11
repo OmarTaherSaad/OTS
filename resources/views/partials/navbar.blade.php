@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md fixed-top navbar-b navbar-trans" id="navbar">
     <div class="container-fluid px-0">
         <a class="navbar-brand js-scroll"
-            @if (Request::route()->named('index')) href="#page-top" @else
+            @if (Request::route()->named('index')) href="#home" @else
             href="{{ route('index') }}" @endif>
             <img class="img-fluid" src="{{ Storage::url('assets/images/logo.png') }}" alt="OTS">
         </a>
@@ -33,10 +33,7 @@
                         <a class="nav-link js-scroll" href="#service">Services</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#apis">APIs Connected</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll" href="#work">Work</a>
+                        <a class="nav-link js-scroll" href="#work">Portfolio</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link js-scroll" href="#contact">Contact</a>

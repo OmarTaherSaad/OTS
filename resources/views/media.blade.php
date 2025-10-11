@@ -19,13 +19,14 @@
     }
     .thumbnail {
         border-radius: 20px;
-        min-width: 20vh;
-        min-height: 20vh;
+        min-width: 10vh;
+        min-height: 10vh;
         border-radius: 20px;
         height: 100%;
         width: 100%;
         transition: 0.5s ease;
         background-color: rgba(255, 255, 255, 1);
+        position: relative;
     }
 
     .thumbnail:hover {
@@ -78,9 +79,9 @@
                 <div class="card">
                     <div class="card-header" id="TVheading{{ $loop->index }}">
                         <h5 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse"
-                                data-target="#TVcollapse{{ $loop->index }}" aria-expanded="false"
-                                aria-controls="collapse{{ $loop->index }}">
+                            <button class="btn btn-link collapsed" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#TVcollapse{{ $loop->index }}" aria-expanded="false"
+                                aria-controls="TVcollapse{{ $loop->index }}">
                                 @if(App::isLocale('ar'))
                                 {{ $item->nameAR }}
                                 @else
@@ -91,7 +92,7 @@
                     </div>
 
                     <div id="TVcollapse{{ $loop->index }}" class="collapse"
-                        aria-labelledby="TVheading{{ $loop->index }}" data-parent="#TV" i-src="{{ $item->link }}"
+                        aria-labelledby="TVheading{{ $loop->index }}" data-bs-parent="#TV" i-src="{{ $item->link }}"
                         index="{{ $loop->index }}">
                         <div class="card-body">
                             <div class="i-loader">
@@ -115,60 +116,78 @@
             <hr>
             <h3>@lang("Paper & Digital Newspapers")</h3>
         </div>
-        @foreach ($Items->where('typeCode','written') as $item)
-        <div class="col-5 col-md-2 m-md-2 m-1 thumbnail text-center overlay">
-            <a href="{{ $item->link }}" class="thumbnail-text" target="_blank" rel="noreferrer">
-                @if(App::isLocale('ar'))
-                {{ $item->nameAR }}
-                @else
-                {{ $item->nameEN }}
-                @endif
-            </a>
+        <div class="col-12">
+            <div class="row justify-content-center">
+                @foreach ($Items->where('typeCode','written') as $item)
+                <div class="col-5 col-md-2 m-md-2 m-1 thumbnail text-center overlay">
+                    <a href="{{ $item->link }}" class="thumbnail-text" target="_blank" rel="noreferrer">
+                        @if(App::isLocale('ar'))
+                        {{ $item->nameAR }}
+                        @else
+                        {{ $item->nameEN }}
+                        @endif
+                    </a>
+                </div>
+                @endforeach
+            </div>
         </div>
-        @endforeach
     </div>
 </div>
 @endsection
 
 @section('scripts')
-<script defer>
-    //Animate "loading" text
-    i = 0;
-    @if(App::isLocale('ar'))
-    text = "جاري إحضار الفيديو";
-    @else
-    text = "Getting video";
-    @endif
-    var interval = setInterval(function() {
-    $(".loading").html(text+Array((++i % 4)+1).join("."));
-    if (i===10)
-        @if(App::isLocale('ar'))
-        text = "جاري إحضار الفيديو";
-        @else
-        text = "Getting video";
-        @endif
-        //If all iframes loaded, stop the interval
-        if ($(".loading").length < 1) {
-            clearInterval(interval);
-        }
-    }, 500);
+<script>
+    // Wait for jQuery to be loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Wait a bit more to ensure jQuery is available
+        setTimeout(function() {
+            if (typeof $ === 'undefined') {
+                console.error('jQuery is not loaded');
+                return;
+            }
 
-    $("#TV").on('show.bs.collapse',function(e) {
-        const el = $(e.target);
-        if (el.has('iframe').length) {
-            return;
-        }
-        var iframe = document.createElement('iframe');
-        iframe.onload = function() {
-            el.find('.i-loader').remove();
-            document.getElementById('TV'+el.attr('index')).removeAttribute('hidden');
-        };
-        iframe.src = $(e.target).attr('i-src');
-        document.getElementById('TV'+$(e.target).attr('index')).appendChild(iframe);
+            //Animate "loading" text
+            let i = 0;
+            @if(App::isLocale('ar'))
+            let text = "جاري إحضار الفيديو";
+            @else
+            let text = "Getting video";
+            @endif
+
+            const interval = setInterval(function() {
+                $(".loading").html(text + Array((++i % 4) + 1).join("."));
+                if (i === 10) {
+                    @if(App::isLocale('ar'))
+                    text = "جاري إحضار الفيديو";
+                    @else
+                    text = "Getting video";
+                    @endif
+                }
+                //If all iframes loaded, stop the interval
+                if ($(".loading").length < 1) {
+                    clearInterval(interval);
+                }
+            }, 500);
+
+            $("#TV").on('show.bs.collapse', function(e) {
+                const el = $(e.target);
+                if (el.has('iframe').length) {
+                    return;
+                }
+                const iframe = document.createElement('iframe');
+                iframe.onload = function() {
+                    el.find('.i-loader').remove();
+                    document.getElementById('TV' + el.attr('index')).removeAttribute('hidden');
+                };
+                iframe.src = $(e.target).attr('i-src');
+                document.getElementById('TV' + $(e.target).attr('index')).appendChild(iframe);
+            });
+
+            //Thumbnail clicks the link inside it
+            $(".thumbnail").click(function() {
+                window.open($(this).find('a').attr('href'), '_blank');
+            });
+        }, 100);
     });
-    //Thumbnail clicks the link inside it
-    $(".thumbnail").click(function() {
-        window.open($(this).find('a').attr('href'),'_blank');
-    })
 </script>
 @endsection

@@ -28,9 +28,9 @@
     <meta property="og:img" content="{{ asset('storage/assets/logo.jpg') }}">
     <meta http-equiv="Cache-control" content="private">
 
-    <link rel="stylesheet" href="{{ mix('css/splashscreen.css') }}">
+    @vite(['resources/sass/splashscreen.scss'])
 
-    <link href="{{ mix('js/app.js') }}" as="script">
+    @vite(['resources/js/app.js'])
     {{-- Google Font --}}
     <link rel="dns-prefetch" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin="anonymous">
@@ -58,7 +58,7 @@
     <link rel="apple-touch-icon" sizes="180x180"
         href="{{ asset('storage/assets/icons/apple-touch-icon-180x180.png') }}" />
 
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    @vite(['resources/sass/app.scss'])
     @yield('head')
 
     {{-- PWA Manifest --}}
@@ -76,8 +76,8 @@
         {{--AXIOS loading effect--}}
         <div class="modal" id="axiosModal"></div>
     </div>
-    <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-    <script src="{{ mix('js/app.js') }}"></script>
+    <a href="#" class="back-to-top"><i class="icon icon-chevron-up"></i></a>
+    @vite(['resources/js/app.js'])
     @yield('scripts')
 </body>
 

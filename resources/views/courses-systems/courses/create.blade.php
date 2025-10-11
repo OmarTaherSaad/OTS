@@ -1,13 +1,13 @@
 @extends('layouts.app')
 @section('title','Courses | Add a New Course')
 @section('head')
-<link rel="stylesheet" href="{{ mix('css/forms.css') }}" />
+@vite(['resources/sass/forms.scss'])
 @endsection
 @section('content')
 <div class="row my-1">
     <div class="col-12 col-md-auto">
         <a href="{{ route('course.index') }}" class="btn btn-primary">
-            <i class="fas fa-arrow-alt-circle-left"></i>&nbsp; All Courses
+            <i class="icon icon-arrow-left"></i>&nbsp; All Courses
         </a>
     </div>
 </div>
@@ -55,7 +55,7 @@
 @endsection
 
 @section('scripts')
-<script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
+@vite(['resources/js/forms.js'])
 <script src="{{ asset('texteditor/ckeditor.js') }}"></script>
 <script defer>
     CKEDITOR.replace('textEditor');

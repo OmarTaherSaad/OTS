@@ -8,7 +8,7 @@ Edit "{{ $user->name }}" profile
 @endif
 @endsection
 @section('head')
-<link rel="stylesheet" href="{{ mix('css/forms.css') }}">
+@vite(['resources/sass/forms.scss'])
 @endsection
 @section('content')
 <div class="row justify-content-center" id="app">
@@ -180,11 +180,11 @@ Edit "{{ $user->name }}" profile
         switch ($('#password').attr("type")) {
             case "text":
                 $('#password').attr('type', 'password');
-                $(this).find('i').removeClass( "fa-eye-slash" ).addClass('fa-eye');
+                $(this).find('i').removeClass( "icon-eye-off" ).addClass('icon-eye');
                 break;
             case "password":
                 $('#password').attr('type', 'text');
-                $(this).find('i').addClass( "fa-eye-slash" ).removeClass('fa-eye');
+                $(this).find('i').addClass( "icon-eye-off" ).removeClass('icon-eye');
                 break;
         }
     });
@@ -225,7 +225,7 @@ Edit "{{ $user->name }}" profile
     function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 $('#preview').attr('src', e.target.result);
                 $('#preview').show();
@@ -242,5 +242,5 @@ Edit "{{ $user->name }}" profile
             $('#preview').hide();
     });
 </script>
-<script type="text/javascript" src="{{ mix('js/forms.js') }}" defer></script>
+@vite(['resources/js/forms.js'])
 @endsection
