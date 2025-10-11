@@ -1,4 +1,5 @@
-window._ = require('lodash');
+import _ from "lodash";
+window._ = _;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -6,25 +7,25 @@ window._ = require('lodash');
  * code may be modified to fit the specific needs of your application.
  */
 
-try
-{
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
-    require("jquery.easing");
+import Popper from "popper.js";
+import $ from "jquery";
+import "jquery.easing";
+import * as bootstrap from "bootstrap";
 
-
-    require('bootstrap');
-} catch (e) { }
+window.Popper = Popper;
+window.$ = window.jQuery = $;
+window.bootstrap = bootstrap;
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
- * to our Laravel back-end. This library automatically handles sending the
+ * to your Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = require('axios');
+import axios from "axios";
+window.axios = axios;
 
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -43,28 +44,24 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     encrypted: true
 // });
 axios.interceptors.request.use(
-    function (config)
-    {
+    function (config) {
         //Before request start: show loading
         document.body.classList.add("loading");
         return config;
     },
-    function (error)
-    {
+    function (error) {
         alert("Something went wrong :/ Please, Try again later.");
         document.body.classList.remove("loading");
         return Promise.reject(error);
     }
 );
 axios.interceptors.response.use(
-    function (response)
-    {
+    function (response) {
         //After request is done: hide loading
         document.body.classList.remove("loading");
         return response;
     },
-    function (error)
-    {
+    function (error) {
         alert("Something went wrong :/ Please, Try again later.");
         document.body.classList.remove("loading");
         return Promise.reject(error);

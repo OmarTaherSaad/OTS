@@ -11,13 +11,11 @@
 // Bootstrap
 $navbar-dark-toggler-icon-bg: none;
 $navbar-light-toggler-icon-bg: none;
-@import "~bootstrap/scss/bootstrap.scss";
+@import "bootstrap/scss/bootstrap.scss";
 $enable-responsive-font-sizes: true;
 
-//Font Awesome
-@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free/scss/solid.scss";
-@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+// Import lightweight icon system
+@import "icons";
 
 @import "intl-tel-input/build/css/intlTelInput.css";
 
@@ -41,6 +39,7 @@ $enable-responsive-font-sizes: true;
     --color-link: #0d6efd;
     --color-border: #dee2e6;
     --color-muted: #6c757d;
+    --color-skills-bg: #e9ecef;
 }
 
 body.dark-mode {
@@ -62,6 +61,7 @@ body.dark-mode {
     --color-link: #66b3ff;
     --color-border: #333;
     --color-muted: #adb5bd;
+    --color-skills-bg: #0f0f0f;
 }
 
 /* Dark Mode Styles */
@@ -437,6 +437,76 @@ body.dark-mode {
 
         &.dark {
             background: var(--color-card-bg) !important;
+        }
+    }
+
+    // Skills categories dark mode
+    #skills-container {
+        .skills-visualization {
+            .skill-category {
+                background: var(--color-skills-bg) !important;
+                border-color: var(--color-border) !important;
+            }
+
+            .skill-card {
+                background: var(--color-skills-bg) !important;
+                border-color: var(--color-border) !important;
+                color: var(--color-text) !important;
+
+                .skill-name {
+                    color: var(--color-text) !important;
+                }
+
+                .skill-description {
+                    color: var(--color-text) !important;
+                }
+            }
+
+            .skills-header {
+                .title-s {
+                    color: var(--color-text) !important;
+                }
+
+                .skills-subtitle {
+                    color: var(--color-text) !important;
+                    opacity: 0.8;
+                }
+            }
+        }
+    }
+
+    // Skills categories - make background slightly different in both modes
+    #skills-container {
+        .skills-visualization {
+            .skill-category {
+                background: var(--color-skills-bg) !important;
+                border-color: var(--color-border) !important;
+            }
+
+            .skill-card {
+                background: var(--color-skills-bg) !important;
+                border-color: var(--color-border) !important;
+                color: var(--color-text) !important;
+
+                .skill-name {
+                    color: var(--color-text) !important;
+                }
+
+                .skill-description {
+                    color: var(--color-text) !important;
+                }
+            }
+
+            .skills-header {
+                .title-s {
+                    color: var(--color-text) !important;
+                }
+
+                .skills-subtitle {
+                    color: var(--color-text) !important;
+                    opacity: 0.8;
+                }
+            }
         }
     }
 

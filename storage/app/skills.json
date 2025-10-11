@@ -145,7 +145,7 @@
             "logo": "assets/images/skill-logos/webhooks.svg"
         },
         "Stripe": {
-            "icon": "fab fa-stripe",
+            "icon": "icon-stripe",
             "level": "Advanced",
             "color": "#635BFF",
             "description": "Online payment processing platform"

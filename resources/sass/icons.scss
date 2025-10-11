@@ -1,0 +1,216 @@
+/**
+ * Icon System - Lineicons Integration
+ *
+ * This file provides a flexible icon system using Lineicons.
+ * To replace with another icon library, simply change the @import and update the mappings below.
+ *
+ * Current Library: Lineicons (https://lineicons.com/)
+ * CDN: https://cdn.lineicons.com/5.0/lineicons.css
+ */
+
+// Import Lineicons from npm package
+@import "lineicons/dist/lineicons.css";
+
+// Base icon class - provides consistent styling
+.icon {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+    position: relative;
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    line-height: 1;
+}
+
+// Icon mapping system - Automatic Lineicons integration
+// Your custom classes automatically get the Lineicons functionality
+// No need to add lni classes in HTML - just use your custom classes!
+
+// Navigation & UI Icons
+.icon-chevron-right {
+    &::before {
+        content: "\ea2a"; // lni-arrow-right
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-chevron-up {
+    &::before {
+        content: "\ea80"; // lni-chevron-up
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-chevron-down {
+    &::before {
+        content: "\ea7b"; // lni-chevron-down
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-arrow-left {
+    &::before {
+        content: "\ea28"; // lni-arrow-left
+        font-family: 'Lineicons';
+    }
+}
+
+// Form & Input Icons
+.icon-eye {
+    &::before {
+        content: "\ead6"; // lni-eye
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-eye-off {
+    &::before {
+        content: "\ead6"; // lni-eye (using same as eye for now)
+        font-family: 'Lineicons';
+    }
+}
+
+// Location & Map Icons
+.icon-map-pin {
+    &::before {
+        content: "\eb4c"; // lni-map-marker-1
+        font-family: 'Lineicons';
+    }
+}
+
+// Social Media Icons
+.icon-linkedin {
+    &::before {
+        content: "\eb44"; // lni-linkedin
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-youtube {
+    &::before {
+        content: "\ec59"; // lni-youtube
+        font-family: 'Lineicons';
+    }
+}
+
+// Business & Service Icons
+.icon-code {
+    &::before {
+        content: "\ea93"; // lni-code-1
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-laptop-code {
+    &::before {
+        content: "\eb34"; // lni-laptop-2
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-connect {
+    &::before {
+        content: "\eb43"; // lni-link-2-angular-right
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-wordpress {
+    &::before {
+        content: "\ec4c"; // lni-wordpress
+        font-family: 'Lineicons';
+    }
+}
+
+.icon-stripe {
+    &::before {
+        content: "\ebfc"; // lni-stripe
+        font-family: 'Lineicons';
+    }
+}
+
+// Size variations (optional - can be used with any icon)
+.icon-sm {
+    font-size: 0.875em;
+}
+
+.icon-lg {
+    font-size: 1.25em;
+}
+
+.icon-xl {
+    font-size: 1.5em;
+}
+
+.icon-2x {
+    font-size: 2em;
+}
+
+.icon-3x {
+    font-size: 3em;
+}
+
+.icon-4x {
+    font-size: 4em;
+}
+
+.icon-5x {
+    font-size: 5em;
+}
+
+// Color utilities (optional)
+.icon-primary {
+    color: var(--color-link, #007bff);
+}
+
+.icon-success {
+    color: #28a745;
+}
+
+.icon-danger {
+    color: #dc3545;
+}
+
+.icon-warning {
+    color: #ffc107;
+}
+
+.icon-info {
+    color: #17a2b8;
+}
+
+.icon-light {
+    color: #f8f9fa;
+}
+
+.icon-dark {
+    color: #343a40;
+}
+
+.icon-muted {
+    color: #6c757d;
+}
+
+/**
+ * HOW TO REPLACE WITH ANOTHER ICON LIBRARY:
+ *
+ * 1. Change the @import at the top to your new library's CSS
+ * 2. Update the content values and font-family in each icon mapping
+ * 3. Test all icons to ensure they display correctly
+ *
+ * Example for FontAwesome:
+ * @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
+ * .icon-chevron-right::before { content: "\f054"; font-family: 'Font Awesome 6 Free'; }
+ *
+ * Example for Bootstrap Icons:
+ * @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css');
+ * .icon-chevron-right::before { content: "\f285"; font-family: 'bootstrap-icons'; }
+ *
+ * BENEFITS OF THIS APPROACH:
+ * - Complete abstraction: HTML only uses your custom classes
+ * - Easy replacement: Change only this file to switch icon libraries
+ * - Consistent API: Same classes work regardless of underlying library
+ * - No HTML changes needed when switching libraries
+ */
