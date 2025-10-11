@@ -43,7 +43,7 @@ jobs:
         run: npm ci --ignore-scripts
 
       - name: Run Production Build
-        run: npm run production
+        run: npm run build
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
