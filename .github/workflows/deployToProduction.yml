@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18.x'
+          node-version: '20.x'
           cache: 'npm'
 
       - name: Install dependencies
@@ -44,6 +44,8 @@ jobs:
 
       - name: Run Production Build
         run: npm run build
+        env:
+          NODE_ENV: production
 
       - name: Get current time
         uses: 1466587594/get-current-time@v2
@@ -111,6 +113,7 @@ jobs:
             php artisan config:cache
             php artisan route:cache
             php artisan view:cache
+            php artisan event:cache
 
             # update database
             echo "Running database migrations..."
