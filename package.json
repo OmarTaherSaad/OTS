@@ -9,7 +9,7 @@
         "@vitejs/plugin-vue": "^6.0",
         "axios": "^1.8",
         "laravel-vite-plugin": "^2.0",
-        "lodash": "^4.17.21",
+        "lodash": "^4.17.23",
         "popper.js": "^1.16.1",
         "sass-embedded": "^1.93.2",
         "vite": "^7.1",
