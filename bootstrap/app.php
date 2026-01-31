@@ -4,7 +4,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
-return Application::configure(basePath: dirname(__DIR__))
+$builder = Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__ . '/../routes/web.php',
         api: __DIR__ . '/../routes/api.php',
@@ -65,4 +65,13 @@ return Application::configure(basePath: dirname(__DIR__))
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
-    })->create();
+    });
+
+$app = $builder->create();
+
+// Use custom Console Kernel so commands loaded via the command loader
+// get the Laravel app set (fixes "Call to a member function make() on null"
+// during php artisan package:discover - see Laravel issues #56098, #58023).
+$app->singleton(\Illuminate\Contracts\Console\Kernel::class, \App\Console\Kernel::class);
+
+return $app;
