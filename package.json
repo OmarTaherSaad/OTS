@@ -21,7 +21,7 @@
         "animate.css": "^4.0.0",
         "bootstrap": "^5.0.0",
         "ckeditor4": "^4.25.0",
-        "compression-webpack-plugin": "^9.2.0",
+        "compression-webpack-plugin": "^12.0.0",
         "i": "^0.3.7",
         "intl-tel-input": "^17.0.13",
         "jquery": "^3.5.1",
