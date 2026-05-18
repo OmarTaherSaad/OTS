@@ -121,13 +121,105 @@ class MainController extends Controller
         ];
 
         $logos = Storage::disk('public')->allFiles('logos');
-        return view('home', [
+
+        $testimonials = [
+            [
+                'name' => 'Ahmed Hassan',
+                'role' => 'Founder',
+                'company' => 'Snugglez',
+                'quote' => 'Omar delivered our e-commerce store ahead of schedule. The Shopify integration with our local payment gateway was flawless, and his communication kept us in the loop the entire build.',
+                'avatar' => Storage::url('assets/images/testimonials/placeholder-1.webp'),
+                'rating' => 5,
+            ],
+            [
+                'name' => 'Sara Mahmoud',
+                'role' => 'Operations Manager',
+                'company' => 'Eftekassat',
+                'quote' => 'Working with Omar felt like having a CTO on the team. He turned a messy WooCommerce setup into a fast, conversion-focused store. Highly recommended for any serious online business.',
+                'avatar' => Storage::url('assets/images/testimonials/placeholder-2.webp'),
+                'rating' => 5,
+            ],
+            [
+                'name' => 'Mohamed Tarek',
+                'role' => 'CTO',
+                'company' => 'AGECS',
+                'quote' => 'Custom Laravel build with multiple third-party API integrations — payment, KYC, messaging. Omar handled the full stack end-to-end with zero surprises.',
+                'avatar' => Storage::url('assets/images/testimonials/placeholder-3.webp'),
+                'rating' => 5,
+            ],
+            [
+                'name' => 'Lina Khaled',
+                'role' => 'Co-founder',
+                'company' => 'Little B',
+                'quote' => 'Patient, professional, and seriously skilled. Our new store handles 10x the traffic with no slowdown. Omar is now our go-to for anything web-related.',
+                'avatar' => Storage::url('assets/images/testimonials/placeholder-4.webp'),
+                'rating' => 5,
+            ],
+        ];
+
+        $packages = [
+            [
+                'name' => 'Starter',
+                'price_usd' => 500,
+                'period' => 'project',
+                'tagline' => 'Landing page or simple store, fast turnaround.',
+                'features' => [
+                    'Single landing page or 5-page site',
+                    'Mobile-responsive design',
+                    'Contact form + email setup',
+                    'Basic SEO meta + sitemap',
+                    'Up to 2 revision rounds',
+                    'Delivery in 1–2 weeks',
+                ],
+                'cta' => 'Start small',
+                'highlighted' => false,
+            ],
+            [
+                'name' => 'Pro',
+                'price_usd' => 1800,
+                'period' => 'project',
+                'tagline' => 'Full custom build for serious online businesses.',
+                'features' => [
+                    'Custom Laravel / WordPress / Shopify build',
+                    'Up to 2 payment gateway integrations',
+                    'Admin dashboard for content management',
+                    'API integrations (shipping, SMS, KYC)',
+                    'Performance + SEO optimization',
+                    '30 days post-launch support',
+                ],
+                'cta' => 'Go Pro',
+                'highlighted' => true,
+            ],
+            [
+                'name' => 'Enterprise',
+                'price_usd' => null,
+                'period' => 'custom',
+                'tagline' => 'Complex systems, custom integrations, ongoing partnership.',
+                'features' => [
+                    'Multi-region or multi-tenant architecture',
+                    'Unlimited third-party integrations',
+                    'Custom workflows + automation',
+                    'Dedicated communication channel',
+                    'SLA + retainer options',
+                    'Long-term collaboration',
+                ],
+                'cta' => 'Talk to me',
+                'highlighted' => false,
+            ],
+        ];
+
+        $payload = [
             'skills' => $skills,
             'services' => $services,
             'projects' => $projects,
             'languages' => $languages,
             'logos' => $logos,
-        ]);
+            'testimonials' => $testimonials,
+            'packages' => $packages,
+        ];
+
+        $view = config('app.landing_v2') ? 'landing.home' : 'home';
+        return view($view, $payload);
     }
 
 

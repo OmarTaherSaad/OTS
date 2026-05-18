@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
+import tailwindcss from '@tailwindcss/vite';
 import { readFileSync } from 'fs';
 import { resolve } from 'path';
 
@@ -40,6 +41,7 @@ export default defineConfig(({ command }) => {
                     'resources/sass/about.scss',
                     'resources/sass/bootstrapAR.scss',
                     'resources/sass/sidebar.scss',
+                    'resources/css/landing.css',
                     'resources/js/app.js',
                     'resources/js/home.js',
                     'resources/js/skills.js',
@@ -47,10 +49,12 @@ export default defineConfig(({ command }) => {
                     'resources/js/entrance-card-scanner.js',
                     'resources/js/about.js',
                     'resources/js/physicsClasses.js',
+                    'resources/js/landing.js',
                 ],
                 refresh: true,
             }),
             vue(),
+            tailwindcss(),
         ],
         resolve: {
             alias: {

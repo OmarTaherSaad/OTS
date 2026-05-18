@@ -1,7 +1,95 @@
 {
+  "_ColorUtils-dmm53VgW.js": {
+    "file": "assets/ColorUtils-dmm53VgW.js",
+    "name": "ColorUtils"
+  },
   "__commonjsHelpers-Cpj98o6Y.js": {
     "file": "assets/_commonjsHelpers-Cpj98o6Y.js",
     "name": "_commonjsHelpers"
+  },
+  "_index-CODMSRd6.js": {
+    "file": "assets/index-CODMSRd6.js",
+    "name": "index",
+    "isDynamicEntry": true,
+    "imports": [
+      "_ColorUtils-dmm53VgW.js",
+      "resources/js/landing.js"
+    ],
+    "dynamicImports": [
+      "node_modules/@tsparticles/plugin-move/browser/MovePluginInstance.js",
+      "node_modules/@tsparticles/plugin-interactivity/browser/InteractivityPluginInstance.js",
+      "node_modules/@tsparticles/shape-image/browser/ImagePreloaderInstance.js",
+      "node_modules/@tsparticles/interaction-particles-collisions/browser/OverlapPluginInstance.js",
+      "node_modules/@tsparticles/interaction-particles-links/browser/LinkInstance.js"
+    ]
+  },
+  "node_modules/@tsparticles/engine/browser/Core/Container.js": {
+    "file": "assets/Container-C_lNw9L4.js",
+    "name": "Container",
+    "src": "node_modules/@tsparticles/engine/browser/Core/Container.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_ColorUtils-dmm53VgW.js",
+      "node_modules/@tsparticles/engine/browser/index.js",
+      "resources/js/landing.js"
+    ]
+  },
+  "node_modules/@tsparticles/engine/browser/index.js": {
+    "file": "assets/index-Vgws_jm4.js",
+    "name": "index",
+    "src": "node_modules/@tsparticles/engine/browser/index.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/landing.js",
+      "_ColorUtils-dmm53VgW.js"
+    ],
+    "dynamicImports": [
+      "node_modules/@tsparticles/engine/browser/Core/Container.js"
+    ]
+  },
+  "node_modules/@tsparticles/interaction-particles-collisions/browser/OverlapPluginInstance.js": {
+    "file": "assets/OverlapPluginInstance-aHlBN-P9.js",
+    "name": "OverlapPluginInstance",
+    "src": "node_modules/@tsparticles/interaction-particles-collisions/browser/OverlapPluginInstance.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_ColorUtils-dmm53VgW.js"
+    ]
+  },
+  "node_modules/@tsparticles/interaction-particles-links/browser/LinkInstance.js": {
+    "file": "assets/LinkInstance-Cw5Sxhq6.js",
+    "name": "LinkInstance",
+    "src": "node_modules/@tsparticles/interaction-particles-links/browser/LinkInstance.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_ColorUtils-dmm53VgW.js"
+    ]
+  },
+  "node_modules/@tsparticles/plugin-interactivity/browser/InteractivityPluginInstance.js": {
+    "file": "assets/InteractivityPluginInstance-DHW-HuQL.js",
+    "name": "InteractivityPluginInstance",
+    "src": "node_modules/@tsparticles/plugin-interactivity/browser/InteractivityPluginInstance.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_index-CODMSRd6.js",
+      "_ColorUtils-dmm53VgW.js",
+      "resources/js/landing.js"
+    ]
+  },
+  "node_modules/@tsparticles/plugin-move/browser/MovePluginInstance.js": {
+    "file": "assets/MovePluginInstance-CRRHD6r5.js",
+    "name": "MovePluginInstance",
+    "src": "node_modules/@tsparticles/plugin-move/browser/MovePluginInstance.js",
+    "isDynamicEntry": true,
+    "imports": [
+      "_ColorUtils-dmm53VgW.js"
+    ]
+  },
+  "node_modules/@tsparticles/shape-image/browser/ImagePreloaderInstance.js": {
+    "file": "assets/ImagePreloaderInstance-7KXm3q_s.js",
+    "name": "ImagePreloaderInstance",
+    "src": "node_modules/@tsparticles/shape-image/browser/ImagePreloaderInstance.js",
+    "isDynamicEntry": true
   },
   "node_modules/intl-tel-input/build/img/flags.png": {
     "file": "assets/flags-41zgeiS_.png",
@@ -10,6 +98,12 @@
   "node_modules/intl-tel-input/build/img/flags@2x.png": {
     "file": "assets/flags@2x-hM8LloC1.png",
     "src": "node_modules/intl-tel-input/build/img/flags@2x.png"
+  },
+  "node_modules/lenis/dist/lenis.mjs": {
+    "file": "assets/lenis-DQy71oTq.js",
+    "name": "lenis",
+    "src": "node_modules/lenis/dist/lenis.mjs",
+    "isDynamicEntry": true
   },
   "node_modules/lineicons/dist/68caad34b1e80fa12b3a.woff": {
     "file": "assets/68caad34b1e80fa12b3a-4Cpu5VkB.woff",
@@ -31,8 +125,16 @@
     "file": "assets/d495aba62101f856c80f-DJ4Lg1TH.eot",
     "src": "node_modules/lineicons/dist/d495aba62101f856c80f.eot"
   },
+  "resources/css/landing.css": {
+    "file": "assets/landing-DG6imFju.css",
+    "src": "resources/css/landing.css",
+    "isEntry": true,
+    "names": [
+      "landing.css"
+    ]
+  },
   "resources/js/about.js": {
-    "file": "assets/about-iuxsDlW6.js",
+    "file": "assets/about-DWo_9pBZ.js",
     "name": "about",
     "src": "resources/js/about.js",
     "isEntry": true,
@@ -41,7 +143,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-PnXqpD2o.js",
+    "file": "assets/app-CnQY6Q-n.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -53,7 +155,7 @@
     ]
   },
   "resources/js/entrance-card-scanner.js": {
-    "file": "assets/entrance-card-scanner-Nv2Ltf9K.js",
+    "file": "assets/entrance-card-scanner-_-74EDzo.js",
     "name": "entrance-card-scanner",
     "src": "resources/js/entrance-card-scanner.js",
     "isEntry": true,
@@ -79,8 +181,19 @@
       "assets/home-BaVkx4tQ.css"
     ]
   },
+  "resources/js/landing.js": {
+    "file": "assets/landing-BTiatcWB.js",
+    "name": "landing",
+    "src": "resources/js/landing.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "node_modules/lenis/dist/lenis.mjs",
+      "node_modules/@tsparticles/engine/browser/index.js",
+      "_index-CODMSRd6.js"
+    ]
+  },
   "resources/js/physicsClasses.js": {
-    "file": "assets/physicsClasses-DFfjrfVE.js",
+    "file": "assets/physicsClasses-CmTNlUgD.js",
     "name": "physicsClasses",
     "src": "resources/js/physicsClasses.js",
     "isEntry": true,
@@ -106,7 +219,7 @@
     ]
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-CEWbU-Yl.css",
+    "file": "assets/app-Epood30i.css",
     "src": "resources/sass/app.scss",
     "isEntry": true,
     "names": [

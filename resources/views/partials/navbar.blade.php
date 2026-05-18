@@ -36,6 +36,12 @@
                         <a class="nav-link js-scroll" href="#work">Portfolio</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link js-scroll" href="#testimonials">Testimonials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link js-scroll" href="#contact">Contact</a>
                     </li>
                 @endif
