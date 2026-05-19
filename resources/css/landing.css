@@ -104,6 +104,12 @@
     font-family: var(--font-display);
     letter-spacing: -0.02em;
   }
+  /* Bootstrap/legacy SCSS adds underlines to <a> elements globally; override on landing. */
+  .landing a,
+  .landing a:hover,
+  .landing a:focus {
+    text-decoration: none;
+  }
 }
 
 @layer components {

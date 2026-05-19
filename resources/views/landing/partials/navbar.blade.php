@@ -23,13 +23,13 @@
             aria-label="Primary">
 
             {{-- Logo --}}
-            <a href="#home" class="flex items-center gap-2 shrink-0 focus-ring rounded-lg" aria-label="Omar Taher Saad — Home">
-                <span class="inline-flex items-center justify-center w-9 h-9 rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 text-white font-extrabold text-sm shadow-md">
-                    OTS
-                </span>
+            <a href="#home" class="flex items-center gap-2.5 shrink-0 focus-ring rounded-lg no-underline" aria-label="Omar Taher Saad — Home">
+                <img src="{{ Storage::url('assets/images/logo.png') }}"
+                     alt=""
+                     class="h-9 w-9 rounded-lg object-contain bg-white dark:bg-ink-800 p-1 ring-1 ring-ink-200 dark:ring-ink-700">
                 <span class="hidden sm:flex flex-col leading-none">
                     <span class="text-sm font-extrabold text-ink-900 dark:text-ink-50 tracking-tight">Omar Taher Saad</span>
-                    <span class="text-[10px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">Senior Engineer</span>
+                    <span class="text-[10px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">Senior Backend Engineer</span>
                 </span>
             </a>
 
