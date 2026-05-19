@@ -10,6 +10,8 @@ import "./bootstrap";
 
 import "progressive-image.js/dist/progressive-image.js";
 import "progressive-image.js/dist/progressive-image.css";
+import { createApp } from 'vue'
+import EstimateForm from './components/EstimateForm.vue'
 
 //Resize to fill screen
 window.onresize = window.onload = function (event) {
@@ -227,5 +229,11 @@ document.addEventListener("DOMContentLoaded", function () {
             toggle.textContent = isDark ? "Light Mode" : "Dark Mode";
             localStorage.setItem("theme", isDark ? "dark" : "light");
         });
+    }
+    // Mount pricing estimator if target exists
+    const mountEl = document.getElementById('pricing-estimator-root')
+    if (mountEl) {
+        const app = createApp(EstimateForm)
+        app.mount(mountEl)
     }
 });
