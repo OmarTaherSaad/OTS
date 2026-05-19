@@ -1,13 +1,15 @@
 @php
-    $sectionLinks = [
+    $sectionLinks = array_values(array_filter([
         ['href' => '#about', 'label' => 'About'],
         ['href' => '#experience', 'label' => 'Experience'],
         ['href' => '#service', 'label' => 'Services'],
         ['href' => '#work', 'label' => 'Work'],
-        ['href' => '#testimonials', 'label' => 'Reviews'],
+        config('app.landing_show_testimonials')
+            ? ['href' => '#testimonials', 'label' => 'Reviews']
+            : null,
         ['href' => '#pricing', 'label' => 'Pricing'],
         ['href' => '#contact', 'label' => 'Contact'],
-    ];
+    ]));
 @endphp
 <header
     x-data="landingNav"
@@ -35,17 +37,25 @@
                 </span>
             </a>
 
-            {{-- Desktop pill links inside a soft inner track --}}
-            <ul class="hidden lg:flex items-center gap-0.5 mx-auto p-1 rounded-full bg-ink-100/70 dark:bg-ink-800/40">
+            {{-- Desktop pill links inside a soft inner track. A single absolute
+                 indicator slides under the active pill. --}}
+            <ul x-ref="track"
+                class="hidden lg:flex relative items-center gap-0.5 mx-auto p-1 rounded-full bg-ink-100/70 dark:bg-ink-800/40">
+                <span
+                    aria-hidden="true"
+                    class="absolute top-1 bottom-1 left-0 rounded-full bg-white dark:bg-ink-900 shadow-sm ring-1 ring-ink-200/70 dark:ring-ink-700/70 pointer-events-none will-change-transform"
+                    style="transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), width 350ms cubic-bezier(0.22, 1, 0.36, 1), opacity 200ms ease;"
+                    :style="indicatorStyle"></span>
                 @foreach ($sectionLinks as $link)
                     @php $key = trim($link['href'], '#'); @endphp
-                    <li>
+                    <li class="relative z-10">
                         <a href="{{ $link['href'] }}"
+                           data-section="{{ $key }}"
                            @click="active = '{{ $key }}'"
                            :class="active === '{{ $key }}'
-                               ? 'bg-white dark:bg-ink-900 text-ink-900 dark:text-white shadow-sm ring-1 ring-ink-200/70 dark:ring-ink-700/70'
-                               : 'text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white hover:bg-white/60 dark:hover:bg-ink-900/60'"
-                           class="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold transition-all focus-ring no-underline">
+                               ? 'text-ink-900 dark:text-white'
+                               : 'text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white'"
+                           class="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold transition-colors focus-ring no-underline">
                             {{ $link['label'] }}
                         </a>
                     </li>

@@ -58,6 +58,8 @@ return [
 
     'landing_v2' => env('LANDING_V2', false),
 
+    'landing_show_testimonials' => env('LANDING_SHOW_TESTIMONIALS', false),
+
     /*
     |--------------------------------------------------------------------------
     | Application Timezone

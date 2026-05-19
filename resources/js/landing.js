@@ -39,21 +39,47 @@ function setupThemeToggle() {
     });
 }
 
-// Landing navbar Alpine component (open/scrolled state + scrollspy).
+// Landing navbar Alpine component (open/scrolled state + scrollspy + sliding indicator).
 Alpine.data('landingNav', () => ({
     open: false,
     scrolled: false,
     active: 'home',
+    indicatorStyle: 'opacity: 0;',
+    moveIndicator() {
+        const track = this.$refs.track;
+        if (!track) return;
+        const pill = track.querySelector(`[data-section="${this.active}"]`);
+        if (!pill) {
+            this.indicatorStyle = 'opacity: 0;';
+            return;
+        }
+        const trackRect = track.getBoundingClientRect();
+        const pillRect = pill.getBoundingClientRect();
+        const x = pillRect.left - trackRect.left;
+        this.indicatorStyle = `transform: translateX(${x}px); width: ${pillRect.width}px; opacity: 1;`;
+    },
     init() {
-        if (!('IntersectionObserver' in window)) return;
-        const ids = ['home', 'about', 'experience', 'service', 'work', 'testimonials', 'pricing', 'contact'];
-        const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) this.active = entry.target.id;
-            });
-        }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
-        sections.forEach(s => observer.observe(s));
+        // Scrollspy via IntersectionObserver.
+        if ('IntersectionObserver' in window) {
+            const ids = ['home', 'about', 'experience', 'service', 'work', 'testimonials', 'pricing', 'contact'];
+            const sections = ids.map(id => document.getElementById(id)).filter(Boolean);
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) this.active = entry.target.id;
+                });
+            }, { rootMargin: '-40% 0px -55% 0px', threshold: 0 });
+            sections.forEach(s => observer.observe(s));
+        }
+
+        // Sliding indicator: recompute on active change, resize, and after fonts load.
+        this.$watch('active', () => this.moveIndicator());
+        const recompute = () => this.moveIndicator();
+        window.addEventListener('resize', recompute);
+        if (document.fonts && document.fonts.ready) {
+            document.fonts.ready.then(recompute);
+        }
+        // Initial paint — wait two RAFs so layout + fonts have settled.
+        requestAnimationFrame(() => requestAnimationFrame(recompute));
     },
 }));
 

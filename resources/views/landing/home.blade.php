@@ -15,9 +15,12 @@
         @include('landing.partials.services')
         @include('landing.partials.apis')
         @include('landing.partials.projects')
-        @include('landing.partials.testimonials')
+        @if (config('app.landing_show_testimonials'))
+            @include('landing.partials.testimonials')
+        @endif
         @include('landing.partials.pricing')
         @include('landing.partials.contact')
+        @include('landing.partials.footer')
     </div>
 @endsection
 @section('scripts')
