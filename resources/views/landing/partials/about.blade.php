@@ -104,7 +104,7 @@
                                 type="button"
                                 @click="tab = '{{ $key }}'"
                                 :class="tab === '{{ $key }}'
-                                    ? 'bg-ink-900 dark:bg-ink-50 text-white dark:text-ink-900'
+                                    ? 'bg-gradient-to-r from-brand-500 to-accent-500 text-white shadow-md ring-1 ring-transparent'
                                     : 'bg-white dark:bg-ink-900 ring-1 ring-ink-200 dark:ring-ink-700 text-ink-700 dark:text-ink-200 hover:bg-ink-50 dark:hover:bg-ink-800'"
                                 class="px-4 py-2 rounded-full text-sm font-semibold transition-all focus-ring">
                                 {{ $label }}

@@ -13,7 +13,7 @@
                 $allLogos = array_merge($logos, $logos);
             @endphp
             @foreach ($allLogos as $logo)
-                <div class="shrink-0 h-24 w-44 px-5 flex items-center justify-center rounded-2xl bg-white dark:bg-ink-800 ring-1 ring-ink-200 dark:ring-ink-700 hover:ring-brand-500 transition-all hover:-translate-y-1 hover:shadow-xl">
+                <div class="shrink-0 h-24 w-44 px-5 flex items-center justify-center rounded-2xl bg-white ring-1 ring-ink-200 dark:ring-ink-300/40 hover:ring-brand-500 transition-all hover:-translate-y-1 hover:shadow-xl dark:shadow-md">
                     <img src="{{ Storage::url($logo) }}"
                          alt=""
                          loading="lazy"

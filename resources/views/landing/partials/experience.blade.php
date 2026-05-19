@@ -46,13 +46,24 @@
                             :class="active === {{ $i }}
                                 ? 'bg-gradient-to-r from-brand-500/10 to-accent-500/10 ring-brand-500/40 shadow-sm'
                                 : 'bg-ink-50 dark:bg-ink-800/40 ring-ink-200/60 dark:ring-ink-700/60 hover:bg-ink-100 dark:hover:bg-ink-800'">
-                            <span
-                                class="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-xl font-extrabold text-sm transition-all"
-                                :class="active === {{ $i }}
-                                    ? 'bg-gradient-to-br from-brand-500 to-accent-500 text-white shadow-md'
-                                    : 'bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200 ring-1 ring-ink-200 dark:ring-ink-700'">
-                                {{ $initial }}
-                            </span>
+                            @if (!empty($exp['logo_url']))
+                                <span
+                                    class="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-xl overflow-hidden bg-white ring-1 transition-all"
+                                    :class="active === {{ $i }}
+                                        ? 'ring-brand-500/60 shadow-md'
+                                        : 'ring-ink-200 dark:ring-ink-700'">
+                                    <img src="{{ $exp['logo_url'] }}" alt="{{ $exp['company'] }} logo"
+                                         class="w-full h-full object-contain p-1">
+                                </span>
+                            @else
+                                <span
+                                    class="shrink-0 inline-flex items-center justify-center w-10 h-10 rounded-xl font-extrabold text-sm transition-all"
+                                    :class="active === {{ $i }}
+                                        ? 'bg-gradient-to-br from-brand-500 to-accent-500 text-white shadow-md'
+                                        : 'bg-white dark:bg-ink-900 text-ink-700 dark:text-ink-200 ring-1 ring-ink-200 dark:ring-ink-700'">
+                                    {{ $initial }}
+                                </span>
+                            @endif
                             <span class="min-w-0 flex-1">
                                 <span class="block text-sm font-bold leading-tight truncate">{{ $exp['company'] }}</span>
                                 <span class="block text-xs text-ink-500 dark:text-ink-400 truncate">{{ $exp['role'] }}</span>

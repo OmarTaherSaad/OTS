@@ -127,6 +127,24 @@ class MainController extends Controller
             ],
         ];
 
+        // Attach logo URLs for any company we have an image file for.
+        // Drop a file at storage/app/public/assets/images/companies/{slug}.(png|svg|webp|jpg)
+        // and it'll automatically appear in the Experience section.
+        foreach ($experiences as &$exp) {
+            $slug = $exp['logo'] ?? null;
+            $exp['logo_url'] = null;
+            if ($slug) {
+                foreach (['png', 'svg', 'webp', 'jpg', 'jpeg'] as $ext) {
+                    $path = "assets/images/companies/{$slug}.{$ext}";
+                    if (Storage::disk('public')->exists($path)) {
+                        $exp['logo_url'] = Storage::url($path);
+                        break;
+                    }
+                }
+            }
+        }
+        unset($exp);
+
         $education = [
             'degree' => 'B.Sc. in Computer and Systems Engineering — Computer Engineering',
             'university' => 'Faculty of Engineering, Ain Shams University',
