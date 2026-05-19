@@ -107,8 +107,10 @@
   /* Bootstrap/legacy SCSS adds underlines to <a> elements globally; override on landing. */
   .landing a,
   .landing a:hover,
-  .landing a:focus {
-    text-decoration: none;
+  .landing a:focus,
+  .landing a:active,
+  .landing a:visited {
+    text-decoration: none !important;
   }
 }
 

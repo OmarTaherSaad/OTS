@@ -118,9 +118,7 @@
                 </div>
                 <div class="min-w-0 flex-1">
                     <h3 class="text-sm sm:text-base font-extrabold leading-tight">{{ $education['degree'] }}</h3>
-                    <p class="text-xs text-ink-600 dark:text-ink-300 mt-0.5">
-                        {{ $education['university'] }} <span class="text-ink-400">·</span> {{ $education['duration'] }}
-                    </p>
+                    <p class="text-xs text-ink-600 dark:text-ink-300 mt-0.5">{{ $education['duration'] }}</p>
                 </div>
             </div>
         </div>
