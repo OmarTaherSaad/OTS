@@ -20,32 +20,119 @@ class MainController extends Controller
 
         $languages = [
             'Arabic' => 'Native',
-            'English' => 'Fluent',
-            'German' => 'Beginner',
+            'English' => 'Professional',
         ];
         $services = [
             [
-                'title' => 'Software Engineering',
+                'title' => 'Backend Architecture',
                 'icon' => 'icon-code',
-                'desc' => 'I can code in C, C++, C# and Python. I used many technologies like .NET Core, MVC Design Pattern, LINQ, relational DBs in SQLite and MySQL. I studied data structures and algorithms, also I studied logic circuits and computer organization.',
+                'desc' => 'Modular monoliths, Clean Architecture, DDD and SOLID applied to high-traffic multi-tenant platforms. I design for testability and long-term maintainability, not just for shipping the first version.',
             ],
             [
-                'title' => 'Web Development',
+                'title' => 'Payments & FinTech',
                 'icon' => 'icon-laptop-code',
-                'desc' => 'I can build websites from scratch to fullfil your requirements, wether it is a portfolio website, E-commerce with online payment and notifications, or anything you ever need. I use PHP Laravel, Sass, Vue.js, and sometimes I use WordPress and WooCommerce.',
+                'desc' => 'Production payment systems with PCI-DSS compliance and Central Bank approvals. Built infrastructure processing EGP 1B+ in B2B invoices and integrated gateways like Stripe, Fawry, Paymob and more.',
             ],
             [
-                'title' => '3rd Party Integrations',
+                'title' => 'API Design & Integrations',
                 'icon' => 'icon-connect',
-                'desc' => 'I can integrate any 3rd party service to your existing website, I dealt with PayPal, Stripe, Fawry, Paymob, Telnyx, Cequens, Zipwhip, and much more!',
+                'desc' => 'REST APIs, webhooks and 3rd-party integrations across payments, KYC, messaging, POS and accounting. End-to-end ownership from contract to deploy.',
             ],
             [
-                'title' => 'WordPress Custom Plugins',
+                'title' => 'Testing & Reliability',
                 'icon' => 'icon-wordpress',
-                'desc' => 'I can develop custom WordPress plugins for almost anything! I can make custom payment
-                            gateways integrations, custom stylings and more.',
+                'desc' => 'TDD across core domains, 90%+ unit + feature coverage with PHPUnit, observability via Datadog and Sentry, CI/CD on GitHub Actions. Shipping confidence over cleverness.',
             ],
+        ];
 
+        $experiences = [
+            [
+                'role' => 'Senior Software Engineer',
+                'company' => 'Foodics',
+                'period' => 'Sep 2024 – Present',
+                'location' => 'Cairo, Egypt · Hybrid',
+                'logo' => 'foodics',
+                'highlights' => [
+                    'Designed and evolved scalable backend systems for a high-traffic, multi-tenant platform serving merchants across the MENA region.',
+                    'Led the design and execution of a modular monolith architecture, strengthening domain boundaries, testability and long-term maintainability.',
+                    'Applied Domain-Driven Design (DDD) and Test-Driven Development (TDD) across core domains to reduce regression risk and improve delivery confidence.',
+                    'Owned backend feature delivery end-to-end across cross-functional teams.',
+                ],
+                'tags' => ['Laravel', 'DDD', 'TDD', 'Modular Monolith', 'Multi-tenant'],
+            ],
+            [
+                'role' => 'Interview Engineer',
+                'company' => 'Karat',
+                'period' => 'Sep 2025 – Present',
+                'location' => 'Seattle, WA, US · Remote',
+                'logo' => 'karat',
+                'highlights' => [
+                    'Lead structured, high-precision technical interviews.',
+                    'Evaluate algorithms, systems thinking and code quality using calibrated, objective rubrics.',
+                    'Provide clear, consistent hiring signals helping organizations identify top engineering talent at scale.',
+                ],
+                'tags' => ['Algorithms', 'Systems Design', 'Code Quality'],
+            ],
+            [
+                'role' => 'Back End Engineer',
+                'company' => 'Rasmal',
+                'period' => 'Mar 2024 – Aug 2024',
+                'location' => 'Riyadh, Saudi Arabia · Remote',
+                'logo' => 'rasmal',
+                'highlights' => [
+                    'Built backend services for the Pentugram investment platform — three integrated sub-platforms used by investors and VCs.',
+                    'Implemented deal flow management features, improving visibility across the investment lifecycle.',
+                    'Enhanced data import/export pipelines for reliable ingestion and reporting of investment + portfolio data.',
+                ],
+                'tags' => ['Laravel', 'InvestTech', 'Data Pipelines'],
+            ],
+            [
+                'role' => 'Back End Engineer',
+                'company' => 'Stryve',
+                'period' => 'Jan 2022 – Feb 2024',
+                'location' => 'Cairo, Egypt',
+                'logo' => 'stryve',
+                'highlights' => [
+                    'Built backend systems for a digital wallet and physical payment card platform supporting B2B payments and collections in Egypt.',
+                    'Designed and owned services that achieved PCI-DSS compliance and regulatory approvals from the Central Bank of Egypt.',
+                    'Contributed to infrastructure processing EGP 1B+ in B2B invoices for 1,500+ SMEs and 10+ enterprise suppliers.',
+                ],
+                'tags' => ['FinTech', 'PCI-DSS', 'Payments', 'Laravel'],
+            ],
+            [
+                'role' => 'Back End Engineer',
+                'company' => 'Stemless',
+                'period' => 'Aug 2021 – Jun 2022',
+                'location' => 'Portland, OR, USA · Remote',
+                'logo' => 'stemless',
+                'highlights' => [
+                    'Implemented core backend modules — payments, SMS notifications and a loyalty program.',
+                    'Achieved 90%+ unit-test coverage on developed features, cutting regression risk.',
+                    'Restructured the database schema, eliminating redundancy and improving query performance and data integrity.',
+                ],
+                'tags' => ['Laravel', 'PHPUnit', 'Twilio', 'Payments'],
+            ],
+            [
+                'role' => 'Full Stack Engineer',
+                'company' => 'AGECS',
+                'period' => 'Nov 2019 – Jul 2021',
+                'location' => 'Cairo, Egypt',
+                'logo' => 'agecs',
+                'highlights' => [
+                    'Built the AGECS-Solutions platform from scratch with Laravel + Vue.js, delivered end-to-end.',
+                    'Implemented a payment and product registration gateway integrating Fawry and Stripe for secure transactions and onboarding.',
+                    'Maintained multiple external API integrations and built 4 desktop apps in C# for internal and client operations.',
+                ],
+                'tags' => ['Laravel', 'Vue.js', 'C#', 'Stripe', 'Fawry'],
+            ],
+        ];
+
+        $education = [
+            'degree' => 'B.Sc. in Computer and Systems Engineering — Computer Engineering',
+            'university' => 'Faculty of Engineering, Ain Shams University',
+            'location' => 'Cairo, Egypt',
+            'duration' => '2015 – 2020',
+            'project' => 'Graduation Project: Gesture Recognition Using Machine Learning — a deep-learning mouse-replacement system using computer vision. Supervised by Dr. Ashraf Salem and Dr. Khaled Salah (Siemens EDA).',
         ];
         $projects = [
             [
@@ -216,6 +303,8 @@ class MainController extends Controller
             'logos' => $logos,
             'testimonials' => $testimonials,
             'packages' => $packages,
+            'experiences' => $experiences,
+            'education' => $education,
         ];
 
         $view = config('app.landing_v2') ? 'landing.home' : 'home';

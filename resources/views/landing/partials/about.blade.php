@@ -30,7 +30,7 @@
                         </div>
                         <div>
                             <h3 class="text-2xl font-extrabold">Omar Taher Saad</h3>
-                            <p class="text-sm text-ink-500 dark:text-ink-300 mb-3">Senior Software Engineer</p>
+                            <p class="text-sm text-ink-500 dark:text-ink-300 mb-3">Senior Backend Engineer · Foodics</p>
                             <a href="{{ config('ots.social-media.linkedin') }}"
                                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-semibold bg-brand-500/10 text-brand-600 dark:text-brand-300 hover:bg-brand-500 hover:text-white transition-colors focus-ring"
                                target="_blank" rel="noopener">
@@ -115,20 +115,27 @@
                     <x-landing.card>
                         <div x-show="tab === 'story'" x-cloak class="space-y-4 text-ink-700 dark:text-ink-200 leading-relaxed">
                             <p>
-                                I'm <strong>Omar Taher Saad</strong> — Senior Software Engineer, WordPress & Shopify developer,
-                                with 7+ years across <strong>PHP, Python, C++ and C#</strong>. I'm also a YouTube content creator
-                                and founder of Thanawya Helwa.
+                                I'm <strong>Omar Taher Saad</strong> — Senior Backend Engineer with
+                                <strong>8+ years</strong> designing and building scalable, production-grade systems.
+                                Currently at <strong>Foodics</strong>, evolving high-traffic multi-tenant
+                                infrastructure for merchants across MENA.
                             </p>
                             <p>
-                                I build full systems from scratch, integrate any third-party API, design clean UIs, and handle
-                                everything between the database and the browser. I'm a deadline-respecting, friendly remote
-                                collaborator who keeps clients in the loop.
+                                My background is rooted in <strong>software architecture, Domain-Driven Design and
+                                Test-Driven Development</strong>. I've owned backend systems in FinTech that achieved
+                                <strong>PCI-DSS compliance</strong> and Central Bank approvals, and shipped
+                                infrastructure processing <strong>EGP&nbsp;1B+</strong> in B2B invoices.
+                            </p>
+                            <p>
+                                On the side, I'm an Interview Engineer at <strong>Karat</strong>, founded
+                                <strong>Thanawya Helwa</strong> (educational initiative for Egyptian students)
+                                and run a YouTube channel.
                             </p>
                         </div>
 
                         <div x-show="tab === 'challenges'" x-cloak>
                             <ul class="grid sm:grid-cols-2 gap-3">
-                                @foreach (['Payment Gateway Integrations', 'API Integrations (Auth & Data)', 'UI/UX Design', 'Full website builds from scratch', 'Webhooks & background jobs', 'Performance optimization'] as $item)
+                                @foreach (['Modular Monolith Architecture', 'Domain-Driven Design (DDD)', 'Test-Driven Development (TDD)', 'PCI-DSS Compliance', 'High-traffic Multi-tenant Platforms', 'Payment Gateways & FinTech', '3rd-party API Integrations', 'Database Schema & Performance', 'Observability (Datadog, Sentry)', 'CI/CD with GitHub Actions'] as $item)
                                     <li class="flex items-start gap-3 p-3 rounded-xl bg-ink-50 dark:bg-ink-800/50">
                                         <span class="shrink-0 w-8 h-8 rounded-full bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center text-white text-sm font-bold">✓</span>
                                         <span class="font-medium pt-1">{{ $item }}</span>

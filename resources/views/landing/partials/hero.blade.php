@@ -1,11 +1,11 @@
 @php
     $phrases = [
-        'Senior Software Engineer',
-        'Shopify Developer',
-        'WordPress Developer',
+        'Senior Backend Engineer',
         'Laravel Architect',
+        'FinTech & Payments Engineer',
+        'DDD + TDD Practitioner',
+        'Modular Monolith Designer',
         'API Integrations Expert',
-        'Founder of Thanawya Helwa',
     ];
 @endphp
 <section id="home" class="relative min-h-screen flex items-center overflow-hidden mesh-bg text-white">
@@ -47,8 +47,10 @@
                 </div>
 
                 <p class="text-lg text-white/80 max-w-2xl mb-10 leading-relaxed">
-                    7+ years building production systems. PHP, Python, C++, Laravel, Vue, Shopify, WordPress.
-                    I ship clean code, integrate any API you throw at me, and respect deadlines.
+                    8+ years designing scalable, production-grade backends. Currently at
+                    <strong class="text-white">Foodics</strong>, building high-traffic multi-tenant systems
+                    with Laravel, DDD and TDD. FinTech background — PCI-DSS, Central Bank approvals,
+                    EGP&nbsp;1B+&nbsp;processed.
                 </p>
 
                 <div class="flex flex-wrap gap-4">
@@ -63,20 +65,20 @@
                     </x-landing.gradient-button>
                 </div>
 
-                <div class="flex items-center gap-8 mt-12 text-sm text-white/70">
+                <div class="flex flex-wrap items-center gap-x-8 gap-y-4 mt-12 text-sm text-white/70">
                     <div>
-                        <div class="text-3xl font-extrabold text-white">7+</div>
-                        <div>Years experience</div>
+                        <div class="text-3xl font-extrabold text-white">8+</div>
+                        <div>Years of experience</div>
                     </div>
-                    <div class="h-10 w-px bg-white/20"></div>
+                    <div class="hidden sm:block h-10 w-px bg-white/20"></div>
                     <div>
-                        <div class="text-3xl font-extrabold text-white">50+</div>
-                        <div>Projects delivered</div>
+                        <div class="text-3xl font-extrabold text-white">EGP 1B+</div>
+                        <div>Processed in B2B invoices</div>
                     </div>
-                    <div class="h-10 w-px bg-white/20"></div>
+                    <div class="hidden sm:block h-10 w-px bg-white/20"></div>
                     <div>
-                        <div class="text-3xl font-extrabold text-white">15+</div>
-                        <div>APIs integrated</div>
+                        <div class="text-3xl font-extrabold text-white">PCI-DSS</div>
+                        <div>+ Central Bank approvals</div>
                     </div>
                 </div>
             </div>
@@ -92,16 +94,16 @@
                             <span class="w-3 h-3 rounded-full bg-green-400"></span>
                             <span class="ml-auto text-xs text-white/40 font-mono">~/ots.php</span>
                         </div>
-                        <pre class="font-mono text-sm leading-relaxed text-white/90 overflow-x-auto"><code><span class="text-brand-300">class</span> <span class="text-lime-400">Omar</span> <span class="text-brand-300">extends</span> <span class="text-accent-400">Engineer</span> {
-  <span class="text-brand-300">public</span> <span class="text-white">$stack</span> = [
-    <span class="text-lime-300">'Laravel'</span>, <span class="text-lime-300">'Vue'</span>,
-    <span class="text-lime-300">'Shopify'</span>, <span class="text-lime-300">'WP'</span>,
-  ];
+                        <pre class="font-mono text-sm leading-relaxed text-white/90 overflow-x-auto"><code><span class="text-brand-300">namespace</span> <span class="text-accent-300">Omar\Backend</span>;
 
-  <span class="text-brand-300">public function</span> <span class="text-accent-400">build</span>(<span class="text-white">$idea</span>) {
-    <span class="text-brand-300">return</span> <span class="text-white">$idea</span>
-      -><span class="text-accent-400">ship</span>()
-      -><span class="text-accent-400">scale</span>();
+<span class="text-brand-300">final class</span> <span class="text-accent-300">Engineer</span>
+{
+  <span class="text-brand-300">public function</span> <span class="text-accent-300">ship</span>(<span class="text-accent-300">Feature</span> <span class="text-white">$f</span>): <span class="text-accent-300">Release</span>
+  {
+    <span class="text-brand-300">return</span> <span class="text-white">$f</span>
+      -><span class="text-accent-300">model</span>(<span class="text-brand-300">domain</span>: <span class="text-white">$ctx</span>)
+      -><span class="text-accent-300">test</span>(<span class="text-brand-300">coverage</span>: <span class="text-accent-300">95</span>)
+      -><span class="text-accent-300">deploy</span>(<span class="text-brand-300">via</span>: <span class="text-accent-300">CI</span>);
   }
 }</code></pre>
                     </div>

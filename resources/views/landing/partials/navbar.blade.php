@@ -1,6 +1,7 @@
 @php
     $sectionLinks = [
         ['href' => '#about', 'label' => 'About'],
+        ['href' => '#experience', 'label' => 'Experience'],
         ['href' => '#service', 'label' => 'Services'],
         ['href' => '#work', 'label' => 'Work'],
         ['href' => '#testimonials', 'label' => 'Testimonials'],

@@ -11,6 +11,7 @@
         @include('landing.partials.navbar')
         @include('landing.partials.hero')
         @include('landing.partials.about')
+        @include('landing.partials.experience')
         @include('landing.partials.services')
         @include('landing.partials.apis')
         @include('landing.partials.projects')
