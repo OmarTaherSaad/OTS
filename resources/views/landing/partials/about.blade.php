@@ -156,7 +156,7 @@
                             @endphp
                             @foreach ($apiGroups as $group => $items)
                                 <div>
-                                    <div class="text-xs uppercase tracking-widest font-bold text-ink-500 dark:text-ink-400 mb-2">{{ $group }}</div>
+                                    <div class="text-xs uppercase tracking-widest font-bold text-brand-600 dark:text-brand-300 mb-2">{{ $group }}</div>
                                     <div class="flex flex-wrap gap-2">
                                         @foreach ($items as $item)
                                             <span class="px-3 py-1 rounded-full text-sm bg-ink-100 dark:bg-ink-800 ring-1 ring-ink-200 dark:ring-ink-700 text-ink-800 dark:text-ink-100 font-medium">{{ $item }}</span>

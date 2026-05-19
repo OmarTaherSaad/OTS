@@ -128,16 +128,16 @@ class MainController extends Controller
         ];
 
         // Attach logo URLs for any company we have an image file for.
-        // Drop a file at storage/app/public/assets/images/companies/{slug}.(png|svg|webp|jpg)
+        // Drop a file at public/images/companies/{slug}.(svg|png|webp|jpg)
         // and it'll automatically appear in the Experience section.
         foreach ($experiences as &$exp) {
             $slug = $exp['logo'] ?? null;
             $exp['logo_url'] = null;
             if ($slug) {
-                foreach (['png', 'svg', 'webp', 'jpg', 'jpeg'] as $ext) {
-                    $path = "assets/images/companies/{$slug}.{$ext}";
-                    if (Storage::disk('public')->exists($path)) {
-                        $exp['logo_url'] = Storage::url($path);
+                foreach (['svg', 'png', 'webp', 'jpg', 'jpeg'] as $ext) {
+                    $rel = "images/companies/{$slug}.{$ext}";
+                    if (file_exists(public_path($rel))) {
+                        $exp['logo_url'] = asset($rel);
                         break;
                     }
                 }
