@@ -26,6 +26,17 @@ function setupThemeToggle() {
     syncDarkFromBody();
     const observer = new MutationObserver(syncDarkFromBody);
     observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+    // Landing-specific toggle button (legacy #theme-toggle is hidden on landing).
+    const btn = document.getElementById('theme-toggle-landing');
+    if (!btn) return;
+    btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        document.body.classList.toggle('dark-mode');
+        const isDark = document.body.classList.contains('dark-mode');
+        localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        // MutationObserver above mirrors body.dark-mode -> html.dark automatically.
+    });
 }
 
 // Typewriter Alpine component.

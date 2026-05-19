@@ -8,6 +8,7 @@
 @endsection
 @section('content')
     <div class="landing antialiased">
+        @include('landing.partials.navbar')
         @include('landing.partials.hero')
         @include('landing.partials.about')
         @include('landing.partials.services')

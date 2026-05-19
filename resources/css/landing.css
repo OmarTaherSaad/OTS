@@ -78,6 +78,19 @@
 }
 
 @layer base {
+  /* Hide legacy Bootstrap navbar + splash + back-to-top when landing v2 is active */
+  body:has(.landing) > #navbar,
+  body:has(.landing) > .back-to-top,
+  body:has(.landing) #splash-screen {
+    display: none !important;
+  }
+  /* Strip default app-container padding the legacy layout adds */
+  body:has(.landing) > #app {
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
   .landing {
     font-family: var(--font-sans);
     background-color: var(--color-ink-50);
