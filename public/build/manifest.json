@@ -7,8 +7,8 @@
     "file": "assets/_commonjsHelpers-Cpj98o6Y.js",
     "name": "_commonjsHelpers"
   },
-  "_index-BqNXOU9v.js": {
-    "file": "assets/index-BqNXOU9v.js",
+  "_index-YhU2tRys.js": {
+    "file": "assets/index-YhU2tRys.js",
     "name": "index",
     "isDynamicEntry": true,
     "imports": [
@@ -24,7 +24,7 @@
     ]
   },
   "node_modules/@tsparticles/engine/browser/Core/Container.js": {
-    "file": "assets/Container-D7_LNFC7.js",
+    "file": "assets/Container-DIDOX9Av.js",
     "name": "Container",
     "src": "node_modules/@tsparticles/engine/browser/Core/Container.js",
     "isDynamicEntry": true,
@@ -35,7 +35,7 @@
     ]
   },
   "node_modules/@tsparticles/engine/browser/index.js": {
-    "file": "assets/index-0kwbaO5T.js",
+    "file": "assets/index-MaKnHSlq.js",
     "name": "index",
     "src": "node_modules/@tsparticles/engine/browser/index.js",
     "isDynamicEntry": true,
@@ -66,12 +66,12 @@
     ]
   },
   "node_modules/@tsparticles/plugin-interactivity/browser/InteractivityPluginInstance.js": {
-    "file": "assets/InteractivityPluginInstance-Dn96ImZS.js",
+    "file": "assets/InteractivityPluginInstance-Dg48Z291.js",
     "name": "InteractivityPluginInstance",
     "src": "node_modules/@tsparticles/plugin-interactivity/browser/InteractivityPluginInstance.js",
     "isDynamicEntry": true,
     "imports": [
-      "_index-BqNXOU9v.js",
+      "_index-YhU2tRys.js",
       "_ColorUtils-dmm53VgW.js",
       "resources/js/landing.js"
     ]
@@ -126,9 +126,10 @@
     "src": "node_modules/lineicons/dist/d495aba62101f856c80f.eot"
   },
   "resources/css/landing.css": {
-    "file": "assets/landing-Bf8sHC5O.css",
+    "file": "assets/landing-B_kPF0lP.css",
     "src": "resources/css/landing.css",
     "isEntry": true,
+    "name": "landing",
     "names": [
       "landing.css"
     ]
@@ -143,7 +144,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-CnQY6Q-n.js",
+    "file": "assets/app-CQ2Ph8TZ.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
@@ -155,7 +156,7 @@
     ]
   },
   "resources/js/entrance-card-scanner.js": {
-    "file": "assets/entrance-card-scanner-_-74EDzo.js",
+    "file": "assets/entrance-card-scanner-B-2veIux.js",
     "name": "entrance-card-scanner",
     "src": "resources/js/entrance-card-scanner.js",
     "isEntry": true,
@@ -170,7 +171,7 @@
     "isEntry": true
   },
   "resources/js/home.js": {
-    "file": "assets/home-DdadTic-.js",
+    "file": "assets/home-DDZb7OOI.js",
     "name": "home",
     "src": "resources/js/home.js",
     "isEntry": true,
@@ -178,22 +179,22 @@
       "__commonjsHelpers-Cpj98o6Y.js"
     ],
     "css": [
-      "assets/home-BaVkx4tQ.css"
+      "assets/home-DmuyVQv5.css"
     ]
   },
   "resources/js/landing.js": {
-    "file": "assets/landing-Dum-MlOm.js",
+    "file": "assets/landing-BktVKvXo.js",
     "name": "landing",
     "src": "resources/js/landing.js",
     "isEntry": true,
     "dynamicImports": [
       "node_modules/lenis/dist/lenis.mjs",
       "node_modules/@tsparticles/engine/browser/index.js",
-      "_index-BqNXOU9v.js"
+      "_index-YhU2tRys.js"
     ]
   },
   "resources/js/physicsClasses.js": {
-    "file": "assets/physicsClasses-CmTNlUgD.js",
+    "file": "assets/physicsClasses-CBUAbS96.js",
     "name": "physicsClasses",
     "src": "resources/js/physicsClasses.js",
     "isEntry": true,
@@ -201,7 +202,7 @@
       "__commonjsHelpers-Cpj98o6Y.js"
     ],
     "css": [
-      "assets/physicsClasses-BS8xBfXl.css"
+      "assets/physicsClasses-C3pkknJD.css"
     ]
   },
   "resources/js/skills.js": {
@@ -211,17 +212,19 @@
     "isEntry": true
   },
   "resources/sass/about.scss": {
-    "file": "assets/about-B8eUI1oy.css",
+    "file": "assets/about-DGV4u1Fi.css",
     "src": "resources/sass/about.scss",
     "isEntry": true,
+    "name": "about",
     "names": [
       "about.css"
     ]
   },
   "resources/sass/app.scss": {
-    "file": "assets/app-Epood30i.css",
+    "file": "assets/app-DG5iWvyG.css",
     "src": "resources/sass/app.scss",
     "isEntry": true,
+    "name": "app",
     "names": [
       "app.css"
     ]
@@ -230,6 +233,7 @@
     "file": "assets/bootstrapAR-DE7R70H-.css",
     "src": "resources/sass/bootstrapAR.scss",
     "isEntry": true,
+    "name": "bootstrapAR",
     "names": [
       "bootstrapAR.css"
     ]
@@ -238,14 +242,16 @@
     "file": "assets/forms-Dthg3KQ3.css",
     "src": "resources/sass/forms.scss",
     "isEntry": true,
+    "name": "forms",
     "names": [
       "forms.css"
     ]
   },
   "resources/sass/home.scss": {
-    "file": "assets/home-CZfZra7x.css",
+    "file": "assets/home-DrGm-eRa.css",
     "src": "resources/sass/home.scss",
     "isEntry": true,
+    "name": "home",
     "names": [
       "home.css"
     ]
@@ -255,9 +261,10 @@
     "src": "resources/sass/images/ajax-loader.gif"
   },
   "resources/sass/sidebar.scss": {
-    "file": "assets/sidebar-DcAocMwI.css",
+    "file": "assets/sidebar-C1qTfXJG.css",
     "src": "resources/sass/sidebar.scss",
     "isEntry": true,
+    "name": "sidebar",
     "names": [
       "sidebar.css"
     ]
@@ -266,6 +273,7 @@
     "file": "assets/splashscreen-C5X2Hx9q.css",
     "src": "resources/sass/splashscreen.scss",
     "isEntry": true,
+    "name": "splashscreen",
     "names": [
       "splashscreen.css"
     ]
