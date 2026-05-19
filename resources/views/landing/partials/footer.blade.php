@@ -4,7 +4,8 @@
             <div class="flex items-center gap-3 md:justify-start justify-center">
                 <img src="{{ Storage::url('assets/images/logo.png') }}"
                      alt=""
-                     class="h-9 w-9 rounded-full object-contain bg-white dark:bg-ink-800 p-1 ring-1 ring-ink-200 dark:ring-ink-700">
+                     style="background:#fff;"
+                     class="h-9 w-9 rounded-full object-contain p-1 ring-1 ring-ink-200 dark:ring-white/30">
                 <div class="leading-tight">
                     <div class="text-sm font-extrabold text-ink-900 dark:text-ink-50">Omar Taher Saad</div>
                     <div class="text-[11px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">Senior Backend Engineer</div>

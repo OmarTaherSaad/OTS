@@ -124,12 +124,12 @@ class FetchSkillLogos extends Command
             'filename' => 'rest-api.svg'
         ],
         'Webhooks' => [
-            'url' => 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webhooks/webhooks-original.svg',
+            'url' => 'https://api.iconify.design/mdi/webhook.svg',
             'filename' => 'webhooks.svg'
         ],
         'Stripe' => [
-            'url' => 'https://js.stripe.com/v3/fingerprinted/img/logo-f9e8a5b0c9c3583cd0bfac515a1b8231d3375be8.png',
-            'filename' => 'stripe.png'
+            'url' => 'https://cdn.simpleicons.org/stripe/635BFF',
+            'filename' => 'stripe.svg'
         ],
         'PayPal' => [
             'url' => 'https://www.paypalobjects.com/webstatic/mktg/logo/pp_cc_mark_37x23.jpg',

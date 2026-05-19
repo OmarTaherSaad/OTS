@@ -18,10 +18,8 @@
     :class="scrolled ? 'py-2' : 'py-4'">
     <div class="container mx-auto px-4 max-w-7xl">
         <nav
-            class="flex items-center gap-3 rounded-full pl-2 pr-2 transition-all duration-300 no-underline"
-            :class="scrolled
-                ? 'h-14 bg-white/90 dark:bg-ink-950/90 ring-1 ring-ink-200/80 dark:ring-ink-800/80 shadow-lg backdrop-blur-xl'
-                : 'h-16 bg-white/70 dark:bg-ink-950/55 ring-1 ring-white/30 dark:ring-white/5 backdrop-blur-md'"
+            class="flex items-center gap-3 transition-all duration-300 no-underline"
+            :class="scrolled ? 'h-14' : 'h-16'"
             aria-label="Primary">
 
             {{-- Logo --}}
@@ -29,12 +27,9 @@
                class="flex items-center gap-2.5 shrink-0 rounded-full pl-1 pr-3 py-1 hover:bg-ink-100/60 dark:hover:bg-ink-800/60 transition-colors focus-ring"
                aria-label="Omar Taher Saad — Home">
                 <img src="{{ Storage::url('assets/images/logo.png') }}"
-                     alt=""
-                     class="h-9 w-9 rounded-full object-contain bg-white dark:bg-ink-800 p-1 ring-1 ring-ink-200 dark:ring-ink-700">
-                <span class="hidden md:flex flex-col leading-none">
-                    <span class="text-sm font-extrabold text-ink-900 dark:text-ink-50 tracking-tight">Omar Taher Saad</span>
-                    <span class="text-[10px] uppercase tracking-[0.18em] text-ink-500 dark:text-ink-400">Senior Backend Engineer</span>
-                </span>
+                     alt="Omar Taher Saad"
+                     style="background:#fff;"
+                     class="h-9 w-9 rounded-full object-contain p-1 ring-1 ring-ink-200 dark:ring-white/30">
             </a>
 
             {{-- Desktop pill links inside a soft inner track. A single absolute
@@ -48,14 +43,15 @@
                     :style="indicatorStyle"></span>
                 @foreach ($sectionLinks as $link)
                     @php $key = trim($link['href'], '#'); @endphp
-                    <li class="relative z-10">
+                    <li class="relative z-10 flex items-stretch">
                         <a href="{{ $link['href'] }}"
                            data-section="{{ $key }}"
                            @click="active = '{{ $key }}'"
                            :class="active === '{{ $key }}'
                                ? 'text-ink-900 dark:text-white'
                                : 'text-ink-600 dark:text-ink-300 hover:text-ink-900 dark:hover:text-white'"
-                           class="inline-flex items-center px-3.5 py-1.5 rounded-full text-sm font-semibold transition-colors focus-ring no-underline">
+                           class="grid place-items-center px-3.5 py-2 rounded-full text-sm font-semibold transition-colors focus-ring no-underline leading-none"
+                           style="margin:0;">
                             {{ $link['label'] }}
                         </a>
                     </li>

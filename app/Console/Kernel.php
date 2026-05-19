@@ -12,6 +12,18 @@ use Symfony\Component\EventDispatcher\EventDispatcher;
 class Kernel extends ConsoleKernel
 {
     /**
+     * Register the application's Artisan commands.
+     */
+    protected function commands(): void
+    {
+        $this->load(__DIR__.'/Commands');
+
+        if (file_exists(base_path('routes/console.php'))) {
+            require base_path('routes/console.php');
+        }
+    }
+
+    /**
      * Get the Artisan application instance.
      *
      * @return \Illuminate\Console\Application

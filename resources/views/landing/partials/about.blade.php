@@ -70,7 +70,7 @@
                                         <div class="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"
                                              style="background: radial-gradient(circle at 50% 0%, {{ $skill['color'] }}33, transparent 70%);"></div>
                                         @if ($logo)
-                                            <div class="relative w-10 h-10 flex items-center justify-center rounded-xl"
+                                            <div class="relative w-10 h-10 flex items-center justify-center rounded-xl dark:bg-white! ring-1 ring-ink-200/40 dark:ring-white/40"
                                                  style="background-color: {{ $skill['color'] }}1A;">
                                                 <img src="{{ Storage::url($logo) }}"
                                                      alt="{{ $name }}"

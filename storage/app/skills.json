@@ -145,10 +145,10 @@
             "logo": "assets/images/skill-logos/webhooks.svg"
         },
         "Stripe": {
-            "icon": "icon-stripe",
             "level": "Advanced",
             "color": "#635BFF",
-            "description": "Online payment processing platform"
+            "description": "Online payment processing platform",
+            "logo": "assets/images/skill-logos/stripe.svg"
         },
         "PayPal": {
             "level": "Advanced",

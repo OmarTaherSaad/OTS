@@ -150,13 +150,6 @@ Alpine.data('projectFilter', (categories = []) => ({
     },
 }));
 
-// Pricing toggle.
-Alpine.data('pricingToggle', () => ({
-    mode: 'project',
-    isMonthly() { return this.mode === 'monthly'; },
-    multiplier() { return this.mode === 'monthly' ? 0.35 : 1; },
-}));
-
 // Testimonials carousel.
 Alpine.data('testimonialsScroller', () => ({
     scrollBy(direction) {

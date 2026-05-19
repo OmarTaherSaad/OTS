@@ -19,6 +19,7 @@
             @include('landing.partials.testimonials')
         @endif
         @include('landing.partials.pricing')
+        @include('landing.partials.retainer')
         @include('landing.partials.contact')
         @include('landing.partials.footer')
     </div>
