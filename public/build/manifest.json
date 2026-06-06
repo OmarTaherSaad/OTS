@@ -134,15 +134,6 @@
       "landing.css"
     ]
   },
-  "resources/js/about.js": {
-    "file": "assets/about-DWo_9pBZ.js",
-    "name": "about",
-    "src": "resources/js/about.js",
-    "isEntry": true,
-    "imports": [
-      "__commonjsHelpers-Cpj98o6Y.js"
-    ]
-  },
   "resources/js/app.js": {
     "file": "assets/app-CQ2Ph8TZ.js",
     "name": "app",
@@ -156,13 +147,10 @@
     ]
   },
   "resources/js/entrance-card-scanner.js": {
-    "file": "assets/entrance-card-scanner-B-2veIux.js",
+    "file": "assets/entrance-card-scanner-Bn8uBA9D.js",
     "name": "entrance-card-scanner",
     "src": "resources/js/entrance-card-scanner.js",
-    "isEntry": true,
-    "imports": [
-      "__commonjsHelpers-Cpj98o6Y.js"
-    ]
+    "isEntry": true
   },
   "resources/js/forms.js": {
     "file": "assets/forms-D1buWcpA.js",
@@ -191,18 +179,6 @@
       "node_modules/lenis/dist/lenis.mjs",
       "node_modules/@tsparticles/engine/browser/index.js",
       "_index-YhU2tRys.js"
-    ]
-  },
-  "resources/js/physicsClasses.js": {
-    "file": "assets/physicsClasses-CBUAbS96.js",
-    "name": "physicsClasses",
-    "src": "resources/js/physicsClasses.js",
-    "isEntry": true,
-    "imports": [
-      "__commonjsHelpers-Cpj98o6Y.js"
-    ],
-    "css": [
-      "assets/physicsClasses-C3pkknJD.css"
     ]
   },
   "resources/js/skills.js": {

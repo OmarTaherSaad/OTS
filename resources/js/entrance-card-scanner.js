@@ -1,5 +1,5 @@
 import { createApp } from "vue";
-import VueQrcodeReader from "vue-qrcode-reader";
+import { VueQrcodeReader } from "vue-qrcode-reader";
 
 const app = createApp({
     data() {
@@ -8,22 +8,36 @@ const app = createApp({
             canEnter: false,
             url: "",
             enterURL: "",
+            qrPaused: false,
         };
     },
     methods: {
+        onDetect(detectedCodes) {
+            if (this.qrPaused) return;
+            const url = detectedCodes[0]?.rawValue;
+            if (!url) return;
+            this.qrPaused = true;
+            this.cardScanned(url);
+        },
         cardScanned(url) {
             this.url = url;
-            axios.post(url).then(({ data }) => {
-                if (data.success == true) {
-                    this.canEnter = true;
-                    this.enterURL = data.enterURL;
-                    this.response = data.data;
-                } else {
-                    this.response = data.message;
-                }
-                this.$refs["qrScanner"].camera = "off";
-                this.$refs["qrScanner"].camera = "auto";
-            });
+            axios
+                .post(url)
+                .then(({ data }) => {
+                    if (data.success == true) {
+                        this.canEnter = true;
+                        this.enterURL = data.enterURL;
+                        this.response = data.data;
+                    } else {
+                        this.response = data.message;
+                    }
+                })
+                .catch(() => {
+                    this.response = "Request failed.";
+                })
+                .finally(() => {
+                    this.qrPaused = false;
+                });
         },
         enter() {
             if (this.url == "" || this.enterURL == "" || !this.canEnter) return;
@@ -42,6 +56,6 @@ const app = createApp({
 });
 
 app.use(VueQrcodeReader);
-app.mount("#app");
+app.mount("#entrance-qrcode-root");
 
 window.app = app;

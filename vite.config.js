@@ -47,8 +47,6 @@ export default defineConfig(({ command }) => {
                     'resources/js/skills.js',
                     'resources/js/forms.js',
                     'resources/js/entrance-card-scanner.js',
-                    'resources/js/about.js',
-                    'resources/js/physicsClasses.js',
                     'resources/js/landing.js',
                 ],
                 refresh: true,

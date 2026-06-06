@@ -1,10 +1,10 @@
 @extends('layouts.app')
 @section('title','Appointment Entrance Card Scanner')
 @section('content')
-<div class="row" id="app">
+<div class="row" id="entrance-qrcode-root">
     <div class="col-10">
         <h2>Appointment Entrance Card Scanner</h2>
-        <qrcode-stream style="height: 50vh;" @decode="cardScanned" ref="qrScanner"></qrcode-stream>
+        <qrcode-stream style="height: 50vh;" :paused="qrPaused" @detect="onDetect"></qrcode-stream>
         <div v-html="response"></div>
     </div>
     <div class="col-12" v-show="canEnter">
