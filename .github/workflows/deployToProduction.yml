@@ -1,14 +1,8 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Deploy To Production
 
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push events but only for the master branch
   push:
     branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
     inputs:
       source_branch:
@@ -17,18 +11,19 @@ on:
         default: 'master'
         type: string
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+# Workflow-level concurrency so a new push waits for the current deploy to
+# finish instead of cancelling it mid-flight (which could leave the server
+# stuck in maintenance mode with half-applied changes).
+concurrency:
+  group: production
+  cancel-in-progress: false
+
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
     environment: production
-    concurrency: production
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.source_branch || 'master' }}
@@ -40,30 +35,25 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci --ignore-scripts
+        run: npm ci
 
       - name: Create .env file for build
         run: |
-          echo "APP_NAME=Laravel" > .env
-          echo "APP_ENV=production" >> .env
-          echo "APP_KEY=" >> .env
-          echo "APP_DEBUG=false" >> .env
-          echo "APP_URL=http://localhost" >> .env
-          echo "LOG_CHANNEL=stack" >> .env
-          echo "LOG_DEPRECATIONS_CHANNEL=null" >> .env
-          echo "LOG_LEVEL=debug" >> .env
+          cat > .env <<'EOF'
+          APP_NAME=Laravel
+          APP_ENV=production
+          APP_KEY=
+          APP_DEBUG=false
+          APP_URL=http://localhost
+          LOG_CHANNEL=stack
+          LOG_DEPRECATIONS_CHANNEL=null
+          LOG_LEVEL=debug
+          EOF
 
       - name: Run Production Build
         run: npm run build
         env:
           NODE_ENV: production
-
-      - name: Get current time
-        uses: 1466587594/get-current-time@v2
-        id: current-time
-        with:
-          format: LLL
-          utcOffset: "+02:00"
 
       - name: Setup Git for deploy branch
         run: |
@@ -72,30 +62,28 @@ jobs:
 
       - name: Create and push to deploy branch
         run: |
-          # Create or reset deploy branch to current state
+          BUILD_TIME=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
+          SOURCE="${{ github.event.inputs.source_branch || 'master' }}"
+
+          # Reset deploy branch to source HEAD
           git checkout -B deploy
 
-          # Remove .env file if it exists (don't deploy localhost config)
+          # Do not deploy the localhost build .env
           rm -f .env
 
-          # Add all built assets
-          git add -f public/
+          # Stage built assets only (avoid sweeping in dev junk from public/)
+          git add -f public/build
+          [ -f public/mix-manifest.json ] && git add -f public/mix-manifest.json || true
+          [ -f public/hot ] && git rm -f public/hot || true
 
-          # Commit with timestamp
-          git commit -m "Build assets from ${{ github.event.inputs.source_branch || 'master' }} at ${{ steps.current-time.outputs.formattedTime }}" --allow-empty
-
-          # Force push to deploy branch
+          git commit -m "Build assets from ${SOURCE} at ${BUILD_TIME}" --allow-empty
           git push -f origin deploy
 
-          echo "MESSAGE=Build assets from ${{ github.event.inputs.source_branch || 'master' }} at ${{ steps.current-time.outputs.formattedTime }}" >> $GITHUB_ENV
-
   deploy:
-      needs: build
-      # The type of runner that the job will run on
-      runs-on: ubuntu-latest
-      environment: production
-      concurrency: production
-      steps:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
       - name: Deploy to Server using SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
@@ -104,37 +92,34 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
-            set -e  # Exit on any error
-
+            set -e
             cd ~/public_html
-            # activate maintenance mode
+
+            # Guarantee maintenance mode is lifted, even if a later step fails.
+            trap 'echo "Cleanup: ensuring app is up..."; php artisan up || true' EXIT
+
             echo "Activating maintenance mode..."
             php artisan down --retry=60
 
-            # update source code
             echo "Fetching updates..."
-            git fetch origin
-            
-            # Backup current .env file if it exists
+            git fetch origin --prune
+
             if [ -f .env ]; then
               echo "Backing up current .env file..."
               cp .env .env.backup
             fi
-            
+
             git reset --hard origin/deploy
-            
-            # Restore .env file if backup exists
+
             if [ -f .env.backup ]; then
               echo "Restoring production .env file..."
               mv .env.backup .env
             fi
 
-            # update PHP dependencies
             echo "Installing Composer dependencies..."
             export COMPOSER_HOME="$HOME/.config/composer"
             composer2 install --no-interaction --prefer-dist --optimize-autoloader --no-dev
 
-            # Clear and refresh caches
             echo "Refreshing caches..."
             php artisan optimize:clear
             php artisan config:cache
@@ -142,17 +127,43 @@ jobs:
             php artisan view:cache
             php artisan event:cache
 
-            # update database
             echo "Running database migrations..."
             php artisan migrate --force
 
-            # restart queues
             echo "Restarting queues..."
             php artisan -v queue:restart
-            echo "Queue restarted"
 
-            # stop maintenance mode
+            # PHP-FPM holds compiled bytecode in OPcache. `git reset` updates
+            # the files on disk but FPM keeps serving the old bytecode until
+            # OPcache is reset. Hit a single-use, token-named PHP file through
+            # the public URL so an FPM worker resets the shared OPcache.
+            echo "Resetting PHP OPcache..."
+            APP_URL=$(grep -E '^APP_URL=' .env | head -1 | cut -d= -f2- | tr -d '"' | tr -d "'" | sed 's:/*$::')
+            if [ -n "$APP_URL" ]; then
+              TOKEN=$(openssl rand -hex 16)
+              RESET_FILE="public/__opcache_reset_${TOKEN}.php"
+              printf '%s\n' \
+                '<?php' \
+                'if (function_exists("opcache_reset")) {' \
+                '    opcache_reset();' \
+                '    echo "OPCACHE_RESET_OK";' \
+                '} else {' \
+                '    echo "OPCACHE_NOT_ENABLED";' \
+                '}' > "$RESET_FILE"
+              RESET_URL="${APP_URL}/__opcache_reset_${TOKEN}.php"
+              echo "Calling ${RESET_URL}"
+              curl -fsSk --max-time 30 "${RESET_URL}" || echo "(OPcache reset request failed, non-fatal)"
+              echo
+              rm -f "$RESET_FILE"
+            else
+              echo "APP_URL not found in .env; skipping OPcache reset"
+            fi
+
             echo "Deactivating maintenance mode..."
             php artisan up
+
+            # Disable the trap on the happy path so it does not run an extra
+            # `php artisan up` after success.
+            trap - EXIT
 
             echo "Deployment completed successfully!"
