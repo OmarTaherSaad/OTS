@@ -48,13 +48,7 @@ class MainController extends Controller
 
         $experiences = $linkedInExperience->getExperiences();
 
-        $education = [
-            'degree' => 'B.Sc. in Computer and Systems Engineering — Computer Engineering',
-            'university' => 'Faculty of Engineering, Ain Shams University',
-            'location' => 'Cairo, Egypt',
-            'duration' => '2015 – 2020',
-            'project' => 'Graduation Project: Gesture Recognition Using Machine Learning — a deep-learning mouse-replacement system using computer vision. Supervised by Dr. Ashraf Salem and Dr. Khaled Salah (Siemens EDA).',
-        ];
+        $education = $linkedInExperience->getEducation();
         $projects = [
             [
                 "img" => Storage::url('assets/images/projects/web-windowspvc.jpg'),

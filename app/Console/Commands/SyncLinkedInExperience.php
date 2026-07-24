@@ -25,6 +25,7 @@ class SyncLinkedInExperience extends Command
         }
 
         $this->info('Cached ' . count($experiences) . ' experience entries to ' . config('linkedin.cache_path'));
+        $this->info('Education synced: ' . ($service->getEducation()['degree'] ?? 'n/a'));
 
         return self::SUCCESS;
     }

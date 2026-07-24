@@ -130,6 +130,9 @@
                 </div>
                 <div class="min-w-0 flex-1">
                     <h3 class="text-sm sm:text-base font-extrabold leading-tight">{{ $education['degree'] }}</h3>
+                    @if (!empty($education['university']))
+                        <p class="text-xs text-ink-600 dark:text-ink-300 mt-0.5">{{ $education['university'] }}</p>
+                    @endif
                     <p class="text-xs text-ink-600 dark:text-ink-300 mt-0.5">{{ $education['duration'] }}</p>
                 </div>
             </div>
