@@ -3,7 +3,6 @@
 namespace App\Services;
 
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
@@ -11,7 +10,7 @@ class LinkedInExperienceService
 {
     private ?array $cachedEducation = null;
 
-    private ?string $lastApifyError = null;
+    private ?string $lastSyncError = null;
 
     public function getExperiences(bool $allowStale = true): array
     {
@@ -38,14 +37,14 @@ class LinkedInExperienceService
         return $payload['education'] ?? config('linkedin.education_fallback');
     }
 
-    public function getLastApifyError(): ?string
+    public function getLastSyncError(): ?string
     {
-        return $this->lastApifyError;
+        return $this->lastSyncError;
     }
 
-    public function hasApifyToken(): bool
+    public function hasLinkedInExport(): bool
     {
-        return ! empty(config('linkedin.apify.token'));
+        return $this->resolveLinkedInExportPaths()['positions'] !== null;
     }
 
     public function sync(bool $force = false, bool $requireLive = false): array
@@ -59,14 +58,19 @@ class LinkedInExperienceService
             }
         }
 
-        $profile = $this->fetchApifyProfile()
-            ?? $this->fetchLinkedInExportProfile();
+        $profile = $this->fetchLinkedInExportProfile();
 
         if ($profile === null) {
-            if ($this->hasApifyToken() || $requireLive) {
+            if ($requireLive) {
                 throw new \RuntimeException(
-                    $this->lastApifyError ?? $this->liveFetchHelpMessage()
+                    $this->lastSyncError ?? $this->liveFetchHelpMessage()
                 );
+            }
+
+            if ($this->lastSyncError) {
+                Log::warning('LinkedIn export unavailable; seeding cache from bundled profile data.', [
+                    'error' => $this->lastSyncError,
+                ]);
             }
 
             return $this->seedCacheFromBundledData();
@@ -76,15 +80,14 @@ class LinkedInExperienceService
         $education = $this->extractEducationFromProfile($profile);
 
         if (empty($experiences)) {
-            Log::warning('LinkedIn profile fetched but no experience rows were parsed.', [
-                'actor' => config('linkedin.apify.actor'),
-                'profile_keys' => array_keys($profile),
+            Log::warning('LinkedIn export loaded but no experience rows were parsed.', [
+                'export' => $this->resolveLinkedInExportPaths(),
             ]);
 
             if ($requireLive) {
                 throw new \RuntimeException(
-                    'LinkedIn profile fetched but no experience entries were found. '
-                    . 'Set LINKEDIN_APIFY_ACTOR=dev_fusion/linkedin-profile-scraper (clearpath is deprecated).'
+                    'LinkedIn export found but no experience entries were parsed. '
+                    . 'Check Positions.json at ' . ($this->resolveLinkedInExportPaths()['positions'] ?? config('linkedin.export_path')) . '.'
                 );
             }
 
@@ -95,7 +98,7 @@ class LinkedInExperienceService
 
         $payload = [
             'synced_at' => now()->toIso8601String(),
-            'source' => 'linkedin',
+            'source' => 'linkedin-export',
             'experiences' => $experiences,
             'education' => $education ?? config('linkedin.education_fallback'),
         ];
@@ -138,15 +141,10 @@ class LinkedInExperienceService
 
     private function liveFetchHelpMessage(): string
     {
-        if ($this->hasApifyToken()) {
-            return 'Apify is configured but the LinkedIn fetch failed. '
-                . 'Run `php artisan config:clear` if you recently added APIFY_API_TOKEN, '
-                . 'then retry. Also verify LINKEDIN_APIFY_ACTOR and your Apify account credits.';
-        }
-
-        return 'Could not fetch LinkedIn profile live. Set APIFY_API_TOKEN in .env, '
-            . 'place a Positions.json export at ' . config('linkedin.export_path')
-            . ', or run without --require-live to seed from bundled profile data.';
+        return 'No LinkedIn export found. In LinkedIn go to Settings → Data Privacy → Get a copy of your data, '
+            . 'request Positions (and Education), then place Positions.json at '
+            . config('linkedin.export_path')
+            . ' or set LINKEDIN_EXPORT_DIR to the extracted archive folder.';
     }
 
     private function readCachedPayload(bool $allowStale): array
@@ -186,215 +184,98 @@ class LinkedInExperienceService
         return ['experiences' => [], 'education' => config('linkedin.education_fallback')];
     }
 
-    private function fetchApifyProfile(): ?array
+    private function fetchLinkedInExportProfile(): ?array
     {
-        $this->lastApifyError = null;
+        $this->lastSyncError = null;
 
-        $token = config('linkedin.apify.token');
-        if (empty($token)) {
-            $this->lastApifyError = 'APIFY_API_TOKEN is empty. Add it to .env, then run `php artisan config:clear`.';
+        $paths = $this->resolveLinkedInExportPaths();
+        $positionsPath = $paths['positions'];
 
-            return null;
-        }
-
-        $profileUrl = config('linkedin.profile_url');
-        $actor = str_replace('/', '~', config('linkedin.apify.actor'));
-        $timeout = config('linkedin.apify.timeout');
-        $inputKey = $this->apifyInputKey();
-        $input = [$inputKey => [$profileUrl]];
-
-        $client = Http::withToken($token)->acceptJson();
-
-        $syncResponse = $client->timeout(min($timeout, 300))->post(
-            "https://api.apify.com/v2/acts/{$actor}/run-sync-get-dataset-items",
-            $input
-        );
-
-        if ($syncResponse->successful()) {
-            return $this->profileFromApifyItems($syncResponse->json());
-        }
-
-        if (in_array($syncResponse->status(), [401, 403, 404, 402], true)) {
-            $this->lastApifyError = $this->formatApifyHttpError('run Apify actor (sync)', $syncResponse);
+        if ($positionsPath === null) {
+            $this->lastSyncError = 'LinkedIn Positions.json export was not found.';
 
             return null;
         }
 
-        Log::info('Apify sync endpoint unavailable, falling back to async run.', [
-            'status' => $syncResponse->status(),
+        $positions = $this->readLinkedInExportJson($positionsPath);
+        if ($positions === null) {
+            $this->lastSyncError = "Could not parse LinkedIn export at {$positionsPath}.";
+
+            return null;
+        }
+
+        $experience = array_is_list($positions)
+            ? $positions
+            : ($positions['elements'] ?? $positions['positions'] ?? [$positions]);
+
+        if (! is_array($experience) || empty($experience)) {
+            $this->lastSyncError = "LinkedIn export at {$positionsPath} contained no positions.";
+
+            return null;
+        }
+
+        $profile = ['experience' => array_values($experience)];
+
+        if ($paths['education'] !== null) {
+            $educationRows = $this->readLinkedInExportJson($paths['education']);
+            if (is_array($educationRows)) {
+                $profile['education'] = array_is_list($educationRows)
+                    ? $educationRows
+                    : ($educationRows['elements'] ?? [$educationRows]);
+            }
+        }
+
+        Log::info('LinkedIn experience loaded from official data export.', [
+            'positions' => $positionsPath,
+            'education' => $paths['education'],
+            'roles' => count($profile['experience']),
         ]);
 
-        return $this->fetchApifyProfileAsync($client, $actor, $input, $timeout);
-    }
-
-    private function fetchApifyProfileAsync($client, string $actor, array $input, int $timeout): ?array
-    {
-        $start = $client->timeout(60)->post("https://api.apify.com/v2/acts/{$actor}/runs", $input);
-
-        if (! $start->successful()) {
-            $this->lastApifyError = $this->formatApifyHttpError('start Apify actor run', $start);
-
-            return null;
-        }
-
-        $runId = $start->json('data.id');
-        $datasetId = $start->json('data.defaultDatasetId');
-
-        if (! $runId || ! $datasetId) {
-            $this->lastApifyError = 'Apify run started but no run/dataset id was returned.';
-
-            return null;
-        }
-
-        $deadline = time() + $timeout;
-        $status = null;
-
-        while (time() < $deadline) {
-            sleep(5);
-
-            $statusResponse = $client->timeout(30)->get("https://api.apify.com/v2/actor-runs/{$runId}");
-            if (! $statusResponse->successful()) {
-                $this->lastApifyError = $this->formatApifyHttpError('poll Apify run status', $statusResponse);
-
-                return null;
-            }
-
-            $status = $statusResponse->json('data.status');
-
-            if ($status === 'SUCCEEDED') {
-                break;
-            }
-
-            if (in_array($status, ['FAILED', 'ABORTED', 'TIMED-OUT'], true)) {
-                $message = $statusResponse->json('data.statusMessage') ?: 'No details from Apify.';
-                $this->lastApifyError = "Apify run {$status}: {$message}";
-
-                return null;
-            }
-        }
-
-        if (($status ?? null) !== 'SUCCEEDED') {
-            $this->lastApifyError = "Apify run timed out after {$timeout}s. Try increasing LINKEDIN_APIFY_TIMEOUT.";
-
-            return null;
-        }
-
-        $itemsResponse = $client->timeout(60)->get("https://api.apify.com/v2/datasets/{$datasetId}/items");
-        if (! $itemsResponse->successful()) {
-            $this->lastApifyError = $this->formatApifyHttpError('fetch Apify dataset items', $itemsResponse);
-
-            return null;
-        }
-
-        $items = $itemsResponse->json('items') ?? $itemsResponse->json();
-
-        return $this->profileFromApifyItems($items);
-    }
-
-    private function profileFromApifyItems(mixed $items): ?array
-    {
-        if (! is_array($items) || empty($items)) {
-            $this->lastApifyError = 'Apify returned an empty dataset. The profile may be private or the actor input may be wrong.';
-
-            return null;
-        }
-
-        $profile = null;
-        $experienceRows = [];
-
-        foreach ($items as $item) {
-            if (! is_array($item)) {
-                continue;
-            }
-
-            if (isset($item['error'])) {
-                $this->lastApifyError = 'Apify actor error: ' . (is_string($item['error']) ? $item['error'] : json_encode($item['error']));
-
-                return null;
-            }
-
-            $recordType = strtolower((string) ($item['recordType'] ?? $item['type'] ?? ''));
-
-            if ($recordType === 'diagnostic') {
-                $this->lastApifyError = $item['message'] ?? $item['errorMessage'] ?? 'Apify could not resolve this profile.';
-
-                continue;
-            }
-
-            if (isset($item['profile']) && is_array($item['profile'])) {
-                $profile = $this->mergeProfilePayload($profile, $item['profile']);
-                continue;
-            }
-
-            if (in_array($recordType, ['profileexperience', 'experience'], true)) {
-                $experienceRows[] = $item;
-                continue;
-            }
-
-            if ($this->looksLikeExperienceRow($item)) {
-                $experienceRows[] = $item;
-                continue;
-            }
-
-            if ($profile === null && $this->looksLikeProfileRecord($item)) {
-                $profile = $item;
-            }
-        }
-
-        if ($profile === null) {
-            $profile = $items[0];
-        }
-
-        if (! empty($experienceRows)) {
-            $profile['experience'] = array_values(array_merge($profile['experience'] ?? [], $experienceRows));
-        }
-
-        return $this->normalizeApifyProfileShape($profile);
-    }
-
-    private function mergeProfilePayload(?array $profile, array $payload): array
-    {
-        if ($profile === null) {
-            return $payload;
-        }
-
-        foreach ($payload as $key => $value) {
-            if ($value === null || $value === [] || $value === '') {
-                continue;
-            }
-
-            $profile[$key] = $value;
-        }
-
         return $profile;
     }
 
-    private function normalizeApifyProfileShape(array $profile): array
+    /**
+     * @return array{positions: ?string, education: ?string}
+     */
+    private function resolveLinkedInExportPaths(): array
     {
-        if (isset($profile['profileData']) && is_array($profile['profileData'])) {
-            $profile = $this->mergeProfilePayload($profile, $profile['profileData']);
-        }
+        $paths = [
+            'positions' => null,
+            'education' => null,
+        ];
 
-        if (isset($profile['experienceData']) && is_array($profile['experienceData'])) {
-            if (! empty($profile['experienceData']['experiences']) && is_array($profile['experienceData']['experiences'])) {
-                $profile['experiences'] = array_values(array_merge(
-                    $profile['experiences'] ?? [],
-                    $profile['experienceData']['experiences']
-                ));
+        $dir = config('linkedin.export_dir');
+        if (is_string($dir) && $dir !== '' && is_dir($dir)) {
+            foreach (['Positions.json', 'positions.json'] as $file) {
+                $candidate = rtrim($dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $file;
+                if (is_readable($candidate)) {
+                    $paths['positions'] = $candidate;
+                    break;
+                }
+            }
+
+            foreach (['Education.json', 'education.json'] as $file) {
+                $candidate = rtrim($dir, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR . $file;
+                if (is_readable($candidate)) {
+                    $paths['education'] = $candidate;
+                    break;
+                }
             }
         }
 
-        return $profile;
+        $singlePath = config('linkedin.export_path');
+        if ($paths['positions'] === null && is_readable($singlePath)) {
+            $paths['positions'] = $singlePath;
+        }
+
+        return $paths;
     }
 
-    private function looksLikeProfileRecord(array $item): bool
+    private function readLinkedInExportJson(string $path): ?array
     {
-        return isset($item['experience'])
-            || isset($item['experiences'])
-            || isset($item['position_groups'])
-            || isset($item['experienceData'])
-            || isset($item['fullName'])
-            || isset($item['headline']);
+        $payload = json_decode(file_get_contents($path), true);
+
+        return is_array($payload) ? $payload : null;
     }
 
     private function looksLikeExperienceRow(array $item): bool
@@ -402,36 +283,6 @@ class LinkedInExperienceService
         return isset($item['title'], $item['companyName'])
             || isset($item['jobTitle'], $item['companyName'])
             || isset($item['Title'], $item['Company Name']);
-    }
-
-    private function formatApifyHttpError(string $action, $response): string
-    {
-        $body = $response->json();
-        $detail = is_array($body)
-            ? ($body['error']['message'] ?? $body['message'] ?? $response->body())
-            : $response->body();
-
-        Log::warning("Apify LinkedIn scrape failed while trying to {$action}", [
-            'status' => $response->status(),
-            'body' => $response->body(),
-        ]);
-
-        return "Apify HTTP {$response->status()} while trying to {$action}: {$detail}";
-    }
-
-    private function fetchLinkedInExportProfile(): ?array
-    {
-        $path = config('linkedin.export_path');
-        if (! is_readable($path)) {
-            return null;
-        }
-
-        $payload = json_decode(file_get_contents($path), true);
-        if (! is_array($payload)) {
-            return null;
-        }
-
-        return ['experience' => array_is_list($payload) ? $payload : ($payload['elements'] ?? [$payload])];
     }
 
     private function extractExperiencesFromProfile(array $profile): array
@@ -680,6 +531,9 @@ class LinkedInExperienceService
 
         $slug = Str::slug($company);
         $stillWorking = (bool) ($row['is_current'] ?? $row['jobStillWorking'] ?? false);
+        if (! $stillWorking && array_key_exists('Finished On', $row)) {
+            $stillWorking = trim((string) $row['Finished On']) === '';
+        }
 
         return [
             'role' => $role,
@@ -718,7 +572,8 @@ class LinkedInExperienceService
         }
 
         $school = trim((string) (
-            $entry['school_name']
+            $entry['School Name']
+            ?? $entry['school_name']
             ?? $entry['schoolName']
             ?? $entry['school']
             ?? (is_array($entry['school'] ?? null) ? ($entry['school']['name'] ?? '') : '')
@@ -727,14 +582,15 @@ class LinkedInExperienceService
         ));
 
         $degree = trim((string) (
-            $entry['degree_field']
+            $entry['Degree Name']
+            ?? $entry['degree_field']
             ?? $entry['degreeName']
             ?? $entry['degree']
             ?? $entry['degree_name']
             ?? ''
         ));
 
-        $field = trim((string) ($entry['fieldOfStudy'] ?? $entry['field_of_study'] ?? ''));
+        $field = trim((string) ($entry['Field Of Study'] ?? $entry['fieldOfStudy'] ?? $entry['field_of_study'] ?? ''));
         if ($degree !== '' && $field !== '' && ! str_contains($degree, $field)) {
             $degree .= ' — ' . $field;
         }
@@ -743,8 +599,8 @@ class LinkedInExperienceService
             $entry['dates']
             ?? $this->formatPeriod(
                 null,
-                $entry['startYear'] ?? $entry['start_date'] ?? null,
-                $entry['endYear'] ?? $entry['end_date'] ?? null
+                $entry['Start Date'] ?? $entry['startYear'] ?? $entry['start_date'] ?? null,
+                $entry['End Date'] ?? $entry['endYear'] ?? $entry['end_date'] ?? null
             )
         ));
 
@@ -872,17 +728,6 @@ class LinkedInExperienceService
         }
 
         return $fallback;
-    }
-
-    private function apifyInputKey(): string
-    {
-        $actor = (string) config('linkedin.apify.actor');
-
-        if (str_contains($actor, 'clearpath') || str_contains($actor, 'atomus') || str_contains($actor, 'dev_fusion') || str_contains($actor, 'linkedintel') || str_contains($actor, 'parseforge')) {
-            return 'profileUrls';
-        }
-
-        return 'profiles';
     }
 
     private function formatPeriod(?string $dateRange, mixed $start, mixed $end, bool $stillWorking = false): string

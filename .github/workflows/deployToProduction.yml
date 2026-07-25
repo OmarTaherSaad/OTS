@@ -131,7 +131,7 @@ jobs:
             php artisan migrate --force
 
             echo "Seeding LinkedIn experience cache..."
-            php artisan linkedin:sync-experience --force
+            php artisan linkedin:sync-experience --force || echo "Warning: LinkedIn sync failed; site will use bundled profile data."
 
             echo "Restarting queues..."
             php artisan -v queue:restart

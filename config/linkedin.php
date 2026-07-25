@@ -11,11 +11,9 @@ return [
 
     'export_path' => storage_path('app/linkedin/export/Positions.json'),
 
-    'apify' => [
-        'token' => env('APIFY_API_TOKEN'),
-        'actor' => env('LINKEDIN_APIFY_ACTOR', 'dev_fusion/linkedin-profile-scraper'),
-        'timeout' => (int) env('LINKEDIN_APIFY_TIMEOUT', 180),
-    ],
+    // Optional: path to an extracted LinkedIn data archive folder containing
+    // Positions.json and Education.json from linkedin.com/settings/data-privacy
+    'export_dir' => env('LINKEDIN_EXPORT_DIR'),
 
     /*
     | Curated copy keyed by "{company-slug}|{role-slug}" then "{company-slug}".

@@ -18,6 +18,4 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
 
-if (config('linkedin.apify.token')) {
-    Schedule::command('linkedin:sync-experience')->daily();
-}
+Schedule::command('linkedin:sync-experience')->daily();
