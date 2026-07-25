@@ -130,6 +130,9 @@ jobs:
             echo "Running database migrations..."
             php artisan migrate --force
 
+            echo "Seeding LinkedIn experience cache..."
+            php artisan linkedin:sync-experience --force
+
             echo "Restarting queues..."
             php artisan -v queue:restart
 

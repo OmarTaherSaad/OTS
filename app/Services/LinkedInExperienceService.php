@@ -11,6 +11,8 @@ class LinkedInExperienceService
 {
     private ?array $cachedEducation = null;
 
+    private ?string $lastApifyError = null;
+
     public function getExperiences(bool $allowStale = true): array
     {
         $payload = $this->readCachedPayload($allowStale);
@@ -19,7 +21,7 @@ class LinkedInExperienceService
         if (empty($experiences)) {
             $experiences = $this->buildFallbackExperiences();
         } else {
-            $experiences = $this->mergeEnrichments($experiences);
+            $experiences = $this->finalizeExperiences($experiences);
         }
 
         return $this->attachLogoUrls($experiences);
@@ -36,7 +38,17 @@ class LinkedInExperienceService
         return $payload['education'] ?? config('linkedin.education_fallback');
     }
 
-    public function sync(bool $force = false): array
+    public function getLastApifyError(): ?string
+    {
+        return $this->lastApifyError;
+    }
+
+    public function hasApifyToken(): bool
+    {
+        return ! empty(config('linkedin.apify.token'));
+    }
+
+    public function sync(bool $force = false, bool $requireLive = false): array
     {
         if (! $force && $this->cacheFileIsFresh()) {
             $existing = $this->readCachedPayload(true);
@@ -51,23 +63,34 @@ class LinkedInExperienceService
             ?? $this->fetchLinkedInExportProfile();
 
         if ($profile === null) {
-            throw new \RuntimeException(
-                'Could not fetch LinkedIn profile. Set APIFY_API_TOKEN or place a Positions.json export at '
-                . config('linkedin.export_path')
-            );
+            if ($this->hasApifyToken() || $requireLive) {
+                throw new \RuntimeException(
+                    $this->lastApifyError ?? $this->liveFetchHelpMessage()
+                );
+            }
+
+            return $this->seedCacheFromBundledData();
         }
 
         $experiences = $this->extractExperiencesFromProfile($profile);
         $education = $this->extractEducationFromProfile($profile);
 
         if (empty($experiences)) {
-            throw new \RuntimeException('LinkedIn profile fetched but no experience entries were found.');
+            if ($this->hasApifyToken() || $requireLive) {
+                throw new \RuntimeException(
+                    'LinkedIn profile fetched but no experience entries were found. '
+                    . 'Check LINKEDIN_APIFY_ACTOR matches your Apify actor.'
+                );
+            }
+
+            return $this->seedCacheFromBundledData();
         }
 
-        $experiences = $this->mergeEnrichments($experiences);
+        $experiences = $this->finalizeExperiences($experiences);
 
         $payload = [
             'synced_at' => now()->toIso8601String(),
+            'source' => 'linkedin',
             'experiences' => $experiences,
             'education' => $education ?? config('linkedin.education_fallback'),
         ];
@@ -77,6 +100,48 @@ class LinkedInExperienceService
         $this->cachedEducation = $payload['education'];
 
         return $experiences;
+    }
+
+    private function seedCacheFromBundledData(): array
+    {
+        $payload = $this->readSeedFile() ?? [
+            'synced_at' => now()->toIso8601String(),
+            'source' => 'enrichments',
+            'experiences' => $this->buildFallbackExperiences(),
+            'education' => config('linkedin.education_fallback'),
+        ];
+
+        if (! isset($payload['source'])) {
+            $payload['source'] = 'seed';
+        }
+
+        if (! isset($payload['synced_at'])) {
+            $payload['synced_at'] = now()->toIso8601String();
+        }
+
+        $this->writeCacheFile($payload);
+        Cache::put($this->cacheKey(), $payload, $this->cacheTtl());
+        $this->cachedEducation = $payload['education'] ?? config('linkedin.education_fallback');
+
+        Log::info('LinkedIn experience cache seeded from bundled data.', [
+            'source' => $payload['source'],
+            'path' => config('linkedin.cache_path'),
+        ]);
+
+        return $payload['experiences'];
+    }
+
+    private function liveFetchHelpMessage(): string
+    {
+        if ($this->hasApifyToken()) {
+            return 'Apify is configured but the LinkedIn fetch failed. '
+                . 'Run `php artisan config:clear` if you recently added APIFY_API_TOKEN, '
+                . 'then retry. Also verify LINKEDIN_APIFY_ACTOR and your Apify account credits.';
+        }
+
+        return 'Could not fetch LinkedIn profile live. Set APIFY_API_TOKEN in .env, '
+            . 'place a Positions.json export at ' . config('linkedin.export_path')
+            . ', or run without --require-live to seed from bundled profile data.';
     }
 
     private function readCachedPayload(bool $allowStale): array
@@ -91,7 +156,7 @@ class LinkedInExperienceService
 
             if (array_is_list($cached) && ! empty($cached)) {
                 return [
-                    'experiences' => $this->mergeEnrichments($cached),
+                    'experiences' => $this->finalizeExperiences($cached),
                     'education' => config('linkedin.education_fallback'),
                 ];
             }
@@ -118,8 +183,12 @@ class LinkedInExperienceService
 
     private function fetchApifyProfile(): ?array
     {
+        $this->lastApifyError = null;
+
         $token = config('linkedin.apify.token');
         if (empty($token)) {
+            $this->lastApifyError = 'APIFY_API_TOKEN is empty. Add it to .env, then run `php artisan config:clear`.';
+
             return null;
         }
 
@@ -127,32 +196,132 @@ class LinkedInExperienceService
         $actor = str_replace('/', '~', config('linkedin.apify.actor'));
         $timeout = config('linkedin.apify.timeout');
         $inputKey = $this->apifyInputKey();
+        $input = [$inputKey => [$profileUrl]];
 
-        $response = Http::timeout($timeout)
-            ->post(
-                "https://api.apify.com/v2/acts/{$actor}/run-sync-get-dataset-items?token={$token}",
-                [$inputKey => [$profileUrl]]
-            );
+        $client = Http::withToken($token)->acceptJson();
 
-        if (! $response->successful()) {
-            Log::warning('Apify LinkedIn scrape failed', [
-                'status' => $response->status(),
-                'body' => $response->body(),
-            ]);
+        $syncResponse = $client->timeout(min($timeout, 300))->post(
+            "https://api.apify.com/v2/acts/{$actor}/run-sync-get-dataset-items",
+            $input
+        );
+
+        if ($syncResponse->successful()) {
+            return $this->profileFromApifyItems($syncResponse->json());
+        }
+
+        if (in_array($syncResponse->status(), [401, 403, 404, 402], true)) {
+            $this->lastApifyError = $this->formatApifyHttpError('run Apify actor (sync)', $syncResponse);
 
             return null;
         }
 
-        $items = $response->json();
+        Log::info('Apify sync endpoint unavailable, falling back to async run.', [
+            'status' => $syncResponse->status(),
+        ]);
+
+        return $this->fetchApifyProfileAsync($client, $actor, $input, $timeout);
+    }
+
+    private function fetchApifyProfileAsync($client, string $actor, array $input, int $timeout): ?array
+    {
+        $start = $client->timeout(60)->post("https://api.apify.com/v2/acts/{$actor}/runs", $input);
+
+        if (! $start->successful()) {
+            $this->lastApifyError = $this->formatApifyHttpError('start Apify actor run', $start);
+
+            return null;
+        }
+
+        $runId = $start->json('data.id');
+        $datasetId = $start->json('data.defaultDatasetId');
+
+        if (! $runId || ! $datasetId) {
+            $this->lastApifyError = 'Apify run started but no run/dataset id was returned.';
+
+            return null;
+        }
+
+        $deadline = time() + $timeout;
+        $status = null;
+
+        while (time() < $deadline) {
+            sleep(5);
+
+            $statusResponse = $client->timeout(30)->get("https://api.apify.com/v2/actor-runs/{$runId}");
+            if (! $statusResponse->successful()) {
+                $this->lastApifyError = $this->formatApifyHttpError('poll Apify run status', $statusResponse);
+
+                return null;
+            }
+
+            $status = $statusResponse->json('data.status');
+
+            if ($status === 'SUCCEEDED') {
+                break;
+            }
+
+            if (in_array($status, ['FAILED', 'ABORTED', 'TIMED-OUT'], true)) {
+                $message = $statusResponse->json('data.statusMessage') ?: 'No details from Apify.';
+                $this->lastApifyError = "Apify run {$status}: {$message}";
+
+                return null;
+            }
+        }
+
+        if (($status ?? null) !== 'SUCCEEDED') {
+            $this->lastApifyError = "Apify run timed out after {$timeout}s. Try increasing LINKEDIN_APIFY_TIMEOUT.";
+
+            return null;
+        }
+
+        $itemsResponse = $client->timeout(60)->get("https://api.apify.com/v2/datasets/{$datasetId}/items");
+        if (! $itemsResponse->successful()) {
+            $this->lastApifyError = $this->formatApifyHttpError('fetch Apify dataset items', $itemsResponse);
+
+            return null;
+        }
+
+        $items = $itemsResponse->json('items') ?? $itemsResponse->json();
+
+        return $this->profileFromApifyItems($items);
+    }
+
+    private function profileFromApifyItems(mixed $items): ?array
+    {
         if (! is_array($items) || empty($items)) {
+            $this->lastApifyError = 'Apify returned an empty dataset. The profile may be private or the actor input may be wrong.';
+
             return null;
         }
 
         $profile = $items[0];
 
-        return isset($profile['profile']) && is_array($profile['profile'])
-            ? $profile['profile']
-            : $profile;
+        if (isset($profile['profile']) && is_array($profile['profile'])) {
+            return $profile['profile'];
+        }
+
+        if (isset($profile['error'])) {
+            $this->lastApifyError = 'Apify actor error: ' . (is_string($profile['error']) ? $profile['error'] : json_encode($profile['error']));
+
+            return null;
+        }
+
+        return is_array($profile) ? $profile : null;
+    }
+
+    private function formatApifyHttpError(string $action, $response): string
+    {
+        $body = $response->json();
+        $detail = is_array($body)
+            ? ($body['error']['message'] ?? $body['message'] ?? $response->body())
+            : $response->body();
+
+        Log::warning("Apify LinkedIn scrape failed while trying to {$action}", [
+            'status' => $response->status(),
+            'body' => $response->body(),
+        ]);
+
+        return "Apify HTTP {$response->status()} while trying to {$action}: {$detail}";
     }
 
     private function fetchLinkedInExportProfile(): ?array
@@ -174,7 +343,13 @@ class LinkedInExperienceService
     {
         $rows = [];
 
-        foreach (['experience', 'experiences', 'workExperience'] as $key) {
+        foreach ([
+            'experience',
+            'experiences',
+            'workExperience',
+            'work_history',
+            'positions',
+        ] as $key) {
             if (! empty($profile[$key]) && is_array($profile[$key])) {
                 $rows = array_merge($rows, $this->flattenExperienceRows($profile[$key]));
             }
@@ -189,7 +364,7 @@ class LinkedInExperienceService
         }
 
         $experiences = [];
-        foreach ($rows as $row) {
+        foreach ($this->dedupeExperienceRows($rows) as $row) {
             $normalized = $this->normalizeExperienceRow($row);
             if ($normalized !== null) {
                 $experiences[] = $normalized;
@@ -197,6 +372,117 @@ class LinkedInExperienceService
         }
 
         return $experiences;
+    }
+
+    private function dedupeExperienceRows(array $rows): array
+    {
+        $seen = [];
+        $unique = [];
+
+        foreach ($rows as $row) {
+            if (! is_array($row)) {
+                continue;
+            }
+
+            $normalized = $this->normalizeExperienceRow($row);
+            if ($normalized === null) {
+                continue;
+            }
+
+            $key = Str::slug($normalized['company']) . '|' . Str::slug($normalized['role']) . '|' . $normalized['period'];
+            if (isset($seen[$key])) {
+                continue;
+            }
+
+            $seen[$key] = true;
+            $unique[] = $row;
+        }
+
+        return $unique;
+    }
+
+    private function finalizeExperiences(array $experiences): array
+    {
+        $experiences = $this->mergeEnrichments($experiences);
+        $experiences = $this->appendMissingFromEnrichments($experiences);
+
+        return $this->sortExperiencesByRecency($experiences);
+    }
+
+    private function appendMissingFromEnrichments(array $experiences): array
+    {
+        $enrichments = config('linkedin.enrichments', []);
+
+        foreach ($enrichments as $key => $data) {
+            if (! str_contains($key, '|')) {
+                continue;
+            }
+
+            if ($this->experienceListContainsEnrichment($experiences, $key, $data)) {
+                continue;
+            }
+
+            $experiences[] = [
+                'role' => $data['role'] ?? '',
+                'company' => $data['company'] ?? '',
+                'period' => $data['period'] ?? '',
+                'location' => $data['location'] ?? '',
+                'logo' => $data['logo'] ?? Str::slug($data['company'] ?? ''),
+                'logo_url' => null,
+                'highlights' => $data['highlights'] ?? [],
+                'tags' => $data['tags'] ?? [],
+            ];
+        }
+
+        return $experiences;
+    }
+
+    private function experienceListContainsEnrichment(array $experiences, string $key, array $data): bool
+    {
+        [$companyKey, $roleKey] = explode('|', $key, 2);
+
+        foreach ($experiences as $exp) {
+            if ($this->normalizeCompanyKey($exp['company'] ?? '') !== $companyKey) {
+                continue;
+            }
+
+            if ($this->rolesMatch($roleKey, Str::slug($exp['role'] ?? ''))) {
+                return true;
+            }
+        }
+
+        if ($data['company'] ?? false) {
+            foreach ($experiences as $exp) {
+                if (strcasecmp($exp['company'] ?? '', $data['company']) === 0) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    private function sortExperiencesByRecency(array $experiences): array
+    {
+        usort($experiences, function (array $a, array $b) {
+            return $this->experienceSortKey($b) <=> $this->experienceSortKey($a);
+        });
+
+        return $experiences;
+    }
+
+    private function experienceSortKey(array $experience): int
+    {
+        $period = $experience['period'] ?? '';
+        if (stripos($period, 'present') !== false) {
+            return PHP_INT_MAX;
+        }
+
+        if (preg_match_all('/\d{4}/', $period, $matches) && ! empty($matches[0])) {
+            return (int) end($matches[0]);
+        }
+
+        return 0;
     }
 
     private function flattenExperienceRows(array $rows): array
@@ -305,7 +591,12 @@ class LinkedInExperienceService
             'logo' => $slug,
             'logo_url' => $row['logoUrl'] ?? $row['companyLogo'] ?? $row['company_logo'] ?? null,
             'highlights' => $this->descriptionToHighlights(
-                $row['description'] ?? $row['jobDescription'] ?? $row['Description'] ?? ''
+                $row['description']
+                ?? $row['jobDescription']
+                ?? $row['Description']
+                ?? $row['summary']
+                ?? $row['roleDescription']
+                ?? ''
             ),
             'tags' => [],
         ];
@@ -378,8 +669,19 @@ class LinkedInExperienceService
                 continue;
             }
 
-            if (empty($exp['highlights']) && ! empty($match['highlights'])) {
-                $exp['highlights'] = $match['highlights'];
+            $linkedinHighlights = $exp['highlights'] ?? [];
+            $enrichmentHighlights = $match['highlights'] ?? [];
+
+            if (! empty($enrichmentHighlights) && count($enrichmentHighlights) >= count($linkedinHighlights)) {
+                $exp['highlights'] = $enrichmentHighlights;
+            }
+
+            if (! empty($match['role'])) {
+                $exp['role'] = $match['role'];
+            }
+
+            if (! empty($match['company'])) {
+                $exp['company'] = $match['company'];
             }
 
             if (empty($exp['period']) && ! empty($match['period'])) {
@@ -548,7 +850,8 @@ class LinkedInExperienceService
 
     private function descriptionToHighlights(string $description): array
     {
-        $description = trim(html_entity_decode(strip_tags($description)));
+        $description = html_entity_decode(strip_tags(preg_replace('/<br\s*\/?>/i', "\n", $description) ?? $description));
+        $description = trim($description);
         if ($description === '') {
             return [];
         }
@@ -610,8 +913,24 @@ class LinkedInExperienceService
 
     private function readCacheFile(): ?array
     {
-        $path = config('linkedin.cache_path');
-        if (! is_readable($path)) {
+        foreach ([config('linkedin.cache_path'), config('linkedin.seed_path')] as $path) {
+            $payload = $this->decodeProfilePayload($path);
+            if ($payload !== null) {
+                return $payload;
+            }
+        }
+
+        return null;
+    }
+
+    private function readSeedFile(): ?array
+    {
+        return $this->decodeProfilePayload(config('linkedin.seed_path'));
+    }
+
+    private function decodeProfilePayload(?string $path): ?array
+    {
+        if ($path === null || ! is_readable($path)) {
             return null;
         }
 
@@ -622,19 +941,20 @@ class LinkedInExperienceService
 
         if (array_is_list($data)) {
             return [
-                'experiences' => $this->mergeEnrichments($data),
+                'experiences' => $this->finalizeExperiences($data),
                 'education' => config('linkedin.education_fallback'),
+                'source' => 'legacy-list',
             ];
         }
 
-        if (! empty($data['experiences']) && is_array($data['experiences'])) {
-            $data['experiences'] = $this->mergeEnrichments($data['experiences']);
-            $data['education'] = $data['education'] ?? config('linkedin.education_fallback');
-
-            return $data;
+        if (empty($data['experiences']) || ! is_array($data['experiences'])) {
+            return null;
         }
 
-        return null;
+        $data['experiences'] = $this->finalizeExperiences($data['experiences']);
+        $data['education'] = $data['education'] ?? config('linkedin.education_fallback');
+
+        return $data;
     }
 
     private function writeCacheFile(array $payload): void

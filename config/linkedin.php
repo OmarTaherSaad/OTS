@@ -7,6 +7,8 @@ return [
 
     'cache_path' => storage_path('app/linkedin/experience.json'),
 
+    'seed_path' => resource_path('data/linkedin-profile.json'),
+
     'export_path' => storage_path('app/linkedin/export/Positions.json'),
 
     'apify' => [
