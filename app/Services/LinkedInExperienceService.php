@@ -76,17 +76,22 @@ class LinkedInExperienceService
         $education = $this->extractEducationFromProfile($profile);
 
         if (empty($experiences)) {
-            if ($this->hasApifyToken() || $requireLive) {
+            Log::warning('LinkedIn profile fetched but no experience rows were parsed.', [
+                'actor' => config('linkedin.apify.actor'),
+                'profile_keys' => array_keys($profile),
+            ]);
+
+            if ($requireLive) {
                 throw new \RuntimeException(
                     'LinkedIn profile fetched but no experience entries were found. '
-                    . 'Check LINKEDIN_APIFY_ACTOR matches your Apify actor.'
+                    . 'Set LINKEDIN_APIFY_ACTOR=dev_fusion/linkedin-profile-scraper (clearpath is deprecated).'
                 );
             }
 
-            return $this->seedCacheFromBundledData();
+            $experiences = $this->finalizeExperiences([]);
+        } else {
+            $experiences = $this->finalizeExperiences($experiences);
         }
-
-        $experiences = $this->finalizeExperiences($experiences);
 
         $payload = [
             'synced_at' => now()->toIso8601String(),
@@ -294,19 +299,109 @@ class LinkedInExperienceService
             return null;
         }
 
-        $profile = $items[0];
+        $profile = null;
+        $experienceRows = [];
 
-        if (isset($profile['profile']) && is_array($profile['profile'])) {
-            return $profile['profile'];
+        foreach ($items as $item) {
+            if (! is_array($item)) {
+                continue;
+            }
+
+            if (isset($item['error'])) {
+                $this->lastApifyError = 'Apify actor error: ' . (is_string($item['error']) ? $item['error'] : json_encode($item['error']));
+
+                return null;
+            }
+
+            $recordType = strtolower((string) ($item['recordType'] ?? $item['type'] ?? ''));
+
+            if ($recordType === 'diagnostic') {
+                $this->lastApifyError = $item['message'] ?? $item['errorMessage'] ?? 'Apify could not resolve this profile.';
+
+                continue;
+            }
+
+            if (isset($item['profile']) && is_array($item['profile'])) {
+                $profile = $this->mergeProfilePayload($profile, $item['profile']);
+                continue;
+            }
+
+            if (in_array($recordType, ['profileexperience', 'experience'], true)) {
+                $experienceRows[] = $item;
+                continue;
+            }
+
+            if ($this->looksLikeExperienceRow($item)) {
+                $experienceRows[] = $item;
+                continue;
+            }
+
+            if ($profile === null && $this->looksLikeProfileRecord($item)) {
+                $profile = $item;
+            }
         }
 
-        if (isset($profile['error'])) {
-            $this->lastApifyError = 'Apify actor error: ' . (is_string($profile['error']) ? $profile['error'] : json_encode($profile['error']));
-
-            return null;
+        if ($profile === null) {
+            $profile = $items[0];
         }
 
-        return is_array($profile) ? $profile : null;
+        if (! empty($experienceRows)) {
+            $profile['experience'] = array_values(array_merge($profile['experience'] ?? [], $experienceRows));
+        }
+
+        return $this->normalizeApifyProfileShape($profile);
+    }
+
+    private function mergeProfilePayload(?array $profile, array $payload): array
+    {
+        if ($profile === null) {
+            return $payload;
+        }
+
+        foreach ($payload as $key => $value) {
+            if ($value === null || $value === [] || $value === '') {
+                continue;
+            }
+
+            $profile[$key] = $value;
+        }
+
+        return $profile;
+    }
+
+    private function normalizeApifyProfileShape(array $profile): array
+    {
+        if (isset($profile['profileData']) && is_array($profile['profileData'])) {
+            $profile = $this->mergeProfilePayload($profile, $profile['profileData']);
+        }
+
+        if (isset($profile['experienceData']) && is_array($profile['experienceData'])) {
+            if (! empty($profile['experienceData']['experiences']) && is_array($profile['experienceData']['experiences'])) {
+                $profile['experiences'] = array_values(array_merge(
+                    $profile['experiences'] ?? [],
+                    $profile['experienceData']['experiences']
+                ));
+            }
+        }
+
+        return $profile;
+    }
+
+    private function looksLikeProfileRecord(array $item): bool
+    {
+        return isset($item['experience'])
+            || isset($item['experiences'])
+            || isset($item['position_groups'])
+            || isset($item['experienceData'])
+            || isset($item['fullName'])
+            || isset($item['headline']);
+    }
+
+    private function looksLikeExperienceRow(array $item): bool
+    {
+        return isset($item['title'], $item['companyName'])
+            || isset($item['jobTitle'], $item['companyName'])
+            || isset($item['Title'], $item['Company Name']);
     }
 
     private function formatApifyHttpError(string $action, $response): string
@@ -342,6 +437,14 @@ class LinkedInExperienceService
     private function extractExperiencesFromProfile(array $profile): array
     {
         $rows = [];
+
+        if (! empty($profile['experienceData']) && is_array($profile['experienceData'])) {
+            if (! empty($profile['experienceData']['experiences']) && is_array($profile['experienceData']['experiences'])) {
+                $rows = array_merge($rows, $this->flattenExperienceRows($profile['experienceData']['experiences']));
+            } elseif ($this->looksLikeExperienceRow($profile['experienceData'])) {
+                $rows[] = $profile['experienceData'];
+            }
+        }
 
         foreach ([
             'experience',
@@ -775,7 +878,7 @@ class LinkedInExperienceService
     {
         $actor = (string) config('linkedin.apify.actor');
 
-        if (str_contains($actor, 'clearpath') || str_contains($actor, 'atomus') || str_contains($actor, 'dev_fusion')) {
+        if (str_contains($actor, 'clearpath') || str_contains($actor, 'atomus') || str_contains($actor, 'dev_fusion') || str_contains($actor, 'linkedintel') || str_contains($actor, 'parseforge')) {
             return 'profileUrls';
         }
 

@@ -41,6 +41,8 @@ class SyncLinkedInExperience extends Command
         if (! $service->hasApifyToken() && ! is_readable(config('linkedin.export_path'))) {
             $this->warn('Live LinkedIn fetch unavailable — cache seeded from bundled profile data.');
             $this->line('Add APIFY_API_TOKEN to .env for automatic LinkedIn updates.');
+        } elseif (str_contains((string) config('linkedin.apify.actor'), 'clearpath')) {
+            $this->warn('clearpath/linkedin-profile-scraper is deprecated. Use dev_fusion/linkedin-profile-scraper instead.');
         }
 
         $this->info('Cached ' . count($experiences) . ' experience entries to ' . config('linkedin.cache_path'));

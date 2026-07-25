@@ -13,7 +13,7 @@ return [
 
     'apify' => [
         'token' => env('APIFY_API_TOKEN'),
-        'actor' => env('LINKEDIN_APIFY_ACTOR', 'clearpath/linkedin-profile-scraper'),
+        'actor' => env('LINKEDIN_APIFY_ACTOR', 'dev_fusion/linkedin-profile-scraper'),
         'timeout' => (int) env('LINKEDIN_APIFY_TIMEOUT', 180),
     ],
 
