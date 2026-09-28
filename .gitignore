@@ -9,7 +9,6 @@ Homestead.json
 Homestead.yaml
 npm-debug.log
 yarn-error.log
-deploy.sh
 deploy to server.sh
 .htaccess
 *subdomain/

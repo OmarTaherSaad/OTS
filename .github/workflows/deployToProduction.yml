@@ -104,89 +104,10 @@ jobs:
           script: |
             set -euo pipefail
             cd ~/public_html
-
-            G='\033[1;32m'; C='\033[1;36m'; Y='\033[1;33m'; R='\033[1;31m'; D='\033[2m'; N='\033[0m'
-            T0=$(date +%s)
-            n=0
-
-            hr() { printf "$D────────────────────────────────────────$N\n"; }
-            say() { printf "%b\n" "$*"; }
-            ok()  { say "$G✓$N $*"; }
-            warn(){ say "$Y!$N $*"; }
-            die() { say "$R✗$N $*"; exit 1; }
-            elapsed() { echo "$(($(date +%s) - T0))s"; }
-            step() {
-              n=$((n + 1))
-              local label="$1"; shift
-              local s=$(date +%s)
-              printf "$C%d$N $D·$N %s\n" "$n" "$label"
-              "$@"
-              printf "  %sdone%s %s%ss%s\n" "$G" "$N" "$D" "$(($(date +%s) - s))" "$N"
-            }
-
-            say "$C""OTS deploy""$N  $D$(date -u '+%Y-%m-%d %H:%M UTC')$N"
-            hr
-            PREV=$(git rev-parse --short=12 HEAD 2>/dev/null || echo none)
-            say "on disk  $D$PREV$N"
-
-            trap 'printf "\n'"$Y"'! abort — bringing site up'"$N"'\n"; php artisan up >/dev/null 2>&1 || true' EXIT
-
-            step "maintenance on" php artisan down --retry=60 --refresh=15
-            step "fetch origin/deploy" git fetch origin deploy --prune
-            [ -f .env ] && cp .env .env.backup
-            step "reset to origin/deploy" git reset --hard origin/deploy
-            [ -f .env.backup ] && mv .env.backup .env
-            [ -f .env ] || die "missing .env after reset"
-
-            NEW=$(git rev-parse --short=12 HEAD)
-            SUBJ=$(git log -1 --pretty=format:'%s')
-            say "now      $G$NEW$N  $D$SUBJ$N"
-            [ -d public/build ] && [ -n "$(ls -A public/build)" ] || die "public/build missing — build job did not land"
-
-            export COMPOSER_HOME="$HOME/.config/composer"
-            step "composer install" composer2 install --no-interaction --prefer-dist --optimize-autoloader --no-dev
-            step "optimize" bash -c 'php artisan optimize:clear && php artisan optimize'
-            step "migrate" php artisan migrate --force
-            step "queue restart" php artisan queue:restart
-
-            say "$D""linkedin cache""$N"
-            if php artisan linkedin:sync-experience --force; then
-              ok "linkedin synced"
-            else
-              warn "linkedin sync failed — using bundled profile"
-            fi
-
-            APP_URL=$(grep -E '^APP_URL=' .env | head -1 | cut -d= -f2- | tr -d '"' | tr -d "'" | sed 's:/*$::')
-            if [ -n "$APP_URL" ]; then
-              TOKEN=$(openssl rand -hex 16)
-              RESET_FILE="public/__opcache_reset_"$TOKEN".php"
-              printf '%s\n' '<?php' 'if (function_exists("opcache_reset")) { opcache_reset(); echo "OPCACHE_RESET_OK"; } else { echo "OPCACHE_NOT_ENABLED"; }' > "$RESET_FILE"
-              BODY=$(curl -fsSk --max-time 20 "$APP_URL/__opcache_reset_"$TOKEN".php" || true)
-              rm -f "$RESET_FILE"
-              case "$BODY" in
-                *OPCACHE_RESET_OK*) ok "opcache reset" ;;
-                *OPCACHE_NOT_ENABLED*) warn "opcache not enabled" ;;
-                *) warn "opcache ping failed" ;;
-              esac
-            else
-              warn "no APP_URL — skip opcache"
-            fi
-
-            step "maintenance off" php artisan up
-            trap - EXIT
-
-            if [ -n "$APP_URL" ]; then
-              CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 -k "$APP_URL" || echo 000)
-              case "$CODE" in
-                2*|3*) ok "health $CODE  $APP_URL" ;;
-                503) die "health 503 — still in maintenance?" ;;
-                000) warn "health unreachable from host (hairpin?)  $APP_URL" ;;
-                *) warn "health $CODE  $APP_URL" ;;
-              esac
-            fi
-
-            hr
-            say "$G""live""$N  $PREV $D→$N $NEW  $D$(elapsed)$N"
+            git fetch origin deploy --prune
+            git checkout origin/deploy -- deploy.sh
+            chmod +x deploy.sh
+            ./deploy.sh
 
       - name: Summary
         if: always()
