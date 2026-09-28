@@ -11,33 +11,33 @@ on:
         default: 'master'
         type: string
 
-# Workflow-level concurrency so a new push waits for the current deploy to
-# finish instead of cancelling it mid-flight (which could leave the server
-# stuck in maintenance mode with half-applied changes).
 concurrency:
   group: production
   cancel-in-progress: false
 
 jobs:
   build:
+    name: Build
     runs-on: ubuntu-latest
     environment: production
+    timeout-minutes: 15
+    outputs:
+      sha: ${{ steps.meta.outputs.sha }}
+      full_sha: ${{ steps.meta.outputs.full_sha }}
+      source: ${{ steps.meta.outputs.source }}
+      size: ${{ steps.meta.outputs.size }}
 
     steps:
       - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.source_branch || 'master' }}
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           cache: 'npm'
 
-      - name: Install dependencies
-        run: npm ci
-
-      - name: Create .env file for build
+      - name: Install & build
         run: |
           cat > .env <<'EOF'
           APP_NAME=Laravel
@@ -45,128 +45,168 @@ jobs:
           APP_KEY=
           APP_DEBUG=false
           APP_URL=http://localhost
-          LOG_CHANNEL=stack
-          LOG_DEPRECATIONS_CHANNEL=null
-          LOG_LEVEL=debug
           EOF
-
-      - name: Run Production Build
-        run: npm run build
+          echo "::group::npm ci"
+          npm ci
+          echo "::endgroup::"
+          echo "::group::vite production build"
+          npm run build
+          echo "::endgroup::"
+          rm -f .env
         env:
           NODE_ENV: production
 
-      - name: Setup Git for deploy branch
+      - name: Record meta
+        id: meta
+        run: |
+          SOURCE="${{ github.event.inputs.source_branch || 'master' }}"
+          SHA="$(git rev-parse --short=12 HEAD)"
+          FULL="$(git rev-parse HEAD)"
+          SIZE="$(du -sh public/build | awk '{print $1}')"
+          test -d public/build && test -n "$(ls -A public/build)"
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+          echo "full_sha=$FULL" >> "$GITHUB_OUTPUT"
+          echo "source=$SOURCE" >> "$GITHUB_OUTPUT"
+          echo "size=$SIZE" >> "$GITHUB_OUTPUT"
+          {
+            echo "## Build"
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Source | \`$SOURCE\` |"
+            echo "| Commit | [\`$SHA\`](${{ github.server_url }}/${{ github.repository }}/commit/$FULL) |"
+            echo "| Assets | \`$SIZE\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Push deploy branch
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-
-      - name: Create and push to deploy branch
-        run: |
-          BUILD_TIME=$(date -u '+%Y-%m-%d %H:%M:%S UTC')
-          SOURCE="${{ github.event.inputs.source_branch || 'master' }}"
-
-          # Reset deploy branch to source HEAD
           git checkout -B deploy
-
-          # Do not deploy the localhost build .env
-          rm -f .env
-
-          # Stage built assets only (avoid sweeping in dev junk from public/)
           git add -f public/build
           [ -f public/mix-manifest.json ] && git add -f public/mix-manifest.json || true
           [ -f public/hot ] && git rm -f public/hot || true
-
-          git commit -m "Build assets from ${SOURCE} at ${BUILD_TIME}" --allow-empty
+          git commit -m "Build assets from ${{ steps.meta.outputs.source }} @ ${{ steps.meta.outputs.sha }}" --allow-empty
           git push -f origin deploy
 
   deploy:
+    name: Production
     needs: build
     runs-on: ubuntu-latest
     environment: production
+    timeout-minutes: 20
     steps:
-      - name: Deploy to Server using SSH
+      - name: Deploy over SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          command_timeout: 15m
           script: |
-            set -e
+            set -euo pipefail
             cd ~/public_html
 
-            # Guarantee maintenance mode is lifted, even if a later step fails.
-            trap 'echo "Cleanup: ensuring app is up..."; php artisan up || true' EXIT
+            G='\033[1;32m'; C='\033[1;36m'; Y='\033[1;33m'; R='\033[1;31m'; D='\033[2m'; N='\033[0m'
+            T0=$(date +%s)
+            n=0
 
-            echo "Activating maintenance mode..."
-            php artisan down --retry=60
+            hr() { printf "$D────────────────────────────────────────$N\n"; }
+            say() { printf "%b\n" "$*"; }
+            ok()  { say "$G✓$N $*"; }
+            warn(){ say "$Y!$N $*"; }
+            die() { say "$R✗$N $*"; exit 1; }
+            elapsed() { echo "$(($(date +%s) - T0))s"; }
+            step() {
+              n=$((n + 1))
+              local label="$1"; shift
+              local s=$(date +%s)
+              printf "$C%d$N $D·$N %s\n" "$n" "$label"
+              "$@"
+              printf "  %sdone%s %s%ss%s\n" "$G" "$N" "$D" "$(($(date +%s) - s))" "$N"
+            }
 
-            echo "Fetching updates..."
-            git fetch origin --prune
+            say "$C""OTS deploy""$N  $D$(date -u '+%Y-%m-%d %H:%M UTC')$N"
+            hr
+            PREV=$(git rev-parse --short=12 HEAD 2>/dev/null || echo none)
+            say "on disk  $D$PREV$N"
 
-            if [ -f .env ]; then
-              echo "Backing up current .env file..."
-              cp .env .env.backup
-            fi
+            trap 'printf "\n'"$Y"'! abort — bringing site up'"$N"'\n"; php artisan up >/dev/null 2>&1 || true' EXIT
 
-            git reset --hard origin/deploy
+            step "maintenance on" php artisan down --retry=60 --refresh=15
+            step "fetch origin/deploy" git fetch origin deploy --prune
+            [ -f .env ] && cp .env .env.backup
+            step "reset to origin/deploy" git reset --hard origin/deploy
+            [ -f .env.backup ] && mv .env.backup .env
+            [ -f .env ] || die "missing .env after reset"
 
-            if [ -f .env.backup ]; then
-              echo "Restoring production .env file..."
-              mv .env.backup .env
-            fi
+            NEW=$(git rev-parse --short=12 HEAD)
+            SUBJ=$(git log -1 --pretty=format:'%s')
+            say "now      $G$NEW$N  $D$SUBJ$N"
+            [ -d public/build ] && [ -n "$(ls -A public/build)" ] || die "public/build missing — build job did not land"
 
-            echo "Installing Composer dependencies..."
             export COMPOSER_HOME="$HOME/.config/composer"
-            composer2 install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            step "composer install" composer2 install --no-interaction --prefer-dist --optimize-autoloader --no-dev
+            step "optimize" bash -c 'php artisan optimize:clear && php artisan optimize'
+            step "migrate" php artisan migrate --force
+            step "queue restart" php artisan queue:restart
 
-            echo "Refreshing caches..."
-            php artisan optimize:clear
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:cache
-            php artisan event:cache
+            say "$D""linkedin cache""$N"
+            if php artisan linkedin:sync-experience --force; then
+              ok "linkedin synced"
+            else
+              warn "linkedin sync failed — using bundled profile"
+            fi
 
-            echo "Running database migrations..."
-            php artisan migrate --force
-
-            echo "Seeding LinkedIn experience cache..."
-            php artisan linkedin:sync-experience --force || echo "Warning: LinkedIn sync failed; site will use bundled profile data."
-
-            echo "Restarting queues..."
-            php artisan -v queue:restart
-
-            # PHP-FPM holds compiled bytecode in OPcache. `git reset` updates
-            # the files on disk but FPM keeps serving the old bytecode until
-            # OPcache is reset. Hit a single-use, token-named PHP file through
-            # the public URL so an FPM worker resets the shared OPcache.
-            echo "Resetting PHP OPcache..."
             APP_URL=$(grep -E '^APP_URL=' .env | head -1 | cut -d= -f2- | tr -d '"' | tr -d "'" | sed 's:/*$::')
             if [ -n "$APP_URL" ]; then
               TOKEN=$(openssl rand -hex 16)
-              RESET_FILE="public/__opcache_reset_${TOKEN}.php"
-              printf '%s\n' \
-                '<?php' \
-                'if (function_exists("opcache_reset")) {' \
-                '    opcache_reset();' \
-                '    echo "OPCACHE_RESET_OK";' \
-                '} else {' \
-                '    echo "OPCACHE_NOT_ENABLED";' \
-                '}' > "$RESET_FILE"
-              RESET_URL="${APP_URL}/__opcache_reset_${TOKEN}.php"
-              echo "Calling ${RESET_URL}"
-              curl -fsSk --max-time 30 "${RESET_URL}" || echo "(OPcache reset request failed, non-fatal)"
-              echo
+              RESET_FILE="public/__opcache_reset_"$TOKEN".php"
+              printf '%s\n' '<?php' 'if (function_exists("opcache_reset")) { opcache_reset(); echo "OPCACHE_RESET_OK"; } else { echo "OPCACHE_NOT_ENABLED"; }' > "$RESET_FILE"
+              BODY=$(curl -fsSk --max-time 20 "$APP_URL/__opcache_reset_"$TOKEN".php" || true)
               rm -f "$RESET_FILE"
+              case "$BODY" in
+                *OPCACHE_RESET_OK*) ok "opcache reset" ;;
+                *OPCACHE_NOT_ENABLED*) warn "opcache not enabled" ;;
+                *) warn "opcache ping failed" ;;
+              esac
             else
-              echo "APP_URL not found in .env; skipping OPcache reset"
+              warn "no APP_URL — skip opcache"
             fi
 
-            echo "Deactivating maintenance mode..."
-            php artisan up
-
-            # Disable the trap on the happy path so it does not run an extra
-            # `php artisan up` after success.
+            step "maintenance off" php artisan up
             trap - EXIT
 
-            echo "Deployment completed successfully!"
+            if [ -n "$APP_URL" ]; then
+              CODE=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 -k "$APP_URL" || echo 000)
+              case "$CODE" in
+                2*|3*) ok "health $CODE  $APP_URL" ;;
+                503) die "health 503 — still in maintenance?" ;;
+                000) warn "health unreachable from host (hairpin?)  $APP_URL" ;;
+                *) warn "health $CODE  $APP_URL" ;;
+              esac
+            fi
+
+            hr
+            say "$G""live""$N  $PREV $D→$N $NEW  $D$(elapsed)$N"
+
+      - name: Summary
+        if: always()
+        run: |
+          STATUS="${{ job.status }}"
+          SHA="${{ needs.build.outputs.sha }}"
+          FULL="${{ needs.build.outputs.full_sha }}"
+          SOURCE="${{ needs.build.outputs.source }}"
+          SIZE="${{ needs.build.outputs.size }}"
+          ICON='✅'
+          [ "$STATUS" = "success" ] || ICON='❌'
+          {
+            echo "## $ICON Production"
+            echo "| | |"
+            echo "|---|---|"
+            echo "| Result | \`$STATUS\` |"
+            echo "| Source | \`$SOURCE\` |"
+            echo "| Commit | [\`$SHA\`](${{ github.server_url }}/${{ github.repository }}/commit/$FULL) |"
+            echo "| Assets | \`$SIZE\` |"
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::notice title=Production $STATUS::$SOURCE @ $SHA"
