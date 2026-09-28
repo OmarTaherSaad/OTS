@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Services\LinkedInExperienceService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
-use App\Mail\ContactMail;
 use App\Mail\ContactForAdminMail;
+use App\Services\ContactFormGuard;
+use App\Services\RecaptchaVerifier;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use stdClass;
@@ -344,31 +344,46 @@ class MainController extends Controller
         return view('media')->with(compact('Items'));
     }
 
-    public function SubmitContact(Request $request)
+    public function SubmitContact(Request $request, ContactFormGuard $guard, RecaptchaVerifier $recaptcha)
     {
         $request->validate([
             "name" => "required|string|between:2,100",
             "phone" => "required|numeric",
             "email" => "required|email",
-            "subject" => "required|min:5",
-            "message" => "required|min:10,1000",
-            "g-recaptcha-response" => "required"
+            "subject" => "required|min:5|max:200",
+            "message" => "required|min:10|max:1000",
+            "g-recaptcha-response" => "required",
         ]);
 
-        $captcha = Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
-            'secret' => config('captcha.secret_key'),
-            'response' => $request->input('g-recaptcha-response'),
-            'remoteip' => $request->ip(),
-        ]);
+        $success = __("Your words is being delivered now to OTS! Thank you .. we will keep in touch");
 
-        if (!$captcha->json('success') || $captcha->json('score') < 0.5) {
+        if ($guard->honeypotTripped($request->input('company_url'))) {
+            session()->flash('success', $success);
+
+            return back();
+        }
+
+        if (! $guard->issuedAtIsValid($request->input('form_ts'), time())) {
             return back()
                 ->withErrors(['g-recaptcha-response' => __('validation.custom.g-recaptcha-response.required')])
                 ->withInput();
         }
+
+        if ($guard->tooManyUrls((string) $request->input('subject'), (string) $request->input('message'))) {
+            return back()
+                ->withErrors(['message' => __('Please remove extra links from your message.')])
+                ->withInput();
+        }
+
+        if (! $recaptcha->passes($request->input('g-recaptcha-response'), $request->ip())) {
+            return back()
+                ->withErrors(['g-recaptcha-response' => __('validation.custom.g-recaptcha-response.required')])
+                ->withInput();
+        }
+
         Log::info('Contact form submission', $request->only(['name', 'email', 'phone', 'subject']));
-        //Send Mail to Admin
-        Mail::to("ots.for.work@gmail.com")
+
+        Mail::to(config('contact.admin_email'))
             ->queue(new ContactForAdminMail(
                 $request->input('name'),
                 $request->input('email'),
@@ -376,13 +391,9 @@ class MainController extends Controller
                 $request->input('subject'),
                 $request->input('message')
             ));
-        //Send Mail to the user himself/herself
-        Mail::to($request->input('email'))->queue(new ContactMail(
-            $request->input('name'),
-            $request->input('message')
-        ));
-        //Flash a message to user
-        session()->flash('success', __("Your words is being delivered now to OTS! Thank you .. we will keep in touch"));
+
+        session()->flash('success', $success);
+
         return back();
     }
 

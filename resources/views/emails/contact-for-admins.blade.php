@@ -1,5 +1,5 @@
 @component('mail::message')
-    رسالة جديدة من موقعك otscommunity.com!
+    New message from omartahersaad.com
 
 
     الاسم: {{ $name }}

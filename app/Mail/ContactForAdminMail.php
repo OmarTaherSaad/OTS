@@ -40,6 +40,8 @@ class ContactForAdminMail extends Mailable implements ShouldQueue
      */
     public function build()
     {
-        return $this->from("no-reply@omartahersaad.com")->markdown('emails.contact-for-admins');
+        return $this->from(config('contact.from_address'))
+            ->subject($this->subject)
+            ->markdown('emails.contact-for-admins');
     }
 }

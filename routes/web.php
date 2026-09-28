@@ -34,7 +34,7 @@ Route::get('media-and-interviews', [App\Http\Controllers\MainController::class, 
 
 //Contact
 Route::post('contact', [App\Http\Controllers\MainController::class, 'SubmitContact'])
-    ->middleware('throttle:5,1')
+    ->middleware('throttle:3,1')
     ->name('contact-submit');
 
 Auth::routes();

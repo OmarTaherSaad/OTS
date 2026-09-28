@@ -104,7 +104,10 @@
                                 </button>
                             </div>
                         </div>
-                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                        @include('partials.contact-guard-fields')
+                        @error('g-recaptcha-response')
+                            <p class="mt-3 text-xs text-red-300 text-center">{{ $message }}</p>
+                        @enderror
                         <p class="mt-4 text-xs text-white/40 text-center">
                             Protected by reCAPTCHA. Your information stays private.
                         </p>

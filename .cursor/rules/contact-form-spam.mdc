@@ -1,0 +1,43 @@
+---
+description: Contact form spam controls for the public website.
+globs: "{app/Http/Controllers/MainController.php,app/Services/ContactFormGuard.php,app/Services/RecaptchaVerifier.php,app/Mail/Contact*.php,resources/views/**/contact*.blade.php,resources/views/partials/contact-*.blade.php,routes/web.php,config/contact.php}"
+---
+
+# Contact form spam protection
+
+## Use Cases
+
+- Changing the public contact form, recaptcha, or contact mailables.
+- Adding another page that posts to `contact-submit`.
+
+## Constraints
+
+- Every contact form must include `partials.contact-guard-fields` and `partials.contact-recaptcha-script`.
+- Verify reCAPTCHA v3 success, `action=contact`, hostname, and score `>= config('contact.recaptcha_min_score')`.
+- Honeypot `company_url` filled → fake success, send no mail.
+- Encrypted `form_ts` must be 3s–1h old.
+- Reject more than `config('contact.max_urls')` `http(s)` links.
+- Mail admin only (`config('contact.admin_email')`). Do not auto-reply to the submitter (open relay).
+- Do not put `contact@` in Reply-To or page HTML.
+- Do not mention `otscommunity.com`.
+
+## Valid Examples
+
+```php
+Mail::to(config('contact.admin_email'))->queue(new ContactForAdminMail(...));
+```
+
+```blade
+@include('partials.contact-guard-fields')
+```
+
+## Invalid Examples
+
+```php
+Mail::to($request->input('email'))->queue(new ContactMail(...));
+Mail::to('ots.for.work@gmail.com')->queue(...); // hard-code
+```
+
+```blade
+<input type="hidden" name="g-recaptcha-response"> {{-- without honeypot + form_ts --}}
+```

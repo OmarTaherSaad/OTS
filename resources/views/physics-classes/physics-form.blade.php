@@ -89,6 +89,7 @@
                         <input class="btn btn-primary" type="submit" value="@lang(" Send")">
                     </div>
                 </div>
+                @include('partials.contact-guard-fields')
             </form>
 
         </div>
@@ -98,5 +99,6 @@
 @endsection
 
 @section('scripts')
+@include('partials.contact-recaptcha-script')
 @vite(['resources/js/forms.js'])
 @endsection

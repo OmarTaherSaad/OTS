@@ -301,8 +301,7 @@
                                 <input class="btn btn-secondary" type="submit" value="@lang(' Send')">
                             </div>
                         </div>
-                        <!-- Hidden reCAPTCHA response field -->
-                        <input type="hidden" name="g-recaptcha-response" id="g-recaptcha-response">
+                        @include('partials.contact-guard-fields')
                     </form>
 
                 </div>
@@ -315,20 +314,6 @@
 
 @endsection
 @section('scripts')
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('captcha.site_key') }}"></script>
-    <script>
-        grecaptcha.ready(function() {
-            var form = document.getElementById('ContactForm');
-            form.addEventListener('submit', function(event) {
-                event.preventDefault();
-                grecaptcha.execute('{{ config('captcha.site_key') }}', {
-                    action: 'contact'
-                }).then(function(token) {
-                    document.getElementById('g-recaptcha-response').value = token;
-                    form.submit();
-                });
-            });
-        });
-    </script>
+    @include('partials.contact-recaptcha-script')
     @vite(['resources/js/home.js', 'resources/js/skills.js', 'resources/js/forms.js'])
 @endsection
