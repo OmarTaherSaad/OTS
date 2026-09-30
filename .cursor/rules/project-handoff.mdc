@@ -1,0 +1,80 @@
+---
+description: Handoff for the next AI on omartahersaad.com (this OTS repo). Read before changing the site, deploy, contact form, or LinkedIn experience.
+globs: *
+alwaysApply: true
+---
+
+# OTS project handoff
+
+Saved 2026-09-30. Repo `OmarTaherSaad/OTS`, branch `master` = `origin/master` at `5934b83`. Live site: https://omartahersaad.com/. Owner: Omar Taher Saad.
+
+This workspace is the personal site only. There is no Tauri app and no `tools/ots-assistant/` here. Launch checklists for the separate product live in `OmarTaherSaad/lots`, not this repo.
+
+## Use Cases
+
+- Any change to the public site, contact form, LinkedIn experience block, or production deploy.
+- Picking up after a previous chat. Recent work is already on `master`.
+
+## Stack and layout
+
+- Laravel 12, PHP platform locked to **8.2.33** (`composer.json` `config.platform`). Do not let Composer pull Symfony 8 / PHP 8.3-only packages. Production is Hostinger `~/public_html`.
+- Frontend: Vite 7, Vue 3, Tailwind 4, Alpine, Bootstrap 5. `fs-extra` is a direct devDependency because `@tsparticles/engine`'s install script imports it; `npm ci` fails without it.
+- `npm` `overrides` pin transitive CVE packages. Do not drop them to "clean up" the lockfile.
+- Homepage: `MainController::index`. `config('app.landing_v2')` (`LANDING_V2`) chooses `landing.home` vs `home`. Landing partials: `resources/views/landing/partials/`. `.env.example` sets `LANDING_V2=true`.
+- Older landing work sits on `feature/landing-v2-vibrant-redesign` (not merged). Do not assume that branch is production.
+
+## Deploy
+
+Push to `master` runs `.github/workflows/deployToProduction.yml`: `npm ci`, Vite build, force-push branch `deploy` (includes `public/build`), SSH to Hostinger, run tracked `deploy.sh`. `deploy.sh` resets to `origin/deploy`, installs PHP deps, caches, migrates, health-checks, resets opcache. It used to be gitignored; it is tracked on purpose. Do not commit `.env`, `public/hot`, or `.cursor/mcp.json`.
+
+## Contact form
+
+Rule detail: `.cursor/rules/contact-form-spam.mdc`. Tests: `tests/Unit/ContactFormGuardTest.php`.
+
+- `POST contact` is throttled `3,1`. Guard: reCAPTCHA v3 action `contact`, score `>= config('contact.recaptcha_min_score')`, honeypot `company_url`, encrypted `form_ts` 3s–1h, max URL count.
+- Mail the admin only (`CONTACT_ADMIN_EMAIL`, default `ots.for.work@gmail.com`). No auto-reply to the submitter.
+- Do not print `contact@` in HTML or Reply-To. Do not mention `otscommunity.com` (old domain).
+- 2026-09-28: junk in `contact@omartahersaad.com` was mostly cold mail, newsletters, one phishing mail, and one real Google security mail. Hardening the form does not stop mailbox spam that never hits the form. Outlook `omartahersaad@outlook.com` spam is outside this app.
+
+## LinkedIn experience
+
+Not live-scraped. Apify was removed. Source is an official LinkedIn data export (`Positions.json`, `Education.json`).
+
+- Config: `config/linkedin.php`. Sync: `php artisan linkedin:sync-experience`.
+- Cache: `storage/app/linkedin/experience.json`. Seed: `resources/data/linkedin-profile.json`.
+- Curated blurbs live in `enrichments`, keyed `{company-slug}|{role-slug}`. Scrapes often omit descriptions; do not delete enrichments when syncing.
+
+## Local-only secret
+
+`.cursor/mcp.json` is gitignored. It holds the Hostinger email MCP bearer. Never commit it, never paste the token into a rule, commit, or chat summary.
+
+## Constraints
+
+- Composer platform stays PHP 8.2 until Hostinger is upgraded.
+- Contact mail never goes to the submitter and never hard-codes an inbox.
+- LinkedIn copy comes from the export plus `config/linkedin.php` enrichments.
+- `deploy.sh` stays tracked and is what CI runs on the server.
+
+## Valid Examples
+
+```php
+Mail::to(config('contact.admin_email'))->queue(new ContactForAdminMail(...));
+```
+
+```bash
+php artisan linkedin:sync-experience
+```
+
+## Invalid Examples
+
+```php
+Mail::to($request->input('email'))->send(...); // open relay
+```
+
+```bash
+# Reintroducing Apify or scraping linkedin.com/in/... at request time
+```
+
+## Working tree at save time
+
+Clean except gitignored `.cursor/mcp.json`. No open Dependabot alerts were returned for this repo on 2026-09-30. Do not commit unless the user asks.

@@ -12,3 +12,4 @@ yarn-error.log
 deploy to server.sh
 .htaccess
 *subdomain/
+.cursor/mcp.json
