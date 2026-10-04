@@ -109,7 +109,8 @@ say "  ${D}    ${SUBJ}${N}"
 
 export COMPOSER_HOME="${COMPOSER_HOME:-$HOME/.config/composer}"
 COMP=$(composer_bin)
-step "composer"     "$COMP" install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress
+step "composer"     "$COMP" install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress --no-scripts
+step "discover"     "$php_bin" artisan package:discover --ansi --quiet
 step "optimize"     bash -c "$php_bin artisan optimize:clear --quiet --no-ansi && $php_bin artisan optimize --quiet --no-ansi"
 step "migrate"      "$php_bin" artisan migrate --force --no-ansi --quiet
 step "queue"        "$php_bin" artisan queue:restart --quiet --no-ansi
