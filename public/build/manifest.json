@@ -126,7 +126,7 @@
     "src": "node_modules/lineicons/dist/d495aba62101f856c80f.eot"
   },
   "resources/css/landing.css": {
-    "file": "assets/landing-B_kPF0lP.css",
+    "file": "assets/landing-CZcGoFQ8.css",
     "src": "resources/css/landing.css",
     "isEntry": true,
     "name": "landing",
@@ -135,7 +135,7 @@
     ]
   },
   "resources/js/app.js": {
-    "file": "assets/app-CQ2Ph8TZ.js",
+    "file": "assets/app-BhldVCyZ.js",
     "name": "app",
     "src": "resources/js/app.js",
     "isEntry": true,
