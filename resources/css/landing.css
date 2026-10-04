@@ -200,6 +200,11 @@
   .landing .scrollbar-none { scrollbar-width: none; }
 }
 
+/* Bootstrap's .px-4 is !important and clobbers intl-tel-input's flag padding. */
+.landing .iti input[type="tel"] {
+  padding-left: 52px !important;
+  padding-right: 16px !important;
+}
 .landing .iti__country-list {
   background-color: #1a1a25;
   color: #fff;
