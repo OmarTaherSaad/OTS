@@ -68,6 +68,9 @@ inputs.forEach(function (input) {
     var iti = intlTelInput(input, {
         utilsScript:
             "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
+        // Render the list in <body>: inside the landing form, backdrop-filter and
+        // transformed ancestors blur it (mobile already does this, and looks fine).
+        dropdownContainer: document.body,
         initialCountry: "auto",
         preferredCountries: ["EG", "US", "DE", "GB"],
         geoIpLookup: function (success, failure) {
