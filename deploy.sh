@@ -15,6 +15,14 @@ fi
 T0=$(date +%s)
 n=0
 php_bin=${PHP_BIN:-php}
+# Non-interactive SSH skips the shell profile, so `php` can be an older default. Pick a PHP >= 8.4.
+php_ok() { "$1" -r 'exit(PHP_VERSION_ID >= 80400 ? 0 : 1);' >/dev/null 2>&1; }
+if ! php_ok "$php_bin"; then
+  for c in /opt/alt/php84/usr/bin/php /usr/local/bin/php84 /usr/bin/php8.4 "$HOME/bin/php"; do
+    if [ -x "$c" ] && php_ok "$c"; then php_bin=$c; break; fi
+  done
+fi
+export PATH="$(dirname "$(command -v "$php_bin")"):$PATH"
 LOG=$(mktemp)
 
 elapsed() { echo "$(($(date +%s) - T0))s"; }
@@ -109,7 +117,7 @@ say "  ${D}    ${SUBJ}${N}"
 
 export COMPOSER_HOME="${COMPOSER_HOME:-$HOME/.config/composer}"
 COMP=$(composer_bin)
-step "composer"     "$COMP" install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress --no-scripts
+step "composer"     "$php_bin" "$(command -v "$COMP")" install --no-interaction --prefer-dist --optimize-autoloader --no-dev --no-progress --no-scripts
 step "discover"     "$php_bin" artisan package:discover --ansi --quiet
 step "optimize"     bash -c "$php_bin artisan optimize:clear --quiet --no-ansi && $php_bin artisan optimize --quiet --no-ansi"
 step "migrate"      "$php_bin" artisan migrate --force --no-ansi --quiet
