@@ -28,7 +28,7 @@
         "preferred-install": "dist",
         "sort-packages": true,
         "platform": {
-            "php": "8.2.33"
+            "php": "8.4.25"
         }
     },
     "extra": {

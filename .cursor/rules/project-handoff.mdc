@@ -17,7 +17,7 @@ This workspace is the personal site only. There is no Tauri app and no `tools/ot
 
 ## Stack and layout
 
-- Laravel 12, PHP platform locked to **8.2.33** (`composer.json` `config.platform`). Do not let Composer pull Symfony 8 / PHP 8.3-only packages. Production is Hostinger `~/public_html`.
+- Laravel 12, PHP platform locked to **8.4.25** (`composer.json` `config.platform`). Production is Hostinger `~/public_html`.
 - Frontend: Vite 7, Vue 3, Tailwind 4, Alpine, Bootstrap 5. `fs-extra` is a direct devDependency because `@tsparticles/engine`'s install script imports it; `npm ci` fails without it.
 - `npm` `overrides` pin transitive CVE packages. Do not drop them to "clean up" the lockfile.
 - Homepage: `MainController::index`. `config('app.landing_v2')` (`LANDING_V2`) chooses `landing.home` vs `home`. Landing partials: `resources/views/landing/partials/`. `.env.example` sets `LANDING_V2=true`.
@@ -50,7 +50,7 @@ Not live-scraped. Apify was removed. Source is an official LinkedIn data export 
 
 ## Constraints
 
-- Composer platform stays PHP 8.2 until Hostinger is upgraded.
+- Composer platform matches Hostinger PHP (8.4); bump both together.
 - Contact mail never goes to the submitter and never hard-codes an inbox.
 - LinkedIn copy comes from the export plus `config/linkedin.php` enrichments.
 - `deploy.sh` stays tracked and is what CI runs on the server.
