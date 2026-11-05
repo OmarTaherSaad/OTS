@@ -14,3 +14,4 @@ deploy to server.sh
 *subdomain/
 .cursor/mcp.json
 .mcp.json
+.claude/settings.local.json

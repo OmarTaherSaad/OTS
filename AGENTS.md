@@ -1,6 +1,6 @@
 # AGENTS.md — OTS (omartahersaad.com)
 
-Canonical context for AI coding agents. Human version: `docs/GUIDE.md`. Last verified 2026-10-16 against `master` @ `08cb3f7`.
+Canonical context for AI coding agents. Human version: `docs/GUIDE.md`. Session history + open items: `docs/AI-SESSIONS.md` (read it when picking up work). Last verified 2026-10-16 against `master` @ `08cb3f7`.
 
 ## Scope
 
@@ -104,3 +104,4 @@ Physics classes, courses/appointments (QR entrance cards), user dashboards, `rol
 - Do not commit unless the user asks.
 - New repeatable pattern or constraint → add `.cursor/rules/<name>.mdc` (frontmatter `description` + `globs`; sections Use Cases, Constraints, Valid Examples, Invalid Examples) and update this file.
 - When facts here change (deploy, stack, invariants), update this file and `docs/GUIDE.md` in the same change.
+- At end of a session with meaningful work, append a short entry to `docs/AI-SESSIONS.md` and update its Open items. Never commit raw transcripts (public repo, secrets).
